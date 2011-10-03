@@ -1,0 +1,15 @@
+<% selecionado = (user) ? user.type.to_s.underscore.downcase : nil %>
+<%= select_tag "user[type]",
+      options_for_select(
+[[ "Cidadão", "cidadao" ],
+ [ "Gestor público", "gestor_publico" ],
+ [ "Parlamentar", "parlamentar"],
+ [ "ONG", "ong" ],
+ [ "Movimento", "movimento"],
+ [ "Conferência", "conferencia"],
+ [ "Empresa", "empresa" ],
+ [ "Poder público", "poder_publico" ],
+ [ "Igreja", "igreja"],
+ [ "Universidade", "universidade"],
+ [ "Outro tipo de organização", "organizacao" ],
+ [ "Administrador (no Cidade Democrática)", "admin" ]] , selecionado) -%>

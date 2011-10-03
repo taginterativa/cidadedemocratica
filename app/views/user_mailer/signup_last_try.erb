@@ -1,0 +1,9 @@
+Em <%= @user.created_at.strftime("%d de %B de %Y") %>, nosso sistema recebeu um pedido de cadastro referente a este email: <%= @user.login %> - contudo, até agora, não recebemos a confirmação de que este email é válido e deseja realmente se integrar a nosso portal.
+
+Caso tenha sido você que solicitou esse cadastro, a fim de participar do portal Cidade Democrática, confirme seu e-mail e (finalmente...) ative sua participação, acessando:
+<%= @url %>
+
+Caso não tenha sido você que tenha solicitado esse cadastro, apenas desconsidere este email - e desculpe-nos o incômodo.
+Obrigado.
+
+<%= rodape %>

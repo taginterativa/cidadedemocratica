@@ -1,0 +1,18 @@
+<h1>Envie uma mensagem para <%= link_to @user.nome, perfil_url(@user) %></h1>
+
+<%= error_messages_for :contato,
+                       :header_message => "Opa!" -%>
+
+<% form_for :contato do |f| %>
+
+<%= label_tag :nome, "Nome" %><br/>
+<%= text_field :contato, :nome %><br/>
+
+<%= label_tag :email, "Email" %><br/>
+<%= text_field :contato, :email %><br/>
+
+<%= label_tag :mensagem, "Mensagem" %><br/>
+<%= text_area :contato, :mensagem, :cols => 60, :rows => 10 %><br/>
+
+<%= submit_tag 'Enviar' %> ou <%= link_to 'Voltar', perfil_url(@user) %>
+<% end %>

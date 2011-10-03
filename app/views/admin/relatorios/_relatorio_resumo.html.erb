@@ -1,0 +1,102 @@
+<div class="grid_12 alpha omega">
+  <h2>Resumo</h2>
+  <p>Veja um sumário das atividades realizadas pelos usuários do site referentes aos temas e territórios de interesse no período.</p>
+  
+  <h4>Número total de atividades: <span><% @atividades = 0; atividades = soma_atividades(@data_de, @data_ate, @propostas, @problemas, @adesoes, @comentarios); atividades.each {|t| @atividades += t[:total].to_i } %><%= @atividades %></span></h4>
+  <p class="lnk_mostrar_dados"><%= link_to_function "mostrar_dados", "$('tb_dados_atividades').toggle()" %></p>
+  <table class="crud" id="tb_dados_atividades" style="display:none">
+    <tr>
+      <th>Dia</th>
+      <th>Atividades</th>
+    </tr>
+  <% atividades.each do |row| -%>
+    <tr>
+      <td><%= row[:dia].to_time.strftime("%d %b%Y") %></td>
+      <td><%= row[:total] %></td>
+    </tr>
+  <% end -%>
+  </table>
+  <div class="graph">
+    <%= mostra_grafico_no_tempo_de(atividades, 
+                                    :title => "Atividades",
+                                    :width => 800,
+                                    :height => 200) %></div>
+  
+  <h4>Número de propostas e problemas</h4>
+  <p class="lnk_mostrar_dados"><%= link_to_function "mostrar_dados", "$('tb_dados_propprob').toggle()" %></p>
+  <table class="crud" id="tb_dados_propprob" style="display:none">
+    <tr>
+      <th>Tipo</th>
+      <th>Total</th>
+    </tr>
+    <tr>
+      <td>Propostas</td>
+      <td><%= @propostas_total = calcula_total(@propostas, @problemas) %></td>
+    </tr>
+    <tr>
+      <td>Problemas</td>
+      <td><%= @problemas_total = calcula_total(@problemas, @propostas) %></td>
+    </tr>
+  </table>
+  <div class="graph"><%= mostra_grafico_pizza([ {:type => "Propostas", :total => @propostas_total}, 
+                                                {:type => "Problemas", :total => @problemas_total}], 
+                                              :key => :type, 
+                                              :title => "Propostas x Problemas",
+                                              :line_colors => "82CC40,F38077",
+                                              :width => 800,
+                                              :height => 270) %></div>
+  
+  <h4>Número de apoios: <span><% @adesoes_total = 0;@adesoes.each {|t| @adesoes_total += t.total.to_i } %><%= @adesoes_total %></span></h4>
+  <p class="lnk_mostrar_dados"><%= link_to_function "mostrar_dados", "$('tb_dados_adesoes').toggle()" %></p>
+  <table class="crud" id="tb_dados_adesoes" style="display:none">
+    <tr>
+      <th>Dia</th>
+      <th>Adesões</th>
+    </tr>
+  <% @adesoes = ajusta_dias_faltantes_com_zero(@data_de, @data_ate, @adesoes).each do |row| -%>
+    <tr>
+      <td><%= row.dia.to_time.strftime("%d %b%Y") %></td>
+      <td><%= row.total %></td>
+    </tr>
+  <% end -%>
+  </table>
+  <% if @adesoes.empty? %>
+  <p>Não houve adesão alguma no período.</p>
+  <% else %>
+  <div class="graph">
+  <%= mostra_grafico_no_tempo_de(@adesoes, 
+                                 :title => "Adesões",
+                                 :width => 800,
+                                 :height => 200) %></div>
+  <% end -%>
+  
+
+  <h4>Número de Comentários, Ideias, Perguntas e Respostas: <span><% @comentarios_total = 0;@comentarios.each {|t| @comentarios_total += t.total.to_i } %><%= @comentarios_total %></span></h4>
+  <p class="lnk_mostrar_dados"><%= link_to_function "mostrar_dados", "$('tb_dados_comentarios').toggle()" %></p>
+  <table class="crud" id="tb_dados_comentarios" style="display:none">
+    <tr>
+      <th>Dia</th>
+      <th>Comentários</th>
+    </tr>
+  <% @comentarios = ajusta_dias_faltantes_com_zero(@data_de, @data_ate, @comentarios).each do |row| -%>
+    <tr>
+      <td><%= row.dia.to_time.strftime("%d %b%Y") %></td>
+      <td><%= row.total %></td>
+    </tr>
+  <% end -%>
+  </table>
+  <div class="graph">
+    <% if @comentarios.empty? %>
+    <p>Não houve comentário algum no período.</p>
+    <% else %>
+    <%= mostra_grafico_no_tempo_de(@comentarios, 
+                                   :title => "Comentários",
+                                   :width => 800,
+                                   :height => 200) %></div>
+    <% end -%>
+  
+  <h4>Nuvem de conceitos/palavras</h4>
+  <p><% @nuvem_conceitos.to_a.sort{ |x,y| y[1].to_i <=> x[1].to_i }.each do |w| -%>
+       <%= "#{w[0]} (#{w[1]}x)" if (w[1] > 3) and not @settings["relatorios_termos_excluidos"].split(",").include?(w[0]) %>
+     <% end -%></p>
+</div>

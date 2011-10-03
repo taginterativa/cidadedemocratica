@@ -1,0 +1,21 @@
+<div id="passos" class="clearfix">
+  <ol>
+    <li class="<%= descrevendo_topico? ? "corrente" : "normal" %>">
+    <% if criando_nova_proposta? %>
+      <p class="titulo">Faça sua proposta</p>
+      <p class="descricao">Dê um título curto para sua proposta, que a descreva brevemente e delimite seu(s) tema(s).</p>
+    <% elsif criando_novo_problema? %>
+      <p class="titulo">Descreva o problema</p>
+      <p class="descricao">Dê um título curto para seu problema, que o descreva brevemente e delimite seu(s) tema(s).</p>
+    <% end %>
+    </li>
+    <li class="<%= localizando_topico? ? "corrente" : "normal" %>">
+      <p class="titulo">Localize</p>
+      <p class="descricao">Indique a área de cobertura do tópico.</p>
+    </li>
+    <li>
+      <p class="titulo">Divulgue</p>
+      <p class="descricao">Não basta criar: é preciso divulgar. Aqui você ganha uma mãozinha.</p>
+    </li>
+  </ol>
+</div>

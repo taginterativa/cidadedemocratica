@@ -1,0 +1,29 @@
+<div id="filtros">
+  <h2>Filtrar</h2>
+  <%= filtro("Estado", @estados.collect { |e| link_to_with_context("#{e.abrev} (#{e.total})",
+                                                                   :estado_abrev => e.slug,
+                                                                   :cidade_slug => nil,
+                                                                   :bairro_id => nil)
+                                        }, :expandido => true) if @estados %>
+  <%= filtro("Cidade", @cidades.collect { |c| link_to_with_context("#{c.nome} (#{c.total})",
+                                                                   :estado_abrev => c.estado.slug,
+                                                                   :cidade_slug => c.slug,
+                                                                   :bairro_id => nil)
+                                        }, :expandido => true) if @cidades %>
+  <%= filtro("Bairro", @bairros.collect { |b| link_to_with_context("#{b.nome} (#{b.total})",
+                                                                   :estado_abrev => b.cidade.estado.slug,
+                                                                   :cidade_slug => b.cidade.slug,
+                                                                   :bairro_id => b.id)
+                                        }, :expandido => true) if @bairros %>
+  <%= filtro("Proponente", @total_criados_por.collect { |t| link_to_with_context("#{t.nome_do_tipo} (#{t.total})", {
+                                                                                 :user_type => t.type.to_s.underscore.pluralize.downcase
+                                                                                 },
+                                                                    :class => "filtro_#{t.type.to_s.underscore.downcase}")
+                                                      }) if @total_criados_por %>
+  <%= filtro("Tipo", @total_por_tipo.collect { |t| link_to_with_context("#{t.type} (#{t.total})", {
+                                                                        :topico_type => t.type.to_s.pluralize.downcase
+                                                                        },
+                                                          :class => t.type.to_s.downcase)
+                                              }) if @total_por_tipo %>
+  <%#= render :partial => "promocao/chamada_lateral" %>
+</div> <!-- filtros -->

@@ -1,0 +1,69 @@
+<div class="grid_13 alpha">
+  <h2>Propostas e problemas</h2>
+  
+  <div class="grid_4 suffix_1 alpha omega">
+    <h3>Temas mais debatidos</h3>
+    <div id="filtrar_por_tag_ou_bairro">
+    <%= render :partial => "topicos/cloud", :locals => { :tags => @tags } %>
+    </div>
+    
+    <div id="bairros">
+      <h3>Bairros em debate</h3>
+      <ul id="bairros">
+        <% @bairros.sort{ |a,b| b.total <=> a.total }.each do |bairro| -%>
+        <li><%= link_to "#{bairro.nome} (#{bairro.total})",
+                        :controller => "topicos",
+                        :action => "index",
+                        :cidade_slug => @cidade_corrente.slug,
+                        :bairro_id => bairro.id %>
+        </li>
+        <% end -%>
+        <!-- li>
+          <a href="#"><b>Todos os bairros &raquo;</b></a>
+        </li-->
+      </ul>
+    </div>
+  </div>
+  
+  <div class="grid_8 alpha omega">
+	
+	<div id="contador_e_ordenador" class="clearfix">
+	    <h3>Ordenado por</h3>
+      <ul id="ordenador">
+        <li><%= link_to_with_context "Relevância", :order => "relevancia" %></li>
+        <li><%= link_to_with_context "Recentes", :order => "recentes" %></li>
+        <li><%= link_to_with_context "Antigos", :order => "antigos" %></li>
+        <li><%= link_to_with_context "Mais comentários", :order => "mais_comentarios" %></li>
+        <li><%= link_to_with_context "Mais apoios", :order => "mais_apoios" %></li>
+        <li><%= link_to_with_context "A-Z", :order => "a-z" %></li>
+        <li><%= link_to_with_context "Z-A", :order => "z-a" %></li>
+      </ul>
+    </div>
+    <%= topicos(@topicos, :titulo_max_chars => 56) %>
+    <p><%= link_to "+Questões em debate...", topicos_url(:cidade_slug => @cidade_corrente.slug) %></p>
+  </div>
+</div>
+
+<div class="grid_3 omega">
+  <h2>Painel Popular</h2>
+  <ul id="estatisticas_da_cidade" class="resumo clearfix">
+    <li>
+      <p class="qtd pessoas"><%= @contadores[:users] %></p>
+      <p class="sobre">Pessoas e entidades</p>
+    </li>
+    <li>
+      <p class="qtd propostas"><%= @contadores[:propostas] %></p>
+      <p class="sobre">Propostas</p>
+    </li>
+    <li>
+      <p class="qtd problemas"><%= @contadores[:problemas] %></p>
+      <p class="sobre">Problemas</p>
+    </li>
+  </ul>
+
+  <h2>Agentes</h2>
+  <h3>Pessoas e entidades</h3>
+  <%= render :partial => "home/cidadaos_da_cidade", 
+             :locals => { :usuarios => @usuarios_mais_engajados } -%>
+  </ul>
+</div>

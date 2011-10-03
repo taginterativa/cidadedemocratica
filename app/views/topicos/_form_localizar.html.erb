@@ -1,0 +1,57 @@
+<% form_tag "", :id => "form_localize" do %>
+  <ul id="ambitos">
+    <li id="nacional" <%= defineAmbito("nacional", @topico.locais, %w(class="ambito_desativado" class="ambito_ativado")) -%>><%= image_tag("locais_ambitos/ambito_nacional.png") %><%= link_to_function "Nacional", "mostrarAmbito('nacional')" %></li>
+    <li id="estadual" <%= defineAmbito("estadual", @topico.locais, %w(class="ambito_desativado" class="ambito_ativado")) -%>><%= image_tag("locais_ambitos/ambito_estadual.png") %><%= link_to_function "Estadual", "mostrarAmbito('estadual')" %></li>
+    <li id="municipal" <%= defineAmbito("municipal", @topico.locais, %w(class="ambito_desativado" class="ambito_ativado")) -%>><%= image_tag("locais_ambitos/ambito_municipal.png") %><%= link_to_function "Municipal", "mostrarAmbito('municipal')" %></li>
+    <li id="local" <%= defineAmbito("local", @topico.locais, %w(class="ambito_desativado" class="ambito_ativado")) -%>><%= image_tag("locais_ambitos/ambito_local.png") %><%= link_to_function "Local", "mostrarAmbito('local')" %></li>
+  </ul>
+  <%= render :partial => "topicos/selecionar_pais" %>
+  <%= render :partial => "topicos/selecionar_estados" %>
+  <%= render :partial => "topicos/selecionar_cidades" %>
+  <%= render :partial => "topicos/selecionar_bairros" %>
+  <%= submit_tag "Continuar &raquo;", :id => "bot_continuar" %>
+<% end %>
+
+<script type="text/javascript">
+function mostrarAmbito(ambito) {
+  esconderTudo();
+  desativarTudo();
+  switch (ambito) {
+    case "nacional":
+      $("seletor_de_pais").removeClassName("escondido");
+      Element.insert("seletor_de_pais", '<input type="hidden" id="input_ambito_nacional" name="locais[][pais_id]" value="1" />');
+      break;
+    case "estadual":
+      $("seletor_de_estados").removeClassName("escondido");
+      break;
+    case "municipal":
+      $("seletor_de_cidades").removeClassName("escondido");
+      break;
+    case "local":
+      $("seletor_de_bairros").removeClassName("escondido");
+      break;
+  }
+  $(ambito).addClassName("ambito_ativado");
+}
+function desativarTudo() {
+  var lis = $('ambitos').childElements(); 
+  //Percorre os LIs
+  for (var i=0; i<lis.length; i++) {
+    if (lis[i].hasClassName("ambito_desativado")) {
+      lis[i].removeClassName("ambito_desativado");
+    }
+    if (lis[i].hasClassName("ambito_ativado")) {
+      lis[i].removeClassName("ambito_ativado");
+    }
+  }
+}
+function esconderTudo() {
+  $("seletor_de_pais").addClassName("escondido");
+  if ($("input_ambito_nacional")) {
+    $("input_ambito_nacional").remove();
+  }
+  $("seletor_de_estados").addClassName("escondido");
+  $("seletor_de_cidades").addClassName("escondido");
+  $("seletor_de_bairros").addClassName("escondido");
+}
+</script>

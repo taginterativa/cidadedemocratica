@@ -1,0 +1,27 @@
+<div class="grid_6 alpha">
+<h2>Mude seu avatar</h2>
+<% form_for :imagem, 
+            :url => { :controller => "avatar", 
+                      :action => "create" 
+                    }, 
+            :html => { :multipart => true } do |f| %>
+  <%= hidden_field_tag "user[id]", @user.id %>
+  <%= render :partial => "imagens/form_imagem", :locals => { :f => f } %>
+  <p><%= submit_tag 'Upload!' %> ou <%= link_to "Cancelar", :controller => "users", :action => "show", :id => @user.id %></p>
+</div>
+<div class="grid_10 omega">
+  <div class="dica">
+  <h5>Dicas para subir seu avatar</h5>
+  <p class="texto_dica">Use imagens (.jpg, .gif, .png, .bmp), de preferência com baixa resolução.</p>
+  <p class="texto_dica">Sua imagem pode estar no formato retrato <%= image_tag("icones/avatares/dica_retrato.jpg") -%> ou paisagem <%= image_tag("icones/avatares/dica_paisagem.jpg") -%></p>
+  <p class="texto_dica">No próximo passo, você selecionará a área da imagem que comporá seu avatar.</p>
+  </div>
+</div>
+
+<style type="text/css" media="screen">
+p#legenda { display:none; /* nao mostra a legenda do OBJ image */ }
+div.dica { background-color:#ddd; padding:7px; }
+div.dica h5 { margin-bottom:3px;}
+div.dica p.texto_dica { color:#777; font-size:12px; margin-bottom:2px; }
+</style>
+<% end %>

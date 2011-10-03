@@ -1,0 +1,28 @@
+#widgetCidade_home
+{
+	height: 0 auto;
+	width: 222px;
+	background-color: #BEDFE2;
+}
+
+#widgetCidade_titulo h3 {
+	font-size: 1em;
+	font-weight: bold;
+	font-family: "Helvetica Neue","Arial","Helvetica",sans-serif;	
+}
+
+#widgetCidade_corpo p {
+	font-size: 1em;
+	font-family: "Helvetica Neue","Arial","Helvetica",sans-serif;
+	margin: 3px;
+	
+}
+
+#widgetCidade_footer {
+	font-size: 0.9em;
+	font-family: "Helvetica Neue","Arial","Helvetica",sans-serif;
+}
+
+#widgetCidade_footer a {
+	text-decoration: none;
+}

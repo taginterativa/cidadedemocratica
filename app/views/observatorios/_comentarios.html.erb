@@ -1,0 +1,6 @@
+<ul id="atividades">
+<% @comentarios.each do |comentario| -%>
+  <%= descreve(comentario, nil) %>
+<% end -%>
+</ul>
+<%= will_paginate @comentarios %>

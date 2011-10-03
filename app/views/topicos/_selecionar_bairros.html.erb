@@ -1,0 +1,136 @@
+<div id="seletor_de_bairros" <%= defineAmbito("local", @topico.locais, ['class="escondido clearfix"','class="clearfix"']) %>>
+  <p><b>a) Escolha o estado primeiramente; a seguir, escolha a cidade;<br />
+        b) Inclua apenas os bairros referentes a seu tópico.</b></p>
+  <div id="estado_cidade_wrapper">
+  <%= select :estado, :id, [["escolha um estado...",nil]] + Estado.find(:all, :order => "abrev ASC").collect { |e| ["#{e.abrev} - #{e.nome}", e.id] } %>
+  <%= observe_field "estado_id", 
+                    :url => { 
+                      :controller => "locais", 
+                      :action => "cidades_options_for_select"
+                    },
+                    :with => "'estado_id='+value+'&first_option=1'",
+                    :update => "cidade_id",
+                    :before => "$('local_spinner').show();",
+                    :complete => "$('local_spinner').hide();" -%>
+  <%= select :cidade, :id, [] %>
+  <%= observe_field "cidade_id", 
+                    :url => { 
+                      :controller => "locais", 
+                      :action => "li_bairros"
+                    },
+                    :with => "cidade_id",
+                    :update => "ul_bairros",
+                    :before => "$('local_spinner').show();",
+                    :complete => "$('local_spinner').hide();" -%>
+  <span id="local_spinner" style="display: none;"><%= image_tag("spinners/spinner.gif") %></span>
+  </div>
+
+  <p id="label_local">Bairros disponíveis <span style="margin-left:185px">Bairros incluídos</span></p>
+  
+  <ul id="ul_bairros" class="bairros_a_selecionar">
+  <% @bairros = [] -%>
+  <%= render :partial => "locais/li_bairros_loop",
+             :locals => {
+               :bairros => @bairros,
+             } -%>
+  </ul>
+  <ul class="bairros_selecionados">
+  </ul>
+</div>
+
+<style type="text/css" media="screen">
+#estado_id {
+  width:150px;
+}
+#cidade_id {
+  width:300px;
+}
+#seletor_de_bairros input.procurar {
+  width: 222px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  border-color: #ABADB3 #E3E9EF #E3E9EF #ABADB3;
+  border-style: solid;
+  border-width: 1px;
+  padding: 5px;
+  margin: 0 0 10px 0;
+}
+
+#seletor_de_bairros .bairros_a_selecionar,
+#seletor_de_bairros .bairros_selecionados {
+  height: 248px; /* + 2px das bordas = 250px */
+  width: 248px; /* + 2px das bordas = 325px */
+  overflow: auto;
+  padding: 5px;
+  border: 1px solid #CCC;
+  float: left;
+}
+
+#seletor_de_bairros .bairros_selecionados {
+  margin: 0 0 0 20px;
+  background-color:#ffc;
+}
+
+#seletor_de_bairros .bairros_a_selecionar li,
+#seletor_de_bairros .bairros_selecionados li {
+  list-style: none;
+  margin: 0;
+  font-size: 12px;
+}
+
+#seletor_de_bairros .bairros_a_selecionar li a.incluir,
+#seletor_de_bairros .bairros_selecionados li a.remover {}
+
+#seletor_de_bairros .bairros_a_selecionar li img,
+#seletor_de_bairros .bairros_selecionados li img {
+  vertical-align: middle;
+  margin: 0 5px 0 0;
+}
+
+#seletor_de_bairros .bairros_a_selecionar li.selecionada img {
+  opacity: 0.35;
+  filter: alpha(opacity=35);
+}
+
+#seletor_de_bairros .bairros_a_selecionar li.selecionada {
+  color: #CCC;
+}
+p#label_local {
+  font-size:11px;
+  color:#666;
+  margin:0;
+}
+#local_spinner {
+  position:relative;
+  left:-330px;
+  border:2px solid #ddd;
+  padding:20px 10px 10px;
+}
+#local_spinner img {
+  width:24px;
+}
+</style>
+
+<script type="text/javascript">
+function incluirBairro(nome, pais_id, estado_id, cidade_id, bairro_id) {
+  $$("#seletor_de_bairros .bairros_selecionados").each(function(lista) {
+    var campo = "<input type=\"hidden\" name=\"locais[][pais_id][" + pais_id + "][estado_id][" + estado_id + "][cidade_id][" + cidade_id + "][bairro_id]\" value=\"" + bairro_id + "\" />";
+    var link_para_remover = "<a href=\"#\" title=\"\" onclick=\"removerBairro('" + nome + "', " + pais_id + ", " + estado_id + ", " + cidade_id + ", " + bairro_id  + "); return false;\" class=\"remover\"><img src=\"/images/icones/delete.png\" width=\"16\" height=\"16\" alt=\"Remover\" /></a>";
+    var nome_com_link_para_remover = "<li id=\"bairros_selecionados_" + bairro_id + "\">" + link_para_remover + nome + campo + "</li>";
+    Element.insert(lista, { top: nome_com_link_para_remover });
+  });
+  // Retirar o elemento da lista?
+  /* $("bairros_a_selecionar_" + bairro_id).remove(); */
+  var imagem_para_incluir = "<img src=\"/images/icones/add.png\" width=\"16\" height=\"16\" alt=\"Incluir\" />";
+  $("bairros_a_selecionar_" + bairro_id).update(imagem_para_incluir + nome);
+  $("bairros_a_selecionar_" + bairro_id).addClassName("selecionada");
+}
+
+function removerBairro(nome, pais_id, estado_id, cidade_id, bairro_id) {
+  $("bairros_selecionados_" + bairro_id).remove();
+
+  var link_para_incluir = "<a href=\"#\" title=\"\" onclick=\"incluirBairro('" + nome + "', " + pais_id + ", " + estado_id + ", " + cidade_id + ", " + bairro_id + "); return false;\" class=\"incluir\"><img src=\"/images/icones/add.png\" width=\"16\" height=\"16\" alt=\"Incluir\" /></a>";
+  $("bairros_a_selecionar_" + bairro_id).update(link_para_incluir + nome);
+  $("bairros_a_selecionar_" + bairro_id).removeClassName("selecionada");
+}
+</script>

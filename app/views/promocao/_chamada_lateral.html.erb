@@ -1,0 +1,7 @@
+<% if params[:estado_abrev] and %w(ce mg pr sp sc mt).include?(params[:estado_abrev]) -%>
+<!-- PROMOCAO -->
+<%= link_to image_tag("promocao/logo_promocao_160x80.gif", :size => "160x80"), promocao_url, :title => "Promoção &quot;Melhor Mobilizador&quot;" %>
+<p style="font-size:11px;">O melhor mobilizador do site participa com tudo pago do evento Cidade Democrática e faz suas ideias acontecerem.
+  <%= link_to "Saiba mais", promocao_url, :title => "Promoção &quot;Melhor Mobilizador&quot;" %>
+</p>
+<% end -%>

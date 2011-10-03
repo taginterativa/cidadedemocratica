@@ -1,0 +1,16 @@
+<ul class="rounded">
+<% topicos_relacionados.each do |topico| %>
+  <li class="<%= topico.type.to_s.underscore %>">
+    <p class="titulo">
+      <%= link_to truncate(topico.titulo, :length => 80),
+                  topico_url(:topico_slug => topico.to_param),
+                  :title => topico.titulo %>
+    </p>
+    <p class="detalhes">
+      <span><%= topico.type %></span>
+      <%= topico.type == "Problema" ? "informado" : "feita" %>
+      por <%= topico.user.nome %>
+    </p>
+  </li>
+<% end -%>
+</ul>

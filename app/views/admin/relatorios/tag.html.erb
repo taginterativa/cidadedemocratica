@@ -1,0 +1,156 @@
+<h2>Tag: <%= @tag.name %></h2>
+<%= render :partial => "periodo" %>
+
+<div class="grid_3 alpha">
+  <p><b>Propostas: <% prop = 0;@propostas.each {|t| prop += t.total.to_i } %><%= prop %></b></p>
+  <table class="crud">
+    <tr>
+      <th>Dia</th>
+      <th>Propostas</th>
+    </tr>
+  <% ajusta_dias_faltantes_com_zero(@data_de, @data_ate, @propostas).each do |causa| -%>
+    <tr>
+      <td><%= causa.dia.to_time.strftime("%d %b%Y") %></td>
+      <td><%= causa.total %></td>
+    </tr>
+  <% end -%>
+  </table>
+</div>
+
+<div class="grid_3">
+  <p><b>Problemas: <% prob = 0;@problemas.each {|t| prob += t.total.to_i } %><%= prob %></b></p>
+  <table class="crud">
+    <tr>
+      <th>Dia</th>
+      <th>Problemas</th>
+    </tr>
+  <% ajusta_dias_faltantes_com_zero(@data_de, @data_ate, @problemas).each do |causa| -%>
+    <tr>
+      <td><%= causa.dia.to_time.strftime("%d %b%Y") %></td>
+      <td><%= causa.total %></td>
+    </tr>
+  <% end -%>
+  </table>
+</div>
+
+<div class="grid_3">
+  <p><b>Comentários: <% co = 0;@comentarios.each {|t| co += t.total.to_i } %><%= co %></b></p>
+  <table class="crud">
+    <tr>
+      <th>Dia</th>
+      <th>Comentários</th>
+    </tr>
+  <% ajusta_dias_faltantes_com_zero(@data_de, @data_ate, @comentarios).each do |row| -%>
+    <tr>
+      <td><%= row.dia.to_time.strftime("%d %b%Y") %></td>
+      <td><%= row.total %></td>
+    </tr>
+  <% end -%>
+  </table>
+</div>
+
+<div class="grid_3 omega">
+  <p><b>Apoios: <% ap = 0;@adesoes.each {|t| ap += t.total.to_i } %><%= ap %><b></p>
+  <table class="crud">
+    <tr>
+      <th>Dia</th>
+      <th>Apoios</th>
+    </tr>
+  <% ajusta_dias_faltantes_com_zero(@data_de, @data_ate, @adesoes).each do |row| -%>
+    <tr>
+      <td><%= row.dia.to_time.strftime("%d %b%Y") %></td>
+      <td><%= row.total %></td>
+    </tr>
+  <% end -%>
+  </table>
+</div>
+
+<div class="grid_3 alpha">
+  <p><b>Nacional</b></p>
+  <table class="crud">
+    <tr>
+      <td>No país (exclusivo)</td>
+      <td><%= @pais.first.total if @pais and @pais.first %><td>
+    </tr>
+  </table>
+  
+  <p><b>Por estados: <% es = 0;@estados.each {|t| es += t.total.to_i } %><%= es %></b></p>
+  <table class="crud">
+    <tr>
+      <th>Estados</th>
+      <th>Total</th>
+    </tr>
+  <% @estados.sort!{ |a,b| a.total.to_i <=> b.total.to_i }.reverse.each do |row| -%>
+    <tr>
+      <td><%= row.abrev %></td>
+      <td><%= row.total %></td>
+    </tr>
+  <% end -%>
+  </table>
+</div>
+
+<div class="grid_3">
+  <p><b>Por cidades: <% ci = 0;@cidades.each {|t| ci += t.total.to_i } %><%= ci %></b></p>
+  <table class="crud">
+    <tr>
+      <th>Nome</th>
+      <th>Total</th>
+    </tr>
+  <% @cidades.sort!{ |a,b| a.total.to_i <=> b.total.to_i }.reverse.each do |row| -%>
+    <tr>
+      <td><%= row.nome %></td>
+      <td><%= row.total %></td>
+    </tr>
+  <% end -%>
+  </table>
+  
+  <p><b>Por bairros: <% ba = 0;@bairros.each {|t| ba += t.total.to_i } %><%= ba %></b></p>
+  <table class="crud">
+    <tr>
+      <th>Nome</th>
+      <th>Total</th>
+    </tr>
+  <% @bairros.sort!{ |a,b| a.total.to_i <=> b.total.to_i }.reverse.each do |row| -%>
+    <tr>
+      <td><%= row.nome %></td>
+      <td><%= row.total %></td>
+    </tr>
+  <% end -%>
+  </table>
+</div>
+
+<div class="grid_6 omega">
+  <p><b>Usuários (envolvidos nos problemas/propostas, adesões e comentários): <%= @users.size %></b></p>
+  <ul id="lista_de_usuarios" style="list-style:none">
+  <% @users.each do |u| %>
+    <li style="margin:0">
+      <%= ficha_do_usuario(u, :badge => "_full", :with_summary => true) %>
+      <p>Atividades: <%= u.atividades.size %>
+    </li>
+  <% end -%>
+  </ul>
+</div>
+<%#= drawLineGraph(@data_de, 
+                  @data_ate, 
+                  @comentarios, 
+                  { 
+                    :titulo_h3 => "Número de comentários, ideias, perguntas e respostas",
+                    :title => "Comentários (todos os tipos) por dia",
+                    :data_name => "Comentários (todos os tipos)"
+                  }) %>
+<%#= drawLineGraph(@data_de, 
+                  @data_ate, 
+                  @adesoes, 
+                  { 
+                    :titulo_h3 => "Número de apoios",
+                    :title => "Apoios por dia",
+                    :data_name => "Apoios",
+                    :legend => "top"
+                  }) %>
+                  
+<script type="text/javascript" charset="utf-8">
+function initAllCharts() {
+/*<%= yield :loading_charts -%>*/
+}
+//google.setOnLoadCallback(initAllCharts);
+</script>

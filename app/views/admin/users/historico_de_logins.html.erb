@@ -1,0 +1,39 @@
+<h1>Histórico de logins</h1>
+<table class="crud">
+  <tr>
+    <th class="quando">Quando</th>
+    <th class="ip">IP</th>
+    <th>Tipo</th>
+    <th>Usuário</th>
+  </tr>
+<% for l in @historico_de_logins %>
+  <tr>
+    <td class="quando"><%= l l.created_at, :format => :short %></td>
+    <td class="ip"><%= l.ip %></td>
+    <td class="tipo"><% if l.user.type -%><span class="nome <%= l.user.type.to_s.underscore %>"><%= l.user.nome_do_tipo %></span><% end -%></td>
+    <td>
+<% if l.user.dado and l.user.dado.nome -%>
+      <%= link_to l.user.nome, perfil_url(l.user), :target => "_blank" %><br />
+<% end -%>
+      <%= l.user.email %>
+    </td>
+  </tr>
+<% end %>
+</table>
+<%= will_paginate @historico_de_logins %>
+
+<style type="text/css" media="screen">
+
+.quando { width: 130px; }
+.tipo { width: 120px; }
+.ip { width: 110px; }
+.tipo .nome {
+  background-color: #ccc;
+  color: #666;
+  font-size: 11px;
+  font-family:Verdana, sans-serif;
+  padding: 2px 5px;
+  text-transform: lowercase;
+}
+
+</style>

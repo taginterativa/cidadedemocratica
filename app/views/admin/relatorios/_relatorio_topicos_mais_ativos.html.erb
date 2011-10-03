@@ -1,0 +1,39 @@
+<% @topicos_mais_ativos.each do |group, topicos| -%>
+<div class="grid_12 alpha omega">
+  <h2><%= group.to_s.pluralize %> com mais atividades</h2>
+  <p>Veja <%= group.to_s.pluralize %> mais relevantes criadas pelos usuários e seu resumo.</p>
+  
+  <% if topicos and (topicos.size > 0) -%>
+  <%# topicos.sort{ |t1, t2| t1.adesoes_count <=> t2.adesoes_count }.reverse! -%>
+  <ul class="topicos">
+  <% 0.upto(2) do |k| -%><% if topicos[k] -%>
+  <li id="topico_<%= topicos[k].id %>">
+    <%= topico(topicos[k], :show_badge => true, :mostrar_local => true ) %>
+    <table class="crud">
+      <tr>
+        <th>Atividades</th>
+        <th>Apoios</th>
+        <th>Comentários</th>
+        <th>Pessoas e Entidades</th>
+      </tr>
+      <tr>
+        <td>Total: <%= topicos[k].n_atividades %></td>
+        <td>Total: <%= topicos[k].adesoes_count %></td>
+        <td>Total: <%= topicos[k].comments_count %></td>
+        <td>
+          <% u = User.que_criaram_comentaram_ou_apoiaram_um_topico(topicos[k]) %>
+          Total: <%= u.size %><br />
+          <% User.find(u.collect{|tmp| tmp.id}).group_by(&:type).each do |group, users| -%>
+          <%= group.to_s.pluralize %>: <%= users.size %><br />
+          <% end -%>
+          </td>
+      </tr>
+    </table>
+  </li>
+  <% end #if -%>
+  <% end -%>
+  </ul>
+  <% end -%>
+
+</div>
+<% end -%>

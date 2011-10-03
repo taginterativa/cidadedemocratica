@@ -1,0 +1,15 @@
+<% if session[:novo_topico] -%>
+<!-- AVISO DE NOVO TOPICO -->
+<p class="novo_topico_aviso">
+  As informações de <b><%= session[:novo_topico].nome_do_tipo(:possessivo => true) %></b> foram guardadas em nosso sistema.
+  <br />
+  <span class="menos_importante">Após fazer seu login ou cadastrar-se, <b><%= session[:novo_topico].nome_do_tipo(:possessivo => true) %></b> será automaticamente inserid<%= session[:novo_topico].artigo_definido %>.</span>
+</p>
+<% elsif session[:novo_comentario] -%>
+<!-- AVISO DE NOVO COMENTARIO -->
+<p class="novo_topico_aviso">
+  As informações de <b>seu comentário</b> foram guardadas em nosso sistema.<br />
+  <span class="menos_importante">Após fazer seu login ou cadastrar-se,
+  o mesmo será automaticamente inserido.
+</p>
+<% end -%>

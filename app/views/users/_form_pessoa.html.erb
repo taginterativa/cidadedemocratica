@@ -1,0 +1,32 @@
+<div class="grid_16 alpha omega">
+  <div class="grid_6 alpha">
+    <h2>Dados básicos</h2>
+    <%= render :partial => "form_user_dados_obrigatorios",
+               :locals => { :f => f } %>
+  </div>
+  <div class="grid_6">
+    <h2>Contato</h2>
+    <%= render :partial => "form_user_dados_complementares",
+               :locals => { :f => f } %>
+  </div>
+  <div class="grid_4 omega">
+    <div style="padding:1px 5px;background-color:#eee">
+      <h2>Por que preencher isto?</h2>
+      <p>As informações ao lado servem para identificarmos você no Cidade Democrática.<br />
+         Elas também permitem que outros cidadãos, cidadãs e organizações saibam quem você é - e como contactá-lo para aprofundar as discussões iniciadas aqui.</p>
+      <p>Destarte, preencha com cuidado e exatidão os dados solicitados.</p>
+    </div>
+  </div>
+</div>
+<div class="grid_16 alpha omega">
+  <div class="grid_6 alpha">
+    <h2>Descrição</h2>
+    <%= render :partial => "form_user_dados_descricao",
+               :locals => { :f => f } %>
+  </div>
+  <div class="grid_6 omega">
+    <h2>Localização</h2>
+    <%= render :partial => "locais/form_local",
+               :locals => { :local => @local } %>
+  </div>
+</div>

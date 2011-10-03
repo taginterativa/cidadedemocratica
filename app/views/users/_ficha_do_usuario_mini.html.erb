@@ -1,0 +1,10 @@
+<% if usuario -%>
+<div class="mini_ficha_do_usuario <%= usuario.type.to_s.underscore %> clearfix">
+  <%= avatar(usuario, :thumbnails => :small, :host => options[:host]) %>
+  <p class="tipo cor_de_<%= usuario.type.to_s.underscore %>"><%= usuario.nome_do_tipo %></p> 
+  <p class="nome"><%= link_to usuario.nome.nome_proprio, perfil_url(usuario.id, :host => options[:host]) %></p>
+<% if usuario.local and usuario.local.cidade -%>
+  <p class="local"><%= usuario.local.cidade.nome %></p>
+<% end -%>
+</div>
+<% end -%>

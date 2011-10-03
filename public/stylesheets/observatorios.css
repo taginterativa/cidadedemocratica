@@ -1,0 +1,247 @@
+/* Lapelas ===================================================================*/
+
+.lapelas {
+  margin: 0 0 20px 0;
+  border-bottom: 1px solid #2B696E;
+  line-height: 25px;
+}
+
+.lapelas li {
+  margin: 0;
+  list-style: none;
+  display: inline;
+}
+
+.lapelas a {
+  color: black;
+  padding: 5px 5px 4px;
+  background: #CECFC2;
+}
+
+.lapelas a:hover {
+  background: #E0E0E0;
+  color: #333;
+  text-decoration: none;
+}
+
+.lapelas a.ativa {
+  background: white;
+  border-top: 1px solid #2B696E;
+  border-left: 1px solid #2B696E;
+  border-right: 1px solid #2B696E;
+  padding: 4px 4px 5px 4px;
+  color: #2B696E;
+  font-weight: bold;
+}
+
+/* Contexto ==================================================================*/
+
+.contexto_do_observatorio .nome {
+  margin: 0 0 10px 10px;
+}
+
+.contexto_do_observatorio .link {
+  float: right;
+  margin:-28px 10px 0 0;
+}
+
+.contexto_do_observatorio .conteudo {
+  background-color: #F3F3ED;
+  -moz-border-radius: 5px;
+  padding: 10px;
+}
+
+.contexto_do_observatorio .locais,
+.contexto_do_observatorio .tags {
+  margin: 0;
+}
+
+.contexto_do_observatorio li {
+  margin: 0 0 0 15px;
+}
+
+.estatisticas .qtd {
+  font-size: 32px;
+  letter-spacing: -2px;
+  margin: 0 5px 0 0;
+}
+
+.estatisticas li {
+  font-size: 20px;
+  line-height: 40px;
+  list-style: none;
+  margin: 0;
+  color: #333;
+}
+
+.estatisticas .problemas { color: #F38077; }
+.estatisticas .propostas { color: #82CC40; }
+
+.topico .titulo {
+  width: 410px;
+}
+
+/* Formulário ================================================================*/
+
+h2 { margin: 0 0 20px 0; }
+#nome, #locais, #tags, #opcoes { margin: 0 0 40px 0; }
+
+.seletor_de_local {
+  display: block;
+  margin: 0 0 10px 0;
+}
+
+select.cidade,
+select.bairro {
+  min-width: 250px;
+  _width: 250px;
+}
+
+a.adicionar {
+  color: green;
+  font-weight: bold;
+}
+
+a.adicionar:hover {
+  text-decoration: none;
+  color: #52E12C;
+}
+
+#observatorio_tag_ids_ {
+  width: 460px;
+  height: 320px;
+}
+
+.tecla {
+  font-size: 12px;
+  padding: 2px 4px;
+  background: #DDD;
+  -moz-border-radius: 2px;
+  font-weight: bold;
+  color: #666;
+}
+
+.dicas li {
+  margin: 0 0 20px 20px;
+}
+
+#spinner { margin: 0 0 0 5px; }
+
+.spinner {
+-moz-border-radius-bottomleft:3px;
+-moz-border-radius-bottomright:3px;
+-moz-border-radius-topleft:3px;
+-moz-border-radius-topright:3px;
+background:white none repeat scroll 0 0;
+border:1px solid #999999;
+height:16px;
+margin:-5px 0 0 -21px;
+padding:10px;
+position:absolute;
+}
+
+/* Lista de Atividades
+-----------------------------------------------------------------------------
+*/
+
+/* primeiro, as lapelas/tabs "resumo", "propostas", "problemas" */
+#lista_atividades_recentes, #lapelas_atividades_recentes {
+  list-style: none;
+}
+
+#lista_atividades_recentes li {
+  padding: 5px;
+  margin: 5px 0;
+}
+
+#lista_atividades_recentes li a,
+#lapelas_atividades_recentes li a {
+  color: black;
+}
+
+#lapelas_atividades_recentes {
+  border-bottom: 1px solid #2B696E;
+}
+
+#lapelas_atividades_recentes li {
+  display: inline;
+  background: #CECFC2;
+  padding: 5px 5px 2px 5px;
+  margin: 5px 0;
+}
+
+#lapelas_atividades_recentes li.selected {
+  border-left: 1px solid #2B696E;
+  border-top: 1px solid #2B696E;
+  border-right: 1px solid #2B696E;
+  background:white;padding-bottom:3px;
+}
+
+/* depois, a lista de atividades propriamente dita */
+p#atividades_count {
+  font-size:11px;
+  font-weight:bold;
+  margin:0 0 10px;
+}
+
+ul#atividades li {
+  list-style:none;
+  margin:0 0 20px 0;
+  padding:10px 0 19px 44px;
+  border-bottom: 1px solid #AAA; /* #94E4E8; */
+  background-position: 0px 10px; /* X-pos Y-pos (from top-left) */
+  background-repeat: no-repeat;
+  min-height:30px;
+}
+
+ul#atividades li div.ficha_do_usuario_mini table {
+  margin:0;
+}
+
+ul#atividades li.proposta { background-image: url(/images/icones/atividades_nova_proposta.png); }
+ul#atividades li.problema { background-image: url(/images/icones/atividades_novo_problema.png); }
+ul#atividades li.comentario { background-image: url(/images/icones/atividades_comentou.png); }
+ul#atividades li.pergunta { background-image: url(/images/icones/atividades_perguntou.png); }
+ul#atividades li.resposta { background-image: url(/images/icones/atividades_respondeu.png); }
+ul#atividades li.ideia { background-image: url(/images/icones/atividades_ideia.png); }
+ul#atividades li.adesao { background-image: url(/images/icones/atividades_adesoes.png); }
+
+ul#atividades li span.problema { color:#F38077; }
+ul#atividades li span.proposta { color:#82CC40; }
+
+ul#atividades li span.topico_type {
+  text-transform:uppercase;
+  font-weight:bold;
+}
+ul#atividades li div.titulo_problema {
+  margin:10px 0 0;
+  padding:2px 7px;
+  background-color:#F38077;
+}
+ul#atividades li div.titulo_proposta {
+  margin:10px 0 0;
+  padding:2px 7px;
+  background-color:#82CC40;
+}
+ul#atividades li div.titulo_problema a,
+ul#atividades li div.titulo_proposta a {
+  color:#fff;
+}
+ul#atividades li span.quando {
+  font-size:11px;
+  color:#777;
+}
+ul#atividades .ficha_do_usuario_mini,
+ul#atividades p.descricao {
+  margin: 0 0 10px 0;
+}
+ul#atividades li div.o_comentario {
+  font-size: 11px;
+  padding: 10px 10px 0 10px;
+  border: 1px solid #aaa;
+  margin: 0 0 10px;
+}
+ul#atividades li div.o_comentario p {
+  line-height: 1.25em;
+  margin: 0 0 10px 0;
+}

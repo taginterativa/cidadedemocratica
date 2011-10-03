@@ -1,0 +1,48 @@
+<% if usuario -%>
+<div class="ficha_do_usuario_mini <%= usuario.type.to_s.underscore %> clearfix">
+  <table border="0">
+    <tr>
+      <td valign="top" class="imagem">
+        <%= link_to avatar(usuario, :image_only => true, :thumbnails => :small, :host => options[:host]),
+                    perfil_url(usuario.id, :host => options[:host]) -%>
+      </td>
+      <td valign="top">
+        <div class="retangular_info_wrapper clearfix">
+        <div class="retangular_info">
+          <p class="tipo cor_de_<%= usuario.type.to_s.underscore %>"><%= usuario.nome_do_tipo %></p>
+          <p class="nome" style="font-size:14px"><%= link_to usuario.nome.nome_proprio, perfil_url(usuario.id, :host => options[:host]) %></p>
+<% if usuario.local and usuario.local.cidade -%>
+          <p class="local"><%= usuario.local.cidade.nome %></p>
+<% end -%>
+        </div>
+<% if options[:with_summary] -%>
+          <p class="resumo">
+            <span class="topicos">
+              <span class="numero"><%= usuario.topicos_count %></span> tópicos
+            </span>
+            <span class="comentarios">
+              <span class="numero"><%= usuario.comments_count %></span> comentários
+            </span>
+            <span class="apoios">
+              <span class="numero"><%= usuario.adesoes_count %></span> apoios
+            </span>
+          </p>
+        </div>
+<% end -%>
+<% if options[:with_tags] -%>
+<%
+  user_tags = []
+  usuario.owned_tags.find(:all, :limit => 7).collect do |t|
+    user_tags << link_to(t.name, :controller => "topicos", :action => "index", :topico_type => "topicos", :tag_id => t.id, :host => options[:host])
+  end -%>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <p class="user_tags"><%= user_tags.join(", ") -%></p>
+<% end -%>
+    </td>
+  </tr>
+</table>
+</div>
+<% end -%>

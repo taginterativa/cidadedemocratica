@@ -1,0 +1,91 @@
+<% content_for :head do %>
+    <link rel="alternate" type="application/rss+xml" title="<%= @user.nome %> atividades" href="<%= perfil_url(@user)+'.rss' %>" />
+<% end -%>
+  
+<% title "Perfil de #{@user.nome.nome_proprio}" %>
+<h1><span class="user_tipo <%= @user.type.to_s.underscore.downcase %>"><%= @user.nome_do_tipo %></span><%= @user.nome %></h1>
+
+<!-- bloco primário -->
+	  <h2>Atividades recentes</h2>
+	  <ul id="lapelas_atividades_recentes_perfil">
+	    <li class="selected"><%= link_to_function "Resumo", "mostraTodos()", :id => "lapela_resumo" %></li>
+	    <li><%= link_to_function "Propostas", "mostraPropostas()", :id => "lapela_propostas" %></li>
+	    <li><%= link_to_function "Problemas", "mostraProblemas()", :id => "lapela_problemas" %></li>
+	    <li><%= link_to_function "Comentários", "mostraComentarios()", :id => "lapela_comentarios" %></li>
+	    <li><%= link_to_function "Apoios", "mostraApoios()", :id => "lapela_apoios" %></li>
+	    <li><%= link_to_function "Seguindo", "mostraSeguidos()", :id => "lapela_seguidos" %></li>
+	  </ul>
+
+		<% if @atividades -%>
+		<p id="atividades_count">Listando <%= pluralize(@atividades.size, "atividade registrada", "atividades recentes") %></p>
+		<ul id="atividades">
+		  <% for atividade in @atividades -%>
+		    <%= descreve(atividade, @user, "_blank") %>
+		  <% end -%>
+		</ul>
+		<% end -%>
+
+		<script type="text/javascript" charset="utf-8">
+		function mostraPP(str) {
+		  var i = 0;
+		  $('atividades').childElements().each(function(s, index) {
+		    s.show(); // mostra todos, pra depois esconder os que não são do tipo...
+		    if (!s.hasClassName(str)) {
+		      s.hide();
+		    }
+		    else {
+		      i++;
+		    }
+		  });
+		  return i;
+		}
+		function mostraTodos() {
+		  var i = 0;
+		  $('atividades').childElements().each(function(s, index) {
+		    s.show();
+		    i++;
+		  });
+		  marcaLapela('lapela_resumo', i, 'atividade recente', 'atividades recentes');
+		}
+		function mostraPropostas() {
+		  t = mostraPP('proposta');
+		  marcaLapela('lapela_propostas', t, 'proposta', 'propostas');
+		}
+		function mostraProblemas() {
+		  t = mostraPP('problema');
+		  marcaLapela('lapela_problemas', t, 'problema', 'problemas');
+		}
+		function mostraComentarios() {
+		  t = mostraPP('comment');  
+		  marcaLapela('lapela_comentarios', t, 'comentário', 'comentários');
+		}
+		function mostraApoios() {
+		  t = mostraPP('adesao');  
+		  marcaLapela('lapela_apoios', t, 'apoio', 'apoios');
+		}
+		function mostraSeguidos() {
+		  t = mostraPP('seguido');  
+		  marcaLapela('lapela_seguidos', t, 'seguido', 'seguidos');
+		}
+
+		function marcaLapela(str, total, word, words) {
+		  //desmarca todos
+		  $('lapelas_atividades_recentes_perfil').childElements().each(function(s, index) {
+		    s.removeClassName('selected');
+		  });
+		  //marca o informado
+		  $(str).up('li').addClassName('selected');
+		  //escreve a frase
+		  var frase = "";
+		  if (total > 0) {
+		    if (total > 1) {
+		      frase = 'Listando '+total+' '+words;
+		    } else {
+		      frase = 'Listando '+total+' '+word;
+		    }
+		  } else {
+		    frase = "Não há "+ word;
+		  }
+		  $('atividades_count').innerHTML = frase;
+		}
+		</script>

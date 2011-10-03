@@ -1,0 +1,30 @@
+<% form_tag login_url do -%>
+  <fieldset>
+    <ol>
+      <li>
+        <%= label_tag :login, "E-mail" %>
+        <%= text_field_tag :login, params[:login], :class => "texto" %>
+      </li>
+      <li>
+        <%= label_tag :password, "Senha" %>
+        <%= password_field_tag :password, nil, :class => "texto" %>
+      </li>
+      <li style="height: 47px; line-height: 47px;">
+        <%= check_box_tag :remember_me, "1", @remember_me %>
+        <%= label_tag :remember_me, "Lembre de mim", :class => "checkbox" %>
+      </li>
+      <li>
+        <%= submit_tag "Entrar" %>
+      </li>
+      <li>
+        <%= link_to_remote "Esqueci minha senha...",
+                            :url => { 
+                              :controller => "users",
+                              :action => "solicitar_alteracao_de_senha"
+                            },
+                            :method => :post,
+                            :with => "'email=' + $('login').value" -%>
+      </li>
+    </ol>
+  </fieldset>
+<% end -%>

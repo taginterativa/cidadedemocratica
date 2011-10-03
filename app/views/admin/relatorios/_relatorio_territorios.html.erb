@@ -1,0 +1,110 @@
+<div class="grid_12 alpha omega">
+  <h2>Territórios</h2>
+  <p>Veja os territórios mais relevantes e um resumo das atividades de cada um.</p>
+  
+  <div class="grid_12 alpha omega">
+  <h4>Territórios com mais atividade</h4>
+  <div class="grid_9 alpha">
+    <table class="crud">
+      <tr>
+        <th>Territorio</th>
+        <th>Total</th>
+      </tr>
+      <tr>
+        <td><%= @cidade.nome if @cidade %><%= @estado.nome if @estado %><%= "Todo o país" if not @estado and not @cidade %></td>
+        <td><%= @atividades %> atividades (100 %)</td>
+      </tr>
+      <% k = 0 %><% tmp = [] %>
+      <% @territorios_dados.each do |nome, atividades, dados| -%>
+      <% if (k < @settings['relatorio_n_territorios_relevantes'].to_i) -%><tr>
+        <% tmp << { :type => nome, :total => atividades } %>
+        <td>&nbsp;&nbsp;&nbsp;<%= nome %></td>
+        <td><%= atividades %> atividades (<%= number_to_percentage(100 * atividades / @atividades, :precision => 1) %>)</td>
+      </tr><% end -%>
+      <% k += 1 -%>
+      <% end -%>
+    </table>
+  </div>
+  <div class="grid_3 omega">
+    <%= mostra_grafico_pizza(tmp,
+                             :key => :type,
+                             :show_legend => false,
+                             :width => 200,
+                             :height => 200) %>
+  </div>
+  </div>
+  
+  <h4>Detalhamento dos <%= @settings['relatorio_n_territorios_relevantes'] %> Territórios mais relevantes</h4>
+
+  <!-- 
+  <h5>Totais gerais: <%= @atividades %> atividades (100 %)</h5>
+  <table class="crud">
+    <tr>
+      <th>Propostas e Problemas</th>
+      <th>Apoios</th>
+      <th>Comentários</th>
+      <th>Pessoas e Entidades</th>
+    </tr>
+    <tr>
+      <td><%= @propostas_total %> propostas<br />
+          <%= @problemas_total %> problemas</td>
+      <td>Total: <%= @adesoes_total %></td>
+      <td>Total: <%= @comentarios_total %></td>
+      <td>
+        Total: <%= @users.size %><br />
+        <% @users.group_by(&:type).each do |group, users| -%>
+        <%= group.to_s.pluralize %>: <%= users.size %><br />
+        <% end -%>
+        </td>
+    </tr>
+  </table> -->
+  <% j = 0 %>
+  <% @territorios_dados.each do |nome, atividades, dados| -%>
+  <% if (j < @settings['relatorio_n_territorios_relevantes'].to_i) -%>
+  <h5><%= nome %></h5>
+  <!-- p>Topicos: <%= dados[:topicos].map(&:id).join(",") %></p-->
+  <table class="crud">
+    <tr>
+      <th>Atividades</th>
+      <th>Propostas e Problemas</th>
+      <th>Apoios</th>
+      <th>Comentários</th>
+      <th>Pessoas e Entidades</th>
+    </tr>
+    <tr>
+      <td>Total: <%= atividades %></td>
+      <td>
+        <% aux = [] %><% cores = [] %>
+        Total: <%= total_pp_bairro = dados[:topicos].size %><br />
+        <% dados[:topicos].group_by(&:type).each do |gp, tp| -%>
+        <% aux << { :type => gp.to_s.pluralize, :total => tp.size } %>
+        <% cores << "F38077" if gp.to_s.pluralize == "Problemas" %>
+        <% cores << "82CC40" if gp.to_s.pluralize == "Propostas" %>
+        <%= gp.to_s.pluralize %>: <%= tp.size -%> (<%= number_to_percentage(100 * tp.size/total_pp_bairro, :precision => 1) %>)<br />
+        <% end -%>
+        <%= mostra_grafico_pizza(aux,
+                                 :show_legend => false,
+                                 :line_colors => cores.join(","),
+                                 :width => 120,
+                                 :height => 120) %>
+      </td>
+      <td>Total: <%= dados[:adesoes] %></td>
+      <td>Total: <%= dados[:comentarios] %></td>
+      <td>
+        <% uuu = [] %>
+        Total: <%= dados[:users].size %><br />
+        <% dados[:users].group_by(&:type).each do |group, users| -%>
+        <% uuu << { :type => group.to_s.pluralize, :total => users.size } %>
+        <%= group.to_s.pluralize %>: <%= users.size %><br />
+        <% end -%>
+        <%= mostra_grafico_pizza(uuu,
+                                 :show_legend => false,
+                                 :width => 120,
+                                 :height => 120) %>
+      </td>
+    </tr>
+  </table>
+  <% end #if -%>
+  <% j += 1 -%>
+  <% end -%>
+</div>

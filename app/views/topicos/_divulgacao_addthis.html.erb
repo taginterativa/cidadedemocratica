@@ -1,0 +1,46 @@
+<div id="divulgacao<%= name_suffix %>" style="<% if not mostrar %>display:none;<% end %>margin:10px 0">
+<div id="divulgue" class="addthis_toolbox">
+  <p style="margin:4px 0 4px 12px">Escolha diversas maneiras para divulgar <%= @topico.nome_do_tipo(:demonstrativo => true) %>: faça sua campanha!</p>
+  <div class="vertical"><%= render :partial => "add_this" -%></div>
+<style type="text/css" media="screen">
+#divulgue {
+background-color:#C7E6EB;
+}
+.addthis_toolbox .vertical {
+float:left;
+}
+.addthis_toolbox .vertical a {
+width: 102px;
+padding: 4px 0 4px 34px;
+position: relative;
+display: block;
+text-decoration: none;
+color: blue;
+}
+.addthis_toolbox .vertical a:hover {
+-moz-border-radius: 4px;
+-webkit-border-radius: 4px;
+background: #B4D3F8;
+text-decoration: none;
+}
+.addthis_toolbox .vertical span {
+position: absolute;
+left: 14px;
+top: 4px;
+}
+.addthis_toolbox .vertical .more {
+border-top: solid 1px #eee;
+padding: 10px 0 0 0;
+margin: 10px 10px 0 10px;
+text-align: center;
+}
+.addthis_toolbox .vertical .more a {
+padding: 4px 0;
+margin: 0;
+}
+.addthis_toolbox .vertical .more span {
+display: none;
+}
+</style>
+</div>
+</div>

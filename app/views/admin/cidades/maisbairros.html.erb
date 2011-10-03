@@ -1,0 +1,13 @@
+<h1>Novos bairros para a cidade &quot;<%= @cidade.nome %>&quot;</h1>
+
+<% form_tag(:action => "novosbairros") do %>
+
+  <p><%= text_area_tag "nomes_dos_bairros", nil, :rows => 10, :cols => 40 %><br />
+  <span class="formHint">Digite um bairro por linha</span>
+  </p>
+  
+  <p>
+    <%= submit_tag "Salvar" %> ou
+    <%= link_to "Voltar", admin_cidades_path %>
+  </p>
+<% end %>

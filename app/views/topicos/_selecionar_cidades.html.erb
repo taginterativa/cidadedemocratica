@@ -1,0 +1,133 @@
+<div id="seletor_de_cidades" <%= defineAmbito("municipal", @topico.locais, ['class="escondido clearfix"','class="clearfix"']) %>>
+  <p><b>a) Escolha o estado primeiramente;<br />
+        b) Inclua apenas as cidades referentes a seu tópico.</b></p>
+  <div id="estado_wrapper">
+  <%= select :estado_municipal, :id, [["escolha um estado...",nil]] + Estado.find(:all, :order => "abrev ASC").collect { |e| ["#{e.abrev} - #{e.nome}", e.id] } %>
+  <%= observe_field "estado_municipal_id", 
+                    :url => { 
+                      :controller => "locais", 
+                      :action => "cidades_li_for_ul"
+                    },
+                    :with => "'estado_id='+value+'&cidades_selecionadas='+IdsCidadesSelecionadas($$(\".hidden_cidades_selecionadas\"))+'&'",
+                    :before => "$('municipal_spinner').show();",
+                    :complete => "$('municipal_spinner').hide();" -%>
+  </div>
+  
+  <p id="label_municipal">Cidades disponíveis <span style="margin-left:153px">Cidades incluídas</span></p>
+  
+  <span id="municipal_spinner" style="display: none;"><%= image_tag("spinners/spinner.gif") %></span>
+  <ul class="cidades_a_selecionar spinner" id="ul_cidades">
+  </ul>
+
+  <ul class="cidades_selecionadas">
+  </ul>
+</div>
+
+<style type="text/css" media="screen">
+#seletor_de_cidades input.procurar {
+  width: 222px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  border-color: #ABADB3 #E3E9EF #E3E9EF #ABADB3;
+  border-style: solid;
+  border-width: 1px;
+  padding: 5px;
+  margin: 0 0 10px 0;
+}
+
+#seletor_de_cidades .cidades_a_selecionar,
+#seletor_de_cidades .cidades_selecionadas {
+  height: 248px; /* + 2px das bordas = 250px */
+  width: 223px; /* + 2px das bordas = 225px */
+  overflow: auto;
+  padding: 5px;
+  border: 1px solid #CCC;
+  float: left;
+}
+#seletor_de_cidades .cidades_selecionadas {
+  margin: 0 0 0 20px;
+  background-color:#ffc;
+}
+
+#seletor_de_cidades .cidades_a_selecionar li,
+#seletor_de_cidades .cidades_selecionadas li {
+  list-style: none;
+  margin: 0;
+  font-size: 12px;
+}
+
+#seletor_de_cidades .cidades_a_selecionar li a.incluir,
+#seletor_de_cidades .cidades_selecionadas li a.remover {}
+
+#seletor_de_cidades .cidades_a_selecionar li img,
+#seletor_de_cidades .cidades_selecionadas li img {
+  vertical-align: middle;
+  margin: 0 5px 0 0;
+}
+
+#seletor_de_cidades .cidades_a_selecionar li.selecionada img {
+  opacity: 0.35;
+  filter: alpha(opacity=35);
+}
+
+#seletor_de_cidades .cidades_a_selecionar li.selecionada {
+  color: #CCC;
+}
+p#label_municipal {
+  font-size:11px;
+  color:#666;
+  margin:0;
+}
+#municipal_spinner {
+  position:relative;
+  left:-330px;
+  border:2px solid #ddd;
+  padding:20px 10px 10px;
+}
+#municipal_spinner img {
+  width:24px;
+}
+</style>
+
+<script type="text/javascript">
+function incluirCidade(nome_da_cidade, pais_id, estado_id, cidade_id) {
+  $$("#seletor_de_cidades .cidades_selecionadas").each(function(lista) {
+    var campo_da_cidade = "<input type=\"hidden\" name=\"locais[][pais_id][" + pais_id + "][estado_id][" + estado_id + "][cidade_id]\" value=\"" + cidade_id + "\" id=\"locais_pais_id_"+ pais_id +"_estado_id_"+ estado_id +"_cidade_id_"+ cidade_id +"\" class=\"hidden_cidades_selecionadas\" />";
+    var link_para_remover = "<a href=\"#\" title=\"\" onclick=\"removerCidade('" + nome_da_cidade + "', " + pais_id + ", " + estado_id + ", " + cidade_id + "); return false;\" class=\"remover\"><img src=\"/images/icones/delete.png\" width=\"16\" height=\"16\" alt=\"Remover\" /></a>";
+    var nome_com_link_para_remover = "<li id=\"cidades_selecionadas_" + cidade_id + "\">" + link_para_remover + nome_da_cidade + campo_da_cidade + "</li>";
+
+    Element.insert(lista, { top: nome_com_link_para_remover });
+  });
+
+  // Retirar o elemento da lista?
+  /* $("cidades_a_selecionar_" + cidade_id).remove(); */
+  var imagem_para_incluir = "<img src=\"/images/icones/add.png\" width=\"16\" height=\"16\" alt=\"Incluir\" />";
+  if ($("cidades_a_selecionar_" + cidade_id)) {
+    $("cidades_a_selecionar_" + cidade_id).update(imagem_para_incluir + nome_da_cidade);
+    $("cidades_a_selecionar_" + cidade_id).addClassName("selecionada");
+  }
+}
+
+function removerCidade(nome_da_cidade, pais_id, estado_id, cidade_id) {
+  if ($("cidades_selecionadas_" + cidade_id)) {
+    $("cidades_selecionadas_" + cidade_id).remove();
+    var link_para_incluir = "<a href=\"#\" title=\"\" onclick=\"incluirCidade('" + nome_da_cidade + "', " + pais_id + ", " + estado_id + ", " + cidade_id + "); return false;\" class=\"incluir\"><img src=\"/images/icones/add.png\" width=\"16\" height=\"16\" alt=\"Incluir\" /></a>";
+    if ($("cidades_a_selecionar_" + cidade_id)) {
+      $("cidades_a_selecionar_" + cidade_id).update(link_para_incluir + nome_da_cidade);
+      $("cidades_a_selecionar_" + cidade_id).removeClassName("selecionada");
+    }
+  }
+}
+
+function IdsCidadesSelecionadas(obj) {
+  var ret = "";
+  //Concatenar os values de todas as cidades do obj...
+  if (obj) {
+    obj.each(function(item) {
+      ret += item.value + ",";
+    });
+  }
+  return ret;
+}
+
+</script>

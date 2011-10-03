@@ -1,0 +1,82 @@
+<h1>Ajuste seu avatar, <%= @user.nome %>!</h1>
+
+<div id="imagem_original"><%= image_tag(@user.imagem.public_filename, :id => "avatar") %></div>
+
+<% form_tag :controller => "avatar", :action => "resize" do %>
+<div id="previewWrapper">
+  <h5>Dicas para ajustar seu avatar</h5>
+  <p class="instrucoes">
+     1. Selecione, na imagem à esquerda, a área que você deseja mostrar de sua foto;
+        toda a região iluminada (mais clara) comporá a foto de seu perfil público.</p>
+  <p class="instrucoes">
+     2. Abaixo, na imagem pequena, veja como ficará seu avatar;
+        ele será usado em sua ficha de cidadão por todo o site.
+        </p>
+  <p class="instrucoes" style="margin-bottom:20px">3. Ao concluir, clique no botão <b>Salvar</b>.</p>
+  
+  <p class="resultado">Resultado final = </p>
+  <div id="previewArea"></div>
+  <%= submit_tag "Salvar" %>
+  <%= hidden_field_tag "x1" %>
+  <%= hidden_field_tag "y1" %>
+  <%= hidden_field_tag "x2" %>
+  <%= hidden_field_tag "y2" %>
+  <%= hidden_field_tag "width" %>
+  <%= hidden_field_tag "height" %>
+</div>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+function onEndCrop(coords, dimensions) {
+	$('x1').value = coords.x1;
+	$('y1').value = coords.y1;
+	$('x2').value = coords.x2;
+	$('y2').value = coords.y2;
+	$('width').value = dimensions.width;
+	$('height').value = dimensions.height;
+}
+
+Event.observe( 
+	window, 
+	'load', 
+	function() { 
+		new Cropper.ImgWithPreview( 
+			'avatar',
+			{ 
+				minWidth: 50,
+				minHeight: 50,
+				maxHeight: 190,
+				maxWidth: 190,
+				ratioDim: { x: 50, y: 50 },
+				displayOnInit: true, 
+				onEndCrop: onEndCrop,
+				previewWrap: 'previewArea'
+			} 
+		) 
+	} 
+);
+</script>
+
+<style type="text/css">
+#imagem_original {
+  float:left;
+}
+#previewWrapper {
+  margin:0 20px 0 20px;
+  float:left;
+  background-color:#ccc;
+  width:380px;
+  padding:7px;
+}
+#previewWrapper p.instrucoes {
+  margin-bottom:2px;
+}
+#previewWrapper p.resultado {
+  float:left;
+  font-weight:bold;
+  margin:15px 5px 0 0;
+}
+#previewArea {
+  margin:0 0 20px 0;
+}
+</style>

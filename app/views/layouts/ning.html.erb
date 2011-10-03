@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <% cidade = @cidade_corrente ? "#{@cidade_corrente.nome} -" : "" %>
+  <title><%= title :site => "#{cidade} Cidade Democrática" %></title>
+
+<% bundle :name => "default_bundle", :bundle_fu => (RAILS_ENV == "production") do -%>
+<%# bundle :name => "default_bundle", :bundle_fu => (false) do -%>
+  <%= stylesheet_link_tag "960/reset" %>
+  <%= stylesheet_link_tag "960/960" %>
+  <%= stylesheet_link_tag "960/text" %>
+  <%= stylesheet_link_tag "layout" %>
+  <%= stylesheet_link_tag "cloud" %>
+  <%= stylesheet_link_tag "will_paginate" %>
+  <%= stylesheet_link_tag "flash" %>
+  <%= stylesheet_link_tag "forms" %>
+
+  <%= stylesheet_link_tag "users_cmp" %>
+  <%= stylesheet_link_tag "topicos_cmp" %>
+  <%= stylesheet_link_tag "listas_cmp" %>
+
+  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag "menu" %>
+  <%= javascript_include_tag "DD_roundies_0.0.2a-min" %>
+<% end -%>
+
+<%= stylesheet_link_tag "seletor_estado_cidade" unless (controller_name=="home") and (action_name=="index") %>
+
+<%= stylesheet_link_tag controller_name if File.exists?(RAILS_ROOT + "/public/stylesheets/#{controller_name}.css") %>
+
+<% if (action_name=="resize") %>
+  <%= javascript_include_tag "scriptaculous" %>
+  <%= javascript_include_tag "builder" %>
+  <%= javascript_include_tag "cropper/cropper" %>
+<% end %>
+
+<% if ((controller_name=="topicos") and ((action_name=="novo_problema") or (action_name=="nova_proposta"))) %>
+  <%= javascript_include_tag "charcount" %>
+<% end %>
+
+<% if (controller_name=="users") and (action_name=="show")  %>
+	<link rel="alternate" type="application/rss+xml" title="<%= @user.nome %> atividades" href="<%= perfil_url(@user)+'.rss' %>" />
+<% end %>
+
+</head>
+<body style="background:#FFFFFF;">
+
+
+<div style="background:#FFFFFF none repeat scroll 0 0; margin-bottom:10px; padding:20px 5px 10px 10px; width:705px;" >
+    <%= flash_message -%>
+    <%= yield %>
+
+</div> <!-- conteudo -->
+
+</body>
+</html>

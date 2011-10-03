@@ -1,0 +1,55 @@
+<h1>Estados e Cidades</h1>
+<p>Escolha aqui seu estado... 
+<% tmp = [] -%> 
+<% @cidades.group_by(&:estado_id).each do |estado_id, cidades| -%>
+  <% tmp << link_to("#{cidades[0].estado.abrev}", "##{cidades[0].estado.abrev}") -%>
+<% end -%>
+<%= tmp.join(" | ") %></p>
+  
+<% @cidades.group_by(&:estado_id).each do |estado_id, cidades| -%>
+<a name="<%= cidades[0].estado.abrev %>"></a>
+<div class="clearfix linha_fina" id="div_wrapper_<%= estado_id %>">
+<p class="estados">
+  <%= link_to "#{cidades[0].estado.abrev}", {
+              :controller => "topicos", 
+              :action => "index", 
+              :topico_type => "topicos", 
+              :estado_abrev => "#{cidades[0].estado.abrev.downcase}" },
+              :title => "Ver tópicos do estado '#{cidades[0].estado.nome}'" %>
+  <!-- span id="ver_<%= estado_id %>" class="ver_cidades"><%= link_to_function " ver cidades &raquo;", "$('div_wrapper_#{estado_id}').addClassName('linha_fina');"+visual_effect(:toggle_blind, "estado_#{estado_id}", :duration => 0.5)+visual_effect(:fade, "ver_#{estado_id}", :duration => 0.5) %></span-->
+  </p>
+<ul class="estados" id="estado_<%= estado_id %>">
+<% for cidade in cidades -%>
+  <li><%= link_to cidade.nome, {
+                  :controller => "topicos", 
+                  :action => "index", 
+                  :topico_type => "topicos", 
+                  :estado_abrev => "#{cidade.estado.abrev.downcase}", 
+                  :cidade_slug => "#{cidade.slug}" },
+                  :title => "Ver tópicos da cidade '#{cidade.nome}'" %></li>
+<% end -%>
+</ul>
+</div>
+<% end -%>
+<p>&nbsp;</p>
+<p>Não encontrou sua cidade em nossa lista? Faça já <%= link_to "sua sugestão", :controller => "home", :action => "fale_conosco" %> para incrementarmos o Cidade Democrática</p>
+
+<style type="text/css" media="screen">
+.linha_fina {
+  border-top:1px dotted #009BCA;
+  width:800px;
+}
+.estados {
+  width:400px;
+  float:left;
+}
+p.estados {
+  margin: 0 0 2px 0;
+}
+ul.estados {
+  background-color:#AEDBDE;
+}
+span.ver_cidades {
+  font-size:11px;
+}
+</style>

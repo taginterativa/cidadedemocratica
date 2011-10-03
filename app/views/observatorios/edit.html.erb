@@ -1,0 +1,15 @@
+<% title "Editar observatório", :site => "Cidade Democrática" %>
+<h1>Editar observatório</h1>
+<%= error_messages_for :observatorio %>
+<% form_tag salvar_observatorio_url do %>
+  <%= render :partial => "form" %>
+  <div>
+    <%= submit_tag "Salvar" %> ou
+    <%= link_to "Cancelar", observatorio_url %>
+  </div>
+<% end %>
+<style type="text/css" media="screen">
+h1#cidade_corrente {
+  display: none;
+}
+</style>

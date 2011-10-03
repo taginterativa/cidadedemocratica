@@ -1,0 +1,196 @@
+<% title "Descadastrar #{@user.nome.nome_proprio}" %>
+<h1><span class="user_tipo <%= @user.type.to_s.underscore.downcase %>"><%= @user.nome_do_tipo %></span>Descadastrar <%= @user.nome %></h1>
+
+<!-- bloco primário -->
+<div class="grid_16 alpha omega">
+  <div class="grid_4 alpha">
+    <div id="ficha_do_usuario" class="clearfix rounded" style="height:250px">
+      <!-- inicio da imagem -->
+      <div id="avatar_wrapper">
+        <div id="avatar_wrapper_inside">
+        <p>
+          <%= posiciona_imagem_grande(@user) %>
+          <% if @user.poder_publico? %>
+          <%= image_tag("faixa_poder_publico.png", :alt => "Poder Público", :size => "190x30", :class => "faixa_vip") %>
+          <% end %>
+        </p>
+        </div>
+        <div id="avatar_wrapper_bottom">
+          <p>
+            <% if logged_in? and @user == current_user and not @user.imagem -%>
+            <!-- incitar o upload de imagem -->
+              <span style="text-align:center;margin:0;display:block;">
+              <%= link_to "Suba sua foto ou logotipo",
+                          {
+                            :controller => "perfil",
+                            :action => "avatar"
+                          } %><br />
+              </span>
+            <% end -%>
+            <% if !@user.poder_publico? %>
+            Membro há <span class="tempo"><%= distance_of_time_in_words_to_now(@user.created_at).gsub(/aproximadamente/, "") %></span>
+            <% end %>
+          </p>
+        </div>
+      </div>
+      <!-- fim da imagem -->
+    </div>
+
+	<!-- Inicio descricao do perfil -->
+	<div id="descricao" class="rounded" style="margin-top: 20px;">
+
+	  <p id="fatos">
+	    <%= @user.descricao_basica %>
+	    <% if @user.local -%>
+	      em
+	      <%= "#{@user.local.bairro.nome}," if @user.tem_bairro? %>
+	      <%= "#{@user.local.cidade.nome}, #{@user.local.cidade.estado.abrev}" if @user.tem_cidade? %>
+	    <% end -%>
+	    <% if @user.pessoa? and @user.parent -%>
+	      Faz parte de <%= link_to @user.parent.nome, perfil_url(@user.parent.id) %></li>
+	    <% end -%>
+	  </p>
+
+	  <div class="wrapper">
+	  <b>Descrição</b>
+	  <% if @user.dado.descricao and !@user.dado.descricao.empty? %>
+	    <%= simple_format(@user.dado.descricao) %>
+	  <% else -%>
+	    <p><%= @user.nome %> ainda não escreveu uma descrição.</p>
+	  <% end -%>
+	  </div>
+	</div><!-- descricao -->
+	
+
+    <ul id="contato">
+	<% if @user.dado and !@user.dado.site_url.nil? and !@user.dado.site_url.empty? -%>
+	<% url = (@user.dado.site_url.strip =~ /^http:\/\//).nil? ? "http://" + @user.dado.site_url.strip : @user.dado.site_url.strip -%>
+	      <li><p class="sobre"><%= link_to "Site #{image_tag('icones/link_externo.png')}", url, :target => "_blank" %></p></li>
+	<% end -%>
+	<% if @user.dado and !@user.dado.fone.nil? and !@user.dado.fone.empty? %>
+	      <li><p class="sobre">Fone</p><p class="valor"><%= @user.dado.fone ? @user.dado.fone : "---" %></p></li>
+	<% end -%>
+	<% if @user.dado and !@user.dado.fax.nil? and !@user.dado.fax.empty? %>
+	      <li><p class="sobre">Fax</p><p class="valor"><%= @user.dado.fax %></p></li>
+	<% end -%>
+	<% if @user.dado and !@user.dado.email_de_contato.nil? and !@user.dado.email_de_contato.empty? %>
+	      <li><p class="sobre">E-mail</p><p class="valor"><%= link_to 'Envie uma mensagem', perfil_mensagem_url(@user) %></p></li>
+	<% end -%>
+    </ul> <!-- contato -->
+	<!-- Fim descricao do perfil -->
+
+	<% if @user.organizacao? and
+	      logged_in? and
+	      current_user.pessoa? and
+	      current_user.parent_id != @user.id %>
+	  <p><%= link_to "Sou integrante desta organização",
+	              { :controller => "users",
+	                :action => "solicitar_vinculacao",
+	                :organizacao_id => @user.id },
+	              :confirm => "Enviaremos um e-mail para #{@user.nome} com sua solicitação. Tem certeza?" %></p>
+	<% end -%>
+
+	<% if @user.organizacao? -%>
+	<h2>Pessoas relacionadas</h2>
+	  <%= usuarios(@user.children) %>
+	<% end -%>
+	&nbsp;
+
+  </div>
+
+  <div class="grid_8">
+  <h2>Deseja mesmo se descadastrar?</h2>
+  <p><b>Atenção: Se confirmada, essa operação não tem volta.</b></p>
+  <p>Ao confirmar seu descadastro, clicando &quot;Sim&quot; no botão abaixo,<br />
+     você bloqueará todas as suas informações inseridas por você no<br />
+     <b>Cidade Democrática</b>. Não será possível, portanto, efetuar seu<br />
+     <i>login</i> e/ou editar qualquer outra informação após essa confirmação.<br />
+     
+     Caso não tenha certeza, basta clicar em &quot;Não&quot;.</p>
+  <div id="respostas">
+    <%= link_to "Sim", confirma_descadastro_url, 
+                      :confirm => "Essa é sua última chance de repensar este ato.\nTem certeza que deseja realmente se descadastrar?", 
+                      :id => "sim", 
+                      :class => "bot_resposta rounded" %>
+    <%= link_to "Não", perfil_url(@user), 
+                      :id => "nao", 
+                      :class => "bot_resposta rounded" %>
+  </div>
+<style type="text/css" media="screen">
+#respostas {
+  margin-top:30px;
+}
+#respostas #nao {
+  margin-left:40px;
+  background-color:red;
+}
+#respostas #sim {
+  background-color:green;
+}
+#respostas a.bot_resposta {
+  display:block;
+  padding:10px 50px;
+  color:white;
+  font-weight:bold;
+  text-align:center;
+  float:left;
+  width:70px;
+}
+</style>
+  </div>
+
+  <div class="grid_4 omega">
+    <ul id="resumo_de_atividades" class="resumo clearfix">
+      <li>
+        <p class="qtd propostas" style="color:#FF9900"><%= @user.topicos_count %></p>
+        <p class="sobre">Propostas e problemas</p>
+      </li>
+      <li>
+        <p class="qtd comentarios" style="color:#82CC40"><%= @user.comments_count %></p>
+        <p class="sobre">Comentários</p>
+      </li>
+      <li>
+        <p class="qtd adesoes" style="color:#F38077"><%= @user.adesoes_count %></p>
+        <p class="sobre">Apoios</p>
+      </li>
+    </ul>
+
+	<!-- Nuvem de tags do perfil -->
+	<h2>Tags principais</h2>
+  <div class="cloud rounded">
+  <% if @tags and (@tags.size > 0) -%>
+  <% tag_cloud(@tags, %w(nuvem_1 nuvem_2 nuvem_3 nuvem_4 nuvem_5)) do |tag, c| -%>
+    <span class="<%= c %>"><%= link_to tag.name, {
+                                         :controller => "topicos",
+                                         :action => "index",
+                                         :topico_type => "topicos",
+                                         :tag_id => tag.id
+                                       } %></span>
+  <% end -%>
+  <% else -%>
+  <p>Ainda não há tags.</p>
+  <% end -%>
+  </div>
+
+
+	<!-- div class="cloud rounded">
+	  <% if @tags and not @tags.empty? -%>
+	  <% tag_cloud(@tags, %w(nuvem_1 nuvem_2 nuvem_3 nuvem_4 nuvem_5)) do |tag, c| -%>
+	    <span class="<%= c %>"><%= link_to tag.name, :controller => "topicos", 
+	                                                 :action => "index", 
+	                                                 :tag_id => tag.id %></span>
+	  <% end -%>
+	  <% else -%>
+	  <p style="color:#666;margin:0;line-height:18px;">
+	    <b><%= @user.nome %></b> ainda não publicou problemas ou propostas.<br /> 
+	    Logo, não há tags.
+	  </p>
+	  <% end -%>
+	</div-->
+	<!-- Fim nuvem de tags do perfil -->
+  </div>
+  <!--div class="grid_12 omega" style="background-color:#F0F0F0">&nbsp;</div-->
+</div>
+
+
+</div>

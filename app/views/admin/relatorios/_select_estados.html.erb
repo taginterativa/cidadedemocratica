@@ -1,0 +1,4 @@
+<p><%= radio_button_tag "ambito", "estadual", false, :onclick => "desabilitar('cidade_id');habilitar('estado_id');" %> Estadual<br />
+<%= select_tag "estado_id", 
+               options_for_select(estados.sort{|c1, c2| c1.abrev <=> c2.abrev }.collect {|c| ["#{c.abrev} (#{c.total})", c.id] }),
+               :disabled => true %></p>

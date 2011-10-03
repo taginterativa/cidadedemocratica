@@ -1,0 +1,16 @@
+<% if escolhido -%>
+  <% if @local and params[:ambito] -%>
+<p><%= @local.class.to_s %>: <b><%= @local.nome %></b></p>
+<%= hidden_field_tag "ambito", params[:ambito] %>
+<%= hidden_field_tag "#{@local.class.to_s.downcase}_id", @local.id %>
+<%= link_to_remote "Alterar territorio", :url => { :action => "definir_intervalo" }, :submit => "myform" %>
+  <% end -%>
+<% else -%>
+<div id="lista_nacional"><%= render :partial => "select_nacional" %></div>
+<div id="lista_estados"><%= render :partial => "select_estados", 
+                                   :locals => { :estados => estados } %></div>
+<div id="lista_cidades"><%= render :partial => "select_cidades", 
+                                   :locals => { :cidades => cidades } %></div>
+<%= submit_to_remote "intervalo_btn", "Usar o escolhido", :url => { :action => "definir_territorio" } %>
+
+<% end -%>

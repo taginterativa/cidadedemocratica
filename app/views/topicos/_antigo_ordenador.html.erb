@@ -1,0 +1,12 @@
+<div id="contador_e_ordenador" class="clearfix">
+  <p>Ordenar por: </p>
+  <ul id="ordenador">
+    <li><%= link_to_with_context "Relevância", :order => "relevancia" %></li>
+    <li><%= link_to_with_context "Recentes", :order => "recentes" %></li>
+    <li><%= link_to_with_context "Antigos", :order => "antigos" %></li>
+    <li><%= link_to_with_context "Mais comentários", :order => "mais_comentarios" %></li>
+    <li><%= link_to_with_context "Mais apoios", :order => "mais_apoios" %></li>
+    <li><%= link_to_with_context "A-Z", :order => "a-z" %></li>
+    <li><%= link_to_with_context "Z-A", :order => "z-a" %></li>
+  </ul>
+</div>

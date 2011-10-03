@@ -1,0 +1,42 @@
+<h1><%= @estados.size %> Estados</h1>
+<p>
+  <%= link_to "Novo estado", new_admin_estado_path %>
+</p>
+<table class="crud">
+  <tr>
+    <th>Nome</th>
+    <th>Abrev</th>
+    <th colspan="3">Ações</th>
+  </tr>
+<% for estado in @estados %>
+  <tr>
+    <td>
+      <%= link_to estado.nome, edit_admin_estado_path(estado) %><br />
+      Relevância: <%= estado.relevancia %>
+    </td>
+    <td><%=h estado.abrev %></td>
+    <td class="cidades">
+      <%= link_to pluralize(estado.cidades.count, "cidade"), admin_cidades_path(:estado_id => estado.id) %>
+    </td>
+    <td class="novas_cidades">
+      <%= link_to "Novas cidades...", maiscidades_admin_estado_path(estado) %>
+    </td>
+    <!-- td class="remover">
+      <%= link_to "Remover", admin_estado_path(estado), :confirm => "Tem certeza?", :method => :delete %>
+    </td -->
+  </tr>
+<% end %>
+</table>
+
+<style type="text/css" media="screen">
+
+.cidades,
+.remover {
+  width: 80px;
+}
+
+.novas_cidades {
+  width: 100px;
+}
+
+</style>

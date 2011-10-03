@@ -1,0 +1,15 @@
+<h1>Complete seu cadastro e pronto!</h1>
+<%= error_messages_for :user_dado,
+                       :header_message => "Opa!" %>
+<% form_for :user_dado, :url => completar_cadastro_url do |f| -%>
+  <% if @user.pessoa? or @user.admin? %>
+    <%= render :partial => "users/form_pessoa",
+               :locals => { :f => f } %>
+  <% else -%>
+    <%= render :partial => "users/form_organizacao",
+               :locals => { :f => f } %>
+  <% end -%>
+  <div class="grid_16 alpha omega">
+   <p class="salvar_cadastro"><%= submit_tag "Salvar" %></p>
+  </div>
+<% end -%>

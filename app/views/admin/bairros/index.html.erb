@@ -1,0 +1,71 @@
+<h1>Bairros<%= " de &quot;#{@cidade.nome} - #{@cidade.estado.abrev}&quot;" if @cidade %></h1>
+<p>
+  <strong><% if params[:busca] %>Busca: <% end %><%= pluralize(@bairros.total_entries, "bairro") %></strong> |
+  <% if params[:busca] %><%= link_to "Mostrar todos", admin_bairros_url %> |<% end %>
+  <%= link_to "Novo bairro", new_admin_bairro_path(:cidade_id => params[:cidade_id]) %>
+</p>
+<% form_tag admin_bairros_url, :method => :get do %>
+  <div class="busca">
+    <ol>
+      <li>
+        <%= hidden_field_tag :cidade_id, params[:cidade_id] %>
+        <%= label_tag :busca_nome, "Nome" %>
+        <%= text_field_tag :busca_nome, params[:busca_nome], :size => 30 %>
+      </li>
+      <!-- li>
+        <%= label_tag :estado, "Estado" %>
+        <%= select_tag("estado_id", "<option></option>"+options_for_select(Estado.find(:all, :order => "abrev ASC").collect { |c| [ "#{c.abrev}", "#{c.id}" ] }, params[:estado_id]) ) %>
+      </li-->
+      <li>
+        <label>&nbsp;</label>
+        <%= submit_tag "Buscar", :name => :busca %>
+      </li>
+    </ol>
+  </div>
+<% end %>
+<table class="crud">
+  <tr>
+    <th>Nome</th>
+    <th>Cidade</th>
+    <th>Ações</th>
+  </tr>
+<% for bairro in @bairros %>
+  <tr>
+    <td>
+      <%= link_to bairro.nome, edit_admin_bairro_path(bairro) %><br />
+      Relevância: <%= bairro.relevancia %>
+    </td>
+    <td><%= bairro.cidade.nome %>, <%= bairro.cidade.estado.abrev %></td>
+    <td><%= link_to "Remover", admin_bairro_path(bairro), :confirm => "Tem certeza?", :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate(@bairros) %>
+
+<style type="text/css" media="screen">
+.busca {
+-moz-border-radius-bottomleft:5px;
+-moz-border-radius-bottomright:5px;
+-moz-border-radius-topleft:5px;
+-moz-border-radius-topright:5px;
+background-color:#F5F5F5;
+margin-bottom:20px;
+overflow:hidden;
+padding:20px;
+}
+.busca li {
+display:inline;
+float:left;
+list-style-image:none;
+list-style-position:outside;
+list-style-type:none;
+margin:0 10px 0 0;
+}
+.busca label {
+display:block;
+}
+.busca select {
+padding:1px 0;
+}
+</style>

@@ -1,0 +1,78 @@
+/* Contém o estilo do tópico nas listagens. Consulte o helper Topicos.
+-----------------------------------------------------------------------------
+*/
+
+/* Lista de tópicos  */
+
+ul.topicos { margin: 0 0 20px 0; }
+ul.topicos li { margin: 0 0 40px 0; list-style: none; }
+
+/* Um tópico */
+
+.topico .titulo {
+  padding: 10px 10px 10px 25px;
+  /* height: 40px; */
+  min-height: 40px;
+  _height: 40px;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+}
+
+.topico .titulo p { margin: 0; }
+
+.topico .ficha_do_usuario {
+  float: left;
+  display: inline;
+  margin: 0 5px 0 0;
+}
+
+.topico .detalhes {
+  margin: 0 0 0 120px;
+}
+
+.proposta .titulo {
+  background: #82CC40 url(../images/chupeta_verde.gif) no-repeat;
+}
+
+.problema .titulo {
+  background: #F38077 url(../images/chupeta_vermelha.gif) no-repeat;
+}
+
+.topico .titulo a { color: #FFF; }
+
+.topico .local {
+  font-size: 11px;
+  margin: 0 0 5px 20px;
+  background: transparent url(/images/icones/world.png) no-repeat scroll 0 2px;
+  padding: 0 0 0 20px;
+}
+
+.topico .tags {
+  color: #16B4E6;
+  font-size: 11px;
+  font-family: Tahoma, Arial, sans-serif;
+  margin: 0 0 5px 20px;
+  /* width: 280px; */
+  line-height: 18px;
+  background: transparent url(/images/icones/tag_proposta.png) no-repeat scroll 0 2px;
+  padding: 0 0 0 20px;
+}
+
+.topico .atividades {
+  text-align: right;
+  margin: 0;
+}
+
+.topico .atividades .numero_apoio span,
+.topico .atividades .numero_comentario span {
+  font-size: 20px;
+  margin: 0 5px 0 0;
+}
+
+.topico .atividades .numero_apoio,
+.topico .atividades .numero_comentario {
+  text-transform: uppercase;
+  font-size: 11px;
+  padding: 5px 0 0 20px;
+}

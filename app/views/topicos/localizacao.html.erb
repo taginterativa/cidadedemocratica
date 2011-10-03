@@ -1,0 +1,17 @@
+<%= error_messages_for :topico, :header_message => "Opa!" -%>
+<h1>Editar Localização</h1>
+<%= render :partial => "topicos/form_localizar" %>
+
+<script type="text/javascript">
+<% @topico.locais.each do |local| -%>
+<% if local.ambito == "local" -%>
+incluirBairro('<%= local.bairro.nome %>, <%= local.cidade.nome %> - <%= local.estado.abrev %>', <%= local.pais_id %>, <%= local.estado_id %>, <%= local.cidade_id %>, <%= local.bairro_id %>);
+<% elsif local.ambito == "municipal" -%>
+incluirCidade('<%= local.cidade.nome %> - <%= local.estado.abrev %>', <%= local.pais_id %>, <%= local.estado_id %>, <%= local.cidade_id %>);
+<% elsif local.ambito == "estadual" -%>
+marcarEstado('locais_pais_1_estado_<%= local.estado_id %>');
+<% elsif local.ambito == "nacional" -%>
+Element.insert("seletor_de_pais", '<input type="hidden" id="input_ambito_nacional" name="locais[][pais_id]" value="1" />');
+<% end -%>
+<% end -%>
+</script>

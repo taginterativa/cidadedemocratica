@@ -1,0 +1,5 @@
+<div><%= select_tag "tag_id", 
+               options_for_select(temas.sort{|t1, t2| t1.name <=> t2.name }.collect {|t| ["#{t.name} (#{t.total})", t.id] }), 
+               :multiple => true, 
+               :style => "width:220px;height:120px" %></div>
+<%= link_to_function "marcar todos", "selectAll('tag_id', true)" %> <span id="temas_selecionados"></span>

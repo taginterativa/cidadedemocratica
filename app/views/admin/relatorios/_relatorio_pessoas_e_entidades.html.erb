@@ -1,0 +1,61 @@
+<div class="grid_12 alpha omega">
+  <h2>Pessoas e Entidades</h2>
+  <p>Veja as pessoas e entidades mais ativas.</p>
+  
+  <% @users.group_by(&:type).each do |g, us| %>
+  <h3><%= g.to_s.pluralize %></h3>
+  <ul id="lista_de_usuarios" style="list-style:none">
+  <% i = 0 -%>
+    <% us.sort{|u1, u2| u1.relevancia <=> u2.relevancia}.reverse.each do |u| -%>
+    <% if i < 3 -%>
+    <li style="margin:0">
+      <%= ficha_do_usuario(u, :badge => "_full", :with_summary => true) -%>
+    </li>
+    <% i+= 1 -%>
+    <% end -%>
+    <% end -%>
+  </ul>
+  <% end -%>
+</div>
+
+<div class="grid_12 alpha omega">
+  <h2>Estudo Detalhado de Pessoas e Entidades</h2>
+  <p>Veja as pessoas e entidades mais ativas.</p>
+  
+  <% @users.group_by(&:type).each do |g, us| %>
+  <h3><%= g.to_s %></h3>
+  <ul id="lista_de_usuarios" style="list-style:none">
+  <% i = 0 -%>
+    <% us.sort{|u1, u2| u1.relevancia <=> u2.relevancia}.reverse.each do |u| -%>
+    <% if i < 1 -%>
+    <li style="margin:0">
+      <%= ficha_do_usuario(u, :badge => "_full", :with_summary => true) %>
+      <table class="crud">
+        <tr>
+          <th>Atividades</th>
+          <th>Apoios</th>
+          <th>Comentários</th>
+          <th>Territórios</th>
+          <th>Palavras e conceitos</th>
+        </tr>
+        <tr>
+          <td>Total: <%= u.atividades.size %></td>
+          <td>Total: <%= u.adesoes_count %></td>
+          <td>Total: <%= u.comments_count %></td>
+          <td>
+          <% la = Local.em_que_usuario_atuou(u) %>
+          <%= descreve_total_participacoes_nacionais(la, u.id) %>
+          <%= descreve_total_participacoes_estaduais(la, u.id) %>
+          <%= descreve_total_participacoes_municipais(la, u.id) %>
+          <%= descreve_total_participacoes_locais(la, u.id) %>
+          </td>
+          <td><%= u.owned_tags.find(:all, :limit => 7).collect { |t| t.name }.join("<br />") %></td>
+        </tr>
+      </table>
+    </li>
+    <% i+= 1 -%>
+    <% end -%>
+    <% end -%>
+  </ul>
+  <% end -%>
+</div>

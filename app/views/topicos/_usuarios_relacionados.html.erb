@@ -1,0 +1,22 @@
+<h2><%= pluralize(users.total_entries, "pessoa ou entidade envolvida", "pessoas e entidades envolvidas") %> neste contexto</h2>
+<div id="caixa_de_usuarios_relacionados" class="rounded">
+  <div class="rolagem">
+    <ul id="usuarios_relacionados">
+      <%= render :partial => "topicos/lista_de_usuarios_relacionados",
+                 :locals => { :users => users } %>
+    </ul>
+  </div>
+<% if users.total_entries > 25 %>
+  <p id="ver_todos_os_usuarios_relacionados">
+    <%= link_to_remote "Ver todos",
+                       :url => params.merge({
+                         :action => "usuarios_relacionados"
+                       }),
+                       :update => {
+                         :success => "usuarios_relacionados"
+                       },
+                       :loading => "$('ver_todos_os_usuarios_relacionados').addClassName('carregando')",
+                       :success => "$('ver_todos_os_usuarios_relacionados').hide();" %>
+  </p>
+<% end %>
+</div>

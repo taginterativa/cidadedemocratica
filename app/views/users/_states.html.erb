@@ -1,0 +1,7 @@
+<% selecionado = (user) ? user.state.to_s.underscore.downcase : nil %>
+<%= select_tag "user[state]",
+      options_for_select(
+[[ "Não confirmado", "pending" ],
+ [ "Ativo", "active" ],
+ [ "Banido", "suspended"],
+ [ "Apagado", "deleted" ]] , selecionado) -%>

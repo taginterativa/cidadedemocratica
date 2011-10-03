@@ -1,0 +1,12 @@
+<% title "Bugigangas - NING" %>
+<h1>Instalação novo aplicativo Ning</h1>
+<p><strong>Entre com seu nome de usuário do ning:</strong></p>
+<p></p>
+
+<% form_for '/bugigangas/criarNingApps', :url => { :controller => 'bugigangas', :action => "criarNingApps" } do |f| %>
+	<fieldset>
+			Nome: <br/>
+			<input text="user_cidade" id="user_cidade" />
+			<%= submit_tag 'Cadastrar' %>
+	</fieldset>
+<% end %>

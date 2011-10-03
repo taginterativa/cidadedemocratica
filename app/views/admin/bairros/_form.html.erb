@@ -1,0 +1,12 @@
+<fieldset>
+  <ol>
+    <li>
+      <%= f.label :nome %>
+      <%= f.text_field :nome %>
+    </li>
+    <li>
+      <%= f.label :cidade_id %>
+      <%= f.select :cidade_id, Cidade.find(:all, :include => :estado, :order => "nome ASC").collect{ |e| [ "#{e.nome}, #{e.estado.abrev}", e.id ] } %>
+    </li>
+  </ol>
+</fieldset>

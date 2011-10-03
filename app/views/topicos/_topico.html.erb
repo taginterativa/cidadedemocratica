@@ -1,0 +1,48 @@
+<div class="topico <%= topico.class.to_s.downcase %> clearfix">
+  <%= ficha_do_usuario(topico.user, :host => options[:host]) if options[:show_badge] %>
+  <div class="detalhes">
+    <p class="titulo">
+        <%= link_to image_tag("icones/application_edit.png"),
+                    :controller => "topicos", :action => "edit", :topico_slug => topico.to_param if (logged_in? and current_user.admin?) -%>
+        <%= link_to image_tag("icones/delete.png"),
+                    admin_topico_path(topico.id),
+                    :title => "Administrador: Remover tópico #{topico.titulo}",
+                    :confirm => "Deseja mesmo remover \"#{topico.titulo} (id = #{topico.id})\" ?",
+                    :method => :delete if (logged_in? and current_user.admin?) -%>
+        <%= link_to truncate(topico.titulo, :length => options[:titulo_max_chars]),
+                    {
+                      :controller => "topicos",
+                      :action => "show",
+                      :topico_slug => topico.to_param,
+                      :host => options[:host]
+                    },
+                    :title => topico.titulo %>
+    </p>
+<% if options[:mostrar_local] -%>
+    <p class="local">
+      <%= descrever_locais(topico.locais) %>
+    </p>
+<% end -%>
+    <p class="tags">
+      <!-- TODO: trazer as tags de cada tópico já no include -->
+      <% tags_arr = [] -%>
+      <% topico.tags.find(:all).each do |t| -%>
+        <% if options[:link_in_tags] -%>
+          <% tags_arr << link_to_with_context(t.name, { :controller => "topicos", 
+                                                        :action => "index", 
+                                                        :tag_id => t.id,
+                                                        :host => options[:host] }, :title => "Filtre por #{t.name}") -%>
+        <% else -%>
+          <% tags_arr << t.name -%>
+        <% end -%>
+      <% end -%>
+      <%= tags_arr.join(", ") %>
+    </p>
+    <% if options[:mostrar_atividades] -%>
+    <p class="atividades">
+      <span class="numero_apoio"><span><%= topico.adesoes_count %></span> <%= (topico.usuarios_que_aderem.size == 1) ? "Apoio" : "Apoios" %></span>
+      <span class="numero_comentario"><span><%= topico.comments_count %></span> <%= (topico.comments_count == 1) ? "Comentário" : "Comentários" %></span>
+    </p>
+    <% end -%>
+  </div>
+</div>

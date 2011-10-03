@@ -1,0 +1,729 @@
+/* Lista de tópicos
+-----------------------------------------------------------------------------
+*/
+
+h1#cidade_corrente {
+  display: none;
+}
+
+#filtros {
+  /* margin-top: 40px; */
+}
+
+ul.filtro {}
+
+ul.filtro li {
+  margin: 0;
+  list-style: none;
+  font-size: 12px;
+}
+
+ul.filtro li a.problema {
+  font-weight: bold;
+  color: #F38077;
+}
+
+ul.filtro li a.proposta {
+  font-weight: bold;
+  color: #82CC40;
+}
+
+ul.filtro#tipo li {
+  font-size: 16px;
+}
+
+.topico .titulo {
+  /* width: 296px; */
+}
+
+ul.filtro li {
+  font-size: 16px;
+  margin: 0;
+  list-style: none;
+}
+
+#estatisticas_da_cidade .esquerda,
+#estatisticas_da_cidade .direita {
+  float:left;
+  width:95px;
+}
+#estatisticas_da_cidade .esquerda { text-align:left; }
+#estatisticas_da_cidade .direita  { text-align:right; }
+
+/* Usuários relacionados */
+
+#caixa_de_usuarios_relacionados {
+  margin:0 0 20px 0;
+}
+
+#caixa_de_usuarios_relacionados .rolagem {
+  max-height:200px;
+  overflow:auto;
+}
+
+#usuarios_relacionados {
+  margin:0;
+  overflow:hidden;
+}
+
+#usuarios_relacionados li {
+  float:left;
+  list-style:none outside none;
+  margin:0;
+  padding:0 10px 10px 0;
+}
+
+#usuarios_relacionados li a {
+  background-color:#CCC;
+  color:#CCC;
+  display:block;
+  font-size:1px;
+  height:30px;
+  line-height:1px;
+  width:30px;
+}
+
+#ver_todos_os_usuarios_relacionados {
+  font-size:11px;
+  margin:0;
+  text-align:left;
+}
+
+#ver_todos_os_usuarios_relacionados.carregando {
+  background: url(../images/spinners/indicator_snake.gif) no-repeat scroll 55px 2px transparent;
+}
+
+/* Página de tópico (ver controller Topicos.show)
+-----------------------------------------------------------------------------
+*/
+
+#topico {}
+
+#topico .conteudo {
+  margin: 0;
+  /* height: 300px; */
+  padding: 10px;
+}
+
+#topico .titulo {
+  position: relative;
+  background-image: transparent url(../images/rabicho_balao.png) -50px -20px no-repeat;
+  padding: 10px 10px 10px 25px;
+  margin-bottom: 5px;
+  height: 40px;
+  width: 477px;
+  float: right;
+}
+
+#topico .titulo h1 {
+  font-size: 18px;
+  color: #FFF;
+  font-weight: normal;
+  letter-spacing: 0;
+}
+
+.tipo_topico {
+  font-size: 28px;
+  padding-top: 17px;
+  margin: 0 10px 0 0;
+  height: 45px;
+  font-weight: bold;
+  width: 125px;
+  letter-spacing: -0.05em;
+}
+
+.problema .tipo_topico {
+  color: #EF5449;
+}
+
+.proposta .tipo_topico {
+  color: #75B935;
+}
+
+#topico .conteudo h2 {
+  font-size: 12px;
+  font-weight: normal;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+#topico .tags {
+  font-size: 11px;
+  margin: 0 0 10px 155px;
+  color: #009BCA;
+}
+
+#topico .tags img {
+  float: left;
+  margin-right: 5px;
+  padding-top: 3px;
+}
+
+#topico .localizacao {
+  font-size: 11px;
+  margin: 0 0 5px 155px;
+}
+
+#topico .localizacao img {
+  float: left;
+  margin-right: 5px;
+  padding-top: 3px;
+}
+
+#topico .conteudo .ficha_do_usuario {
+  float: left;
+  display: inline;
+}
+
+#topico .descricao {
+  margin-left: 125px;
+  min-height: 150px;
+}
+
+#topico .descricao p {
+  margin: 0 0 10px 0;
+}
+
+#topico .opcoes {
+  margin: 30px 0 0 125px;
+}
+
+#topico .opcoes li {
+  margin: 0 20px 0 0; float: left; display: inline;
+}
+
+#topico .opcoes li.fotos {
+  width: 145px;
+}
+
+#topico .opcoes li.fotos ul {
+  margin: 0;
+}
+
+#topico .opcoes li.fotos li {
+  margin: 0 10px 10px 0;
+}
+
+/* Só para problemas */
+
+#topico.problema .conteudo {
+  background: #F1C4BD;
+}
+
+#topico.problema .titulo {
+  background-color: #F38077;
+}
+
+#topico.problema .titulo .tipo {
+  color: #F38077;
+  font-weight: bold;
+}
+
+/* Só para propostas */
+
+#topico.proposta .conteudo {
+  background: #B6E090;
+}
+
+#topico.proposta .titulo .tipo {
+  color: #82CC40;
+  font-weight: bold;
+}
+
+/* Painel com resumo de atividades */
+
+#resumo_de_atividades {
+  border: 3px solid #F3F3ED;
+  padding: 10px;
+}
+
+.resumo_lista {
+  float: left;
+  margin-right: 3px;
+  height: 60px;
+  width: 31%;
+}
+
+.resumo_lista p.qtd {
+  font-size: 28px;
+  line-height: 1em;
+  margin-bottom: 5px;
+}
+
+.resumo_lista p.sobre {
+  color: #999999;
+  font-size: 12px;
+  line-height: 1em;
+  text-transform: lowercase;
+  margin: 0;
+}
+
+#comentar_ou_fazer_campanha {
+  list-style:none outside none;
+  margin:10px 0 0 0;
+}
+
+#comentar_ou_fazer_campanha li {
+  display:inline;
+  float:left;
+  margin:0 40px 0 0;
+}
+
+.botao_de_acao {
+  margin:0 0 10px 0;
+}
+
+.botao_de_acao a {
+  color:#333333;
+  display:block;
+  font-size:22px;
+  font-weight:normal;
+  line-height:45px;
+  overflow:hidden;
+}
+
+.botao_de_acao img {
+  float:left;
+  height:64px;
+  padding:0 5px;
+  width:47px;
+}
+
+/* Estatísticas dos comentários */
+
+div#comentarios_estatisticas ul {
+  float:left;
+  margin:0;
+}
+div#comentarios_estatisticas ul li {
+  list-style:none;
+  margin:0 20px 0 5px;
+}
+div#comentarios_estatisticas div#temperatura {
+  margin:0;
+}
+div#comentarios_estatisticas div#temperatura p {
+  margin:9px 0;
+}
+div#comentarios_estatisticas div#temperatura p.line {
+  margin:0 0 0 135px;
+  width:200px;
+  border-bottom:1px solid gray;
+  line-height:0.1em;
+}
+
+/* Lista de comentários */
+
+ul.comentarios {
+  list-style:none;
+  margin-top:10px;
+}
+
+ul.comentarios li {
+  margin: 0 0 40px 0;
+}
+
+ul.comentarios li.comentario { background-color: #fff; }
+ul.comentarios li.comentario div.assunto { /* padding: 5px; */ }
+ul.comentarios .simple_format {
+  padding: 10px;
+  /* margin-left: 115px; */
+}
+
+ul.comentarios .ficha_do_usuario {
+  float: left;
+  display: inline;
+}
+
+p.identificador {
+  text-align: right;
+  font-size: 11px;
+  margin: 0;
+  line-height: 24px;
+  padding: 0 5px 0 0;
+}
+
+p.identificador a { color: #333; }
+.comentario p.identificador { background-color: #809FFF; }
+.pergunta p.identificador { background-color: #F1C4BD; }
+.resposta p.identificador { background-color: #89CE7E; }
+.ideia p.identificador { background-color: #F6E172; }
+
+/* Formulário para novo comentário */
+
+#novo_comentario {
+  margin-bottom: 20px;
+}
+
+#novo_comentario textarea {
+  width: 588px;
+  height: 150px;
+  padding: 5px;
+  border: 1px solid #CCC;
+  font-family: "Helvetica", "Arial", sans-serif;
+  font-size: 14px;
+}
+
+#novo_comentario .conteudo {
+  padding:10px 20px 5px;
+}
+
+/* Cores para os tipos de comentários */
+#comentario_colorido.comentario { background-color:#809FFF; }
+#comentario_colorido.pergunta { background-color:#F1C4BD; }
+#comentario_colorido.resposta { background-color:#89CE7E; }
+#comentario_colorido.ideia { background-color:#F6E172; }
+#comentario_colorido p {
+  margin:0 0 10px;
+}
+
+#menu_tipo_comentario {
+  background-color: #fff;
+  margin: 0;
+  line-height: 27px;
+  height: 27px;
+}
+
+#menu_tipo_comentario a {
+  padding: 5px 10px;
+  color: #fff;
+}
+#menu_tipo_comentario a img,
+.my_icon {
+  vertical-align:middle;
+}
+#menu_tipo_comentario a:hover { text-decoration:none; }
+#menu_tipo_comentario a.link_menu { font-weight:normal; }
+#menu_tipo_comentario a.ativo {
+  color:#2B696E;
+  font-weight:bold;
+}
+#menu_tipo_comentario a#link_comentario { background-color:#809FFF; }
+#menu_tipo_comentario a#link_pergunta { background-color:#F1C4BD; }
+#menu_tipo_comentario a#link_resposta { background-color:#89CE7E; }
+#menu_tipo_comentario a#link_ideia { background-color:#F6E172; }
+
+.comentario_topico {
+  background: #F3F3ED;
+  margin-bottom: 0;
+  margin-left: 125px;
+}
+
+#quadro_problema {
+  position: relative;
+  margin-top: 50px;
+  margin-bottom: 1em;
+  background: #F1C4BD;
+  max-height: 400px;
+  padding: 20px 10px 10px 10px;
+}
+
+.quadro_problema_texto {
+  padding-left: 135px;
+}
+
+#mais_infos_quadro_topico {
+  width: 460px;
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+#mais_infos_quadro_topico li {
+  padding: 0 10px;
+  margin: 0 10px;
+  display: inline;
+}
+
+#balao_problema {
+  position: absolute;
+  top: -50px;
+  left: 0;
+  background: #F38077 url(../images/rabicho_balao.png) -50px -20px no-repeat;
+  padding: 10px;
+  margin-bottom: 5px;
+  height: 40px;
+  width: 610px;
+  font-size: 18px;
+  color: #FFF;
+}
+
+#balao_problema h2 {
+  float: left;
+  color: #F38077;
+  font-size: 24px;
+  padding-top: 10px;
+  margin-right: 10px;
+  height: 45px;
+  width: 125px;
+}
+
+/* Formulário de novo tópico (ver controller Topicos.novo_problema)
+-----------------------------------------------------------------------------
+*/
+
+form fieldset ol li {
+  margin: 0 0 20px 0;
+}
+
+.topicos_novo_problema #conteudo {
+  /* background-color: #FAEAE7; */
+}
+
+.topicos_novo_problema #conteudo h1,
+.topicos_novo_problema label {
+  color: #F38077;
+}
+
+.topicos_nova_proposta #conteudo {
+  /* background-color: #D0EBB8; */
+}
+
+.topicos_nova_proposta #conteudo h1,
+.topicos_nova_proposta label {
+  color: #82CC40;
+}
+
+.topicos_nova_proposta label,
+.topicos_novo_problema label {
+  text-transform: uppercase;
+  font-weight: bold;
+  /* color: #2B696E; */
+}
+
+form .ajuda,
+form .ajuda {
+  font-size: 12px;
+  color: #999;
+}
+
+.novo_topico .fieldWithErrors textarea,
+.novo_topico textarea.titulo,
+.novo_topico textarea.descricao,
+.novo_topico .tags {
+  font-family: "Helvetica", "Arial", sans-serif;
+  width: 626px;
+}
+
+.novo_topico textarea.titulo {
+  font-size: 18px;
+  height: 50px;
+}
+
+.novo_topico textarea.descricao,
+.novo_topico .tags {
+  font-size: 14px;
+}
+
+.topicos_nova_proposta .orientacoes,
+.topicos_novo_problema .orientacoes {
+  padding: 10px;
+  background-color: #F3F3ED;
+}
+
+.topicos_nova_proposta .orientacoes ul,
+.topicos_novo_problema .orientacoes ul,
+.topicos_nova_proposta .orientacoes p,
+.topicos_novo_problema .orientacoes p {
+  margin: 0;
+}
+
+.topicos_nova_proposta .orientacoes ul li,
+.topicos_novo_problema .orientacoes ul li {
+  margin: 0 0 0 15px;
+}
+
+#passos li.corrente {
+  font-weight: bold;
+  color: #333;
+}
+
+#passos li {
+  font-size: 18px;
+  float: left;
+  width: 225px;
+  color: #999;
+}
+
+#passos .titulo {
+  font-size: 18px;
+  letter-spacing: -0.015em;
+  line-height: 26px;
+  margin: 0;
+}
+
+#passos .descricao {
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.negrito {
+  font-weight:bold;
+}
+
+li#local ol li {
+  float:left;
+  margin:0 20px 0 0;
+}
+
+li#local ol li#li_local_cep {
+  display:none;
+}
+
+/* OLD CODE...
+.cidade, .bairro {
+  float: left;
+  display: inline;
+  margin: 0 20px 0 0;
+}
+
+.cidade .em,
+.bairro .em {
+  font-size: 12px;
+}
+
+.cidade .onde,
+.bairro .onde {
+  font-size: 16px;
+  font-weight: bold;
+  display: block;
+  padding: 2px 0;
+}*/
+
+/* Tópicos relacionados */
+
+#topicos_relacionados ul { background: #F0F0F0; padding: 10px; }
+#topicos_relacionados ul li { list-style: none; margin: 0 0 20px 0; }
+#topicos_relacionados ul li p { margin: 0; }
+#topicos_relacionados a { font-size: 14px; line-height: 18px; }
+span.problema { color:#F38077; }
+span.proposta { color:#82CC40; }
+#topicos_relacionados .problema a { color: #EF564A; }
+#topicos_relacionados .proposta a { color: #73BF2F; }
+#topicos_relacionados .titulo { background: none; }
+#topicos_relacionados .detalhes { font-size: 11px; color: #666; }
+
+#counter-topico_titulo,
+#counter-topico_descricao {
+  color: #999999;
+  display: inline;
+  float: right;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Cores específicas para alguns elementos do Painel Popular*/
+
+#estatisticas_da_cidade .propostas {
+  color: #82CC40;
+}
+
+#estatisticas_da_cidade .problemas {
+  color: #F38077;
+}
+
+#estatisticas_da_cidade .comentarios {
+  color: #FF9900;
+}
+
+#estatisticas_da_cidade .apoios {
+  color: #009BCA;
+}
+
+.qtd_de_pessoas,
+.qtd_de_propostas,
+.qtd_de_problemas {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 10px 0 20px;
+  text-transform: none;
+}
+
+.qtd_de_pessoas, .qtd_de_propostas, .qtd_de_problemas { font-size: 30px; }
+.qtd_de_pessoas { color: #FAAE63; }
+.qtd_de_propostas { color: #A7D170; }
+.qtd_de_problemas { color: #F38077; }
+.lista_topicos_lateral {
+  font-size: 14px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Criar Proposta/Problema
+-----------------------------------------------------------------------------
+*/
+
+#passos {
+  padding-left: 40px;
+}
+#passos ol li {
+  padding: 10px;
+  height: 86px;
+  margin-right: 10px;
+}
+#passos ol li.corrente {
+  background: #E2E2E2;
+  -moz-border-radius: 15px 15px 0 0;
+  -webkit-border-radius: 15px 15px 0 0;
+}
+
+#form_localize, .novo_topico {
+  border: 2px solid #E2E2E2;
+  padding: 10px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+}
+#form_novo_topico {
+  position: relative;
+  left: 140px;
+}
+.escondido { display: none; }
+ul#ambitos { 
+  float:left;
+  margin:0 100px 0 0px;
+  font-size:32px;
+}
+ul#ambitos li {
+  margin:10px 0;
+  padding: 10px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+}
+ul#ambitos li a {
+  position: relative;
+  top: -15px;
+}
+ul#ambitos li img {
+  margin-right: 10px;
+  width: 60px;
+  height: 60px;
+}
+#bot_continuar { 
+  margin-left: 750px;
+  height: 30px;
+  width: 130px;
+  font-weight: bold;
+  font-size: 14px;
+}
+#form_novo_topico form #bot_continuar {
+  margin-left: 600px;
+}
+li#nacional, li#estadual, li#municipal, li#local {
+  list-style: none;
+}
+.ambito_ativado {
+  background: #E2E2E2;
+}
+.ambito_desativado {
+}
+#seletor_de_pais img {
+  position: relative;
+  left: 80px;
+}
+
+/* Lista de usuários que apoiam o tópico. */
+
+ul.usuarios li {
+  margin-bottom: 40px;
+}

@@ -1,0 +1,117 @@
+<div class="grid_16 alpha omega"><!-- LINHA 1: CIDADES MAIS ATIVAS + TEMAS MAIS RELEVANTES -->
+  <div class="grid_8 alpha">
+    <!-- Server Name: <%= request.host %> -->
+    <h2 class="subtitulo_home">
+      Articule-se no seu bairro<br />
+      <%= link_to "Veja como cada bairro está se organizando", "http://www.cidadedemocratica.org.br/topicos/estado/sp/cidade/jundiai" %>
+    </h2>
+    <div class="rounded destaque cloud">
+      <% cidades_cloud(@cidades, %w(nuvem_1 nuvem_2 nuvem_3 nuvem_4 nuvem_5 ), :relevancia => true) do |cidade, c| -%>
+        <span class="<%= c %>">
+        <%= link_to "#{cidade.nome} <!-- span class=\"count\">#{cidade.total}</span -->", {
+                      :host => "www.cidadedemocratica.org.br",
+                      :controller => "topicos", 
+                      :action => "index", 
+                      :topico_type => "topicos",
+                      :estado_abrev => @jundiai.estado.abrev.downcase,
+                      :cidade_slug => @jundiai.slug,
+                      :bairro_id => cidade.id
+                    },
+                    :title => "#{cidade.total} tópicos na cidade de '#{cidade.nome}'" %>
+        </span>
+      <% end -%>
+    </div>
+  </div>
+  <div class="grid_8 omega">
+    <h2 class="subtitulo_home">
+      Jundiaí sonha com:<br />
+      <%= link_to "Conheça os principais temas de Jundiaí", "http://www.cidadedemocratica.org.br/topicos/estado/sp/cidade/jundiai" %>
+    </h2>
+    <div class="rounded destaque cloud">
+      <% tag_cloud(@tags, %w(nuvem_1 nuvem_2 nuvem_3 nuvem_4 nuvem_5), :relevancia => true) do |tag, c| -%>
+        <span class="<%= c %>">
+        <%= link_to "#{tag.name} <!-- span class=\"count\">#{tag.total}</span -->", {
+                      :host => "www.cidadedemocratica.org.br",
+                      :controller => "topicos", 
+                      :cidade_slug => @jundiai.slug,
+                      :estado_abrev => @jundiai.estado.abrev.downcase,
+                      :action => "index",
+                      :topico_type => "topicos",
+                      :tag_id => tag.id 
+                     },
+                     :title => "#{tag.total} tópicos do tema '#{tag.name}'" -%></span>
+      <% end -%>
+    </div>
+  </div>
+</div>
+
+<div class="grid_16 alpha omega" style="margin-top: 10px"><!-- LINHA 2: DIVIDIDA EM DUAS COLUNAS: COL. 1 = PESSOAS E ENTIDADES; COL. 2 = PROPST. E PROBLM. -->
+  <div class="grid_8 alpha">
+    <h2 class="subtitulo_home">
+      Pessoas e entidades<br />
+      <%= link_to "Veja quem faz a diferença em Jundiaí", "http://www.cidadedemocratica.org.br/usuarios/estado/sp/cidade/jundiai/relevancia" %>
+    </h2>
+    <div>
+      <table width="400">
+        <tr>
+
+      <% @usuarios.each_with_index do |usuario, i| -%>
+        <td width="25%" align="left">  
+        <div class="layout_borda">
+        <%= link_to avatar(usuario, 
+                           :image_only => true, 
+                           :thumbnails => :thumb),
+                    perfil_url(usuario.id, :host => "www.cidadedemocratica.org.br"),
+                    :class => "img_link #{usuario.nome_da_classe}",
+                    :title => "Conheça o perfil de #{usuario.nome}" -%></div></td>
+        <% if (i==3) %></tr><tr><% end -%>
+      <% end -%>
+        </tr>
+      </table>
+    </div>
+    <h2>Como funciona</h2>
+    <div style="margin-bottom:30px">
+      <object width="440" height="280"><param name="movie" value="http://www.youtube-nocookie.com/v/1NVOevm-P6c?version=3&amp;hl=en_US"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube-nocookie.com/v/1NVOevm-P6c?version=3&amp;hl=en_US" type="application/x-shockwave-flash" width="440" height="280" allowscriptaccess="always" allowfullscreen="true"></embed></object>
+    </div>
+  </div>
+
+  <!-- coluna 2 -->
+  <div class="grid_8 omega">
+    <h2 class="subtitulo_home">
+      Propostas e problemas<br />
+      <%= link_to "Conheça as principais questões de Jundiaí", "http://www.cidadedemocratica.org.br/topicos/estado/sp/cidade/jundiai" %>
+    </h2>
+    <ul id="tabs_topicos">
+      <li><a href="#topicos1">Mais recentes</a></li>
+      <li><a href="#topicos2">Mais comentados</a></li>
+      <li><a href="#topicos3">Mais apoiados</a></li>
+    </ul>
+    
+    <div id="topicos1">
+    <%= topicos(@topicos, 
+                :titulo_max_chars => 60, 
+                :mostrar_local => false, 
+                :mostrar_atividades => false,
+                :host => "www.cidadedemocratica.org.br") %>
+    </div>
+    <div id="topicos2">
+    <%= topicos(@topicos_mais_comentados, 
+                :titulo_max_chars => 60, 
+                :mostrar_local => false, 
+                :mostrar_atividades => true,
+                :host => "www.cidadedemocratica.org.br") %>
+    </div>
+    <div id="topicos3">
+    <%= topicos(@topicos_mais_apoiados, 
+                :titulo_max_chars => 60, 
+                :mostrar_local => false, 
+                :mostrar_atividades => true,
+                :host => "www.cidadedemocratica.org.br") %>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+    new Control.Tabs('tabs_topicos');
+    </script>
+    
+  </div>
+</div>
+

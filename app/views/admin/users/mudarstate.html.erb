@@ -1,0 +1,21 @@
+<h1>Mudar estado do usuário</h1>
+
+O estado do usuário <i><%= @user.email %></i> atualmente é: 
+<span class="nome <%= @user.state.to_s.underscore -%>"><%= @user.state %></span><br/>
+<br/>
+Alterar para: 
+<% form_for :user, :url => {:action => :mudarstate_post} do |f| %>
+	<p><%= render :partial => "users/states", :locals => { :user => @user } %></p>
+	<p><%= f.submit "Salvar" %> ou <%= link_to "voltar", admin_users_url %></p>
+<% end %>
+
+<style type="text/css" media="screen">
+.nome {
+  background-color: #666666;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-family:Verdana, sans-serif;
+  padding: 2px 5px;
+  text-transform: lowercase;
+}
+</style>

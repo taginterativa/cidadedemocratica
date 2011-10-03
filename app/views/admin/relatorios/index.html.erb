@@ -1,0 +1,297 @@
+<% form_for :intervalo, :url => { :action => "relatorio" }, :html => { :method => :post, :id => "myform" } do |f| %>
+<div class="grid_12 alpha omega">
+  <h1>Relatórios</h1>
+  
+  <div class="grid_4 alpha">
+    <div class="step">
+    <h6>Passo 1</h6>
+    <p>Escolher intervalo:</p>
+    <div id="intervalo"><%= render :partial => "select_intervalo", 
+                                   :locals => { :escolhido => false } %></div>
+    </div>
+  </div>
+  
+  <div class="grid_4">
+    <div class="step">
+    <h6>Passo 2</h6>
+    <p>Escolher território:</p>
+    <div id="territorio"><%= render :partial => "select_territorio", 
+                                    :locals => { 
+                                      :escolhido => true,
+                                      :estados => @estados,
+                                      :cidades => @cidades
+                                    } %></div>
+    </div>
+  </div>
+  
+  <div class="grid_4 omega">
+    <div class="step">
+    <h6>Passo 3</h6>
+    <p>Escolher tags/temas:<br />
+      <span id="lista_temas"></span>
+    </p>
+    <%= submit_tag "Gerar relatório", :id => "submit_gerar", :style => "display:none" %>
+    </div>
+  </div>
+</div>
+<% end %><!-- FORM -->
+
+<%
+propostas = ajusta_dias_faltantes_com_zero(@data_de, @data_ate, @propostas)
+problemas = ajusta_dias_faltantes_com_zero(@data_de, @data_ate, @problemas)
+%>
+<%#= debug propostas %>
+<script type="text/javascript">
+// Load the Visualization API and the piechart package.
+google.load('visualization', '1', {'packages':['columnchart', 'linechart']});
+</script>
+
+<script type="text/javascript" charset="utf-8">
+google.setOnLoadCallback(function() { drawChart('chart_div_1') });
+
+function drawChart(divId) {
+ var data = new google.visualization.DataTable();
+ data.addColumn('string', 'Dias');
+ data.addColumn('number', 'Propostas');
+ data.addColumn('number', 'Problemas');
+ data.addRows(<%= (@data_ate - @data_de).to_i + 1 %>);
+ <% 0.upto(propostas.size-1) do |j| -%>
+ data.setValue(<%= j %>, 0, '<%= propostas[j].dia.to_time.strftime("%d %b%Y") if propostas[j] %>');
+ data.setValue(<%= j %>, 1, <%= propostas[j].total.to_i if propostas[j] %>);
+ data.setValue(<%= j %>, 2, <%= problemas[j].total.to_i if problemas[j] %>);
+ <% end -%>
+
+ var chart = new google.visualization.ColumnChart(document.getElementById(divId));
+ chart.draw(data, {width: 800, height: 400, legend: 'bottom', title: 'Propostas e Problemas', isStacked: true, colors: ['#82CC40', '#F38077'] });
+}
+</script>
+<div class="grid_12 alpha omega">
+ <h3>Número total de propostas e problemas: <span><% c = 0;@causas.each {|t| c += t.total.to_i } %><%= c %></span></h3>
+ <div id="chart_div_1" class="graph"></div>
+</div>
+ 
+<p><%= link_to_function "ver dados", "$('dados1').toggle();" %></p>
+<div id="dados1" class="grid_12 alpha omega" style="display:none">
+<div class="grid_3 alpha">
+  <p>Tópicos</p>
+  <table class="crud">
+    <tr>
+      <th>Dia</th>
+      <th>Topicos criados</th>
+    </tr>
+  <% ajusta_dias_faltantes_com_zero(@data_de, @data_ate, @causas).each do |causa| -%>
+    <tr>
+      <td><%= causa.dia.to_time.strftime("%d %b%Y") %></td>
+      <td><%= causa.total %></td>
+    </tr>
+  <% end -%>
+  </table>
+</div>
+
+<div class="grid_3">
+  <p>Propostas</p>
+  <table class="crud">
+    <tr>
+      <th>Dia</th>
+      <th>Propostas</th>
+    </tr>
+  <% ajusta_dias_faltantes_com_zero(@data_de, @data_ate, @propostas).each do |causa| -%>
+    <tr>
+      <td><%= causa.dia.to_time.strftime("%d %b%Y") %></td>
+      <td><%= causa.total %></td>
+    </tr>
+  <% end -%>
+  </table>
+</div>
+
+<div class="grid_3">
+  <p>Problemas</p>
+  <table class="crud">
+    <tr>
+      <th>Dia</th>
+      <th>Problemas</th>
+    </tr>
+  <% ajusta_dias_faltantes_com_zero(@data_de, @data_ate, @problemas).each do |causa| -%>
+    <tr>
+      <td><%= causa.dia.to_time.strftime("%d %b%Y") %></td>
+      <td><%= causa.total %></td>
+    </tr>
+  <% end -%>
+  </table>
+</div>
+
+<div class="grid_3 omega">
+  <p>Problemas e Problemas</p>
+  <% pp = [[], []] %>
+  <table class="crud">
+    <tr>
+      <th>Tipo</th>
+      <th>Total</th>
+    </tr>
+  <% @prop_prob.each do |causa| -%>
+    <tr>
+      <% percentual = number_to_percentage(100 * causa.total.to_i / @prop_prob_total, :precision => 1) %>
+      <td><% pp[1] << "#{causa.total} #{causa.type.pluralize}: #{percentual}" %><%= causa.type %></td>
+      <td><% pp[0] << causa.total.to_i %><%= causa.total %> (<%= percentual %>) </td>
+    </tr>
+  <% end -%>
+  </table>
+  
+  <p><b>Nacional</b></p>
+  <table class="crud">
+    <tr>
+      <td>No país (exclusivo)</td>
+      <td><%= @pais.first.total if @pais and @pais.first %><td>
+    </tr>
+  </table>
+
+  <p><b>Por estados: <% es = 0;@estados.each {|t| es += t.total.to_i } %><%= es %></b></p>
+  <table class="crud">
+    <tr>
+      <th>Abrev</th>
+      <th>Total</th>
+    </tr>
+  <% estados = [[],[]] %>
+  <% @estados.sort!{ |a,b| b.total.to_i <=> a.total.to_i }.each do |row| -%>
+  <% estado = Estado.find(row.id)%>
+    <tr>
+      <td><% estados[0] << "#{estado.abrev} (#{row.total})" %><%= link_to row.abrev, :action => "estado", :id => row.id, :de => params[:de], :ate => params[:ate] %></td>
+      <td><% estados[1] << row.total.to_i %><%= row.total %></td>
+    </tr>
+  <% end -%>
+  </table>
+</div>
+</div>
+
+<div class="grid_12 alpha omega">
+  <div class="grid_6 alpha">
+    <h3>Distribuição Propostas x Problemas</h3>
+    <div class="graph">
+     <%= mostra_grafico_pizza(@prop_prob, :key => :type, 
+                                          :title => "Propostas x Problemas",
+                                          :width => 380,
+                                          :height => 170) unless @prop_prob.empty? %>
+    </div>
+  </div>
+  <div class="grid_6 alpha">
+    <h3>Distribuição Nacional</h3>
+    <div class="graph">
+    <%= mostra_grafico_pizza(@estados, :klass => Estado, 
+                                       :key => :id,
+                                       :label => :abrev,
+                                       :title => "Propostas x Problemas",
+                                       :width => 380,
+                                       :height => 170) unless @prop_prob.empty? %>
+    </div>    
+  </div>
+</div>
+
+
+<p><%= link_to_function "ver dados", "$('dados2').toggle();" %></p>
+<div id="dados2" class="grid_12 alpha omega" style="display:none">
+<div class="grid_3 alpha">
+  <% ads = [] %>
+  <p><b>N. Adesões: <% d = 0;@adesoes.each {|t| d += t.total.to_i } %><%= d %></b></p>
+  <table class="crud">
+    <tr>
+      <th>Dia</th>
+      <th>Adesões</th>
+    </tr>
+  <% ajusta_dias_faltantes_com_zero(@data_de, @data_ate, @adesoes).each do |row| -%>
+    <tr>
+      <td><%= row.dia.to_time.strftime("%d %b%Y") %></td>
+      <td><% ads << row.total.to_i %><%= row.total %></td>
+    </tr>
+  <% end -%>
+  </table>
+</div>
+
+<!-- style="display:none"-->
+<div class="grid_3">
+  <% cms = [] %>
+  <p><b>N. Comentários: <% e = 0;@comentarios.each {|t| e += t.total.to_i } %><%= e %></b></p>
+  <table class="crud">
+    <tr>
+      <th>Dia</th>
+      <th>Comentários</th>
+    </tr>
+  <% ajusta_dias_faltantes_com_zero(@data_de, @data_ate, @comentarios).each do |row| -%>
+    <tr>
+      <td><%= row.dia.to_time.strftime("%d %b%Y") %></td>
+      <td><% cms << row.total.to_i %><%= row.total %></td>
+    </tr>
+  <% end -%>
+  </table>
+</div>
+
+<div class="grid_3">
+  <p><b>Por cidade: <% ci = 0;@cidades.each {|t| ci += t.total.to_i } %><%= ci %></b></p>
+  <table class="crud">
+    <tr>
+      <th>Nome</th>
+      <th>Total</th>
+    </tr>
+  <% @cidades.sort!{ |a,b| a.total.to_i <=> b.total.to_i }.reverse.each do |row| -%>
+    <tr>
+      <td><%= link_to row.nome, :action => "cidade", :id => row.id, :de => params[:de], :ate => params[:ate] %></td>
+      <td><%= row.total %></td>
+    </tr>
+  <% end -%>
+  </table>
+</div>
+
+<div class="grid_3 omega">
+  <p><b>Por bairros: <% ba = 0;@bairros.each {|t| ba += t.total.to_i } %><%= ba %></b></p>
+  <table class="crud">
+    <tr>
+      <th>Nome</th>
+      <th>Total</th>
+    </tr>
+  <% @bairros.sort!{ |a,b| a.total.to_i <=> b.total.to_i }.reverse.each do |row| -%>
+    <tr>
+      <td><%= row.nome %></td>
+      <td><%= row.total %></td>
+    </tr>
+  <% end -%>
+  </table>
+  
+  <p><b>Por tags: <% te = 0;@temas.each {|t| te += t.total.to_i } %><%= te %></b></p>
+  <table class="crud">
+    <tr>
+      <th>Tag</th>
+      <th>Total</th>
+    </tr>
+  <% @temas.sort!{ |a,b| a.total.to_i <=> b.total.to_i }.reverse.each do |row| -%>
+    <tr>
+      <td><%= link_to row.name, :action => "tag", :id => row.id, :de => params[:de], :ate => params[:ate] %></td>
+      <td><%= row.total %></td>
+    </tr>
+  <% end -%>
+  </table>
+</div>
+</div>
+
+<div class="grid_12 alpha omega">
+  <div class="grid_6 alpha">
+    <h3>Número total de adesões: <span><%= d %></span></h3>
+    <div class="graph">
+    <%= mostra_grafico_no_tempo_de(@adesoes, 
+                                   :title => "Adesões",
+                                   :width => 400,
+                                   :height => 150) unless @adesoes.empty? %>
+    </div>
+  </div>
+  <div class="grid_6 omega">
+    <h3>Número total de comentários: <span><%= e %></span></h3>
+    <div class="graph">
+    <%= mostra_grafico_no_tempo_de(@comentarios, 
+                                   :title => "Comentários") unless @comentarios.empty? %></div>
+  </div> 
+</div>
+
+<style type="text/css" media="screen">
+.step {
+  background:#eee;
+  padding:5px;
+}
+</style>

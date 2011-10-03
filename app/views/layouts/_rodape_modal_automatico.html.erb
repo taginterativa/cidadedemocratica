@@ -1,0 +1,49 @@
+<% if ((@settings["aviso_ligado"].to_i==1) and !cookies['aviso_allsite']) -%>
+<!-- AVISO via modal -->
+<div id="aviso_geral">
+<% if @settings["aviso_geral_tipo"]=="texto" -%>
+  <%= simple_format(@settings["aviso_geral_texto"]) %>
+<% elsif @settings["aviso_geral_tipo"]=="arquivo" -%>
+  <%= render :partial => @settings["aviso_geral_arquivo"] %>
+<% end -%>
+<!-- dismiss + Modalbox.close -->
+<a href="#" id="dismiss_welcome" class="hide" title="Hide" onclick="javascript:entendiMaisFechar();return false;">Ok, já entendi</a>
+</div>
+
+<script type="text/javascript">
+window.onload = Modalbox.show($('aviso_geral'), { title: "Cidade Democrática", loadingString: "Aguarde...", transitions: false });
+function entendiMaisFechar() {
+  //dismiss_window_hide_dismissible_welcome_message(); => Set cookie!
+  document.cookie = 'aviso_allsite=1; expires=<%= CGI.rfc1123_date(2.months.from_now) %>; path=/';
+  Modalbox.hide();
+}
+</script>
+<!-- AVISO via modal --><% end -%>
+
+<% if (request.env["HTTP_REFERER"] and request.env["HTTP_REFERER"].to_s.include?("cidadonos") and !cookies['aviso_cidadonos']) -%>
+  <!-- se usuario vem do CIDADONOS... -->
+  <div id="aviso_cidadonos">
+    <%= render :partial => "layouts/cidadonos_aviso" %>
+    <a href="#" id="dismiss_welcome" class="hide" title="Hide" onclick="javascript:naoMaisAbrir();return false;">Ok, já entendi</a>
+  </div>
+  <script type="text/javascript">
+    window.onload = Modalbox.show($('aviso_cidadonos'), { title: "Do Cidadonos para o Cidade Democrática", loadingString: "Aguarde...", transitions: true });
+    function naoMaisAbrir() {
+      document.cookie = 'aviso_cidadonos=1; expires=<%= CGI.rfc1123_date(2.months.from_now) %>; path=/';
+      Modalbox.hide();
+    }
+  </script>
+<% elsif (request.env["HTTP_REFERER"] and request.env["HTTP_REFERER"].to_s.include?("varzea2022") and !cookies['aviso_varzea']) -%>
+  <!-- se usuario vem do VARZEA2022... -->
+  <div id="aviso_varzea">
+    <%= render :partial => "layouts/varzea2022_aviso" %>
+    <a href="#" id="dismiss_welcome" class="hide" title="Hide" onclick="javascript:naoMaisAbrir();return false;">Ok, já entendi</a>
+  </div>
+  <script type="text/javascript">
+    window.onload = Modalbox.show($('aviso_varzea'), { title: "Do Várzea 2022 para o Cidade Democrática", loadingString: "Aguarde...", transitions: true });
+    function naoMaisAbrir() {
+      document.cookie = 'aviso_varzea=1; expires=<%= CGI.rfc1123_date(2.months.from_now) %>; path=/';
+      Modalbox.hide();
+    }
+  </script>
+<% end -%>

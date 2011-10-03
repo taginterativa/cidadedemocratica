@@ -1,0 +1,4 @@
+<li id="bairros_a_selecionar_<%= bairro.id %>">
+  <%= link_to_function(image_tag("icones/add.png", :alt => "Incluir", :title => "Incluir"),
+                       "incluirBairro('#{bairro.nome}, #{bairro.cidade.nome}-#{bairro.cidade.estado.abrev}', 1, #{bairro.cidade.estado_id}, #{bairro.cidade_id}, #{bairro.id})", :class => "incluir") %><%= "#{bairro.nome}, #{bairro.cidade.nome}-#{bairro.cidade.estado.abrev}" %>
+</li>

@@ -1,0 +1,253 @@
+/* Ficha do usuário */
+
+.ficha_do_usuario {
+  background-color:#F3F3ED;
+  border:1px solid #E9E9DE;
+  height:120px;
+  margin:0 7px 0 0;
+  padding:5px;
+  position:relative;
+  text-align:left;
+  width:100px;
+}
+
+.ficha_do_usuario table {
+  width: 100%;
+  margin: 0;
+}
+
+.ficha_do_usuario .tipo {
+  font-size: 10px;
+  padding: 1px 0;
+  letter-spacing: 0;
+  text-align: center;
+  margin-bottom: 5px;
+  line-height: 11px;
+  text-transform: uppercase;
+}
+
+.ficha_do_usuario p { margin: 0; }
+
+.ficha_do_usuario .avatar_e_nome {
+  overflow: hidden; /* Mesmo efeito do clearfix */
+
+  /* Centraliza o nome verticalmente com o avatar. */
+  /* ... no Firefox... */
+  display: table;
+  /* ... e no IE. */
+  *display: block;
+  *position: relative;
+}
+
+.ficha_do_usuario .avatar {
+  width: 30px;
+  height: 30px;
+  float: left;
+  display: inline;
+  margin: 0 5px 0 0;
+  font-size: 11px;
+  line-height: 14px;
+  background-color: #CCC;
+  color: #F3F3ED;
+}
+
+.ficha_do_usuario .avatar a {
+  color:#CCCCCC;
+  display:block;
+  font-size:1px;
+  line-height:1px;
+}
+
+.ficha_do_usuario .nome {
+  font-size: 11px;
+  line-height: 14px;
+
+  /* Centraliza o nome verticalmente com o avatar... */
+  /* ... no Firefox... */
+  display: table-cell;
+  vertical-align: middle;
+  /* ... e no IE. */
+  /*display: block; 
+  *position: absolute;*/
+  *text-align: left;
+  *left: 0px;
+  /*width: 100%;*/
+  *cursor: pointer;
+  *top: expression(this.parentElement.clientHeight / 2 - this.clientHeight / 2); 
+}
+
+.ficha_do_usuario .nome a { color: #333; }
+.ficha_do_usuario .onde { font-size: 9px; }
+.ficha_do_usuario .principais_tags {
+  font-size: 9px;
+  color: #16B4E6;
+  line-height: 11px;
+  margin: 5px 0 0 0;
+}
+
+/* Cores por tipo de usuário
+-----------------------------------------------------------------------------
+*/
+
+.cor_de_admin { background-color:#000; color:#FFF; }
+.cor_de_cidadao { background-color:#82CC40; color:#FFF; }
+.cor_de_organizacao { background-color:#FAAE64; color:#FFF; }
+.cor_de_ong { background-color:#E77918; color:#FFF; }
+.cor_de_empresa { background-color:#9A7DB5; color:#FFF; }
+.cor_de_poder_publico { background-color:#EE302F; color:#FFF; }
+.cor_de_gestor_publico { background-color:#30BEB9; color:#FFF; }
+.cor_de_igreja { background-color:#CCCCCC; color:#FFF; }
+.cor_de_movimento { background-color:#DA3838; color:#FFF; }
+.cor_de_parlamentar { background-color:#9F8B8C; color:#FFF; }
+.cor_de_conferencia { background-color:#6A026E; color:#FFF; }
+.cor_de_universidade { background-color:#026260; color:#FFF; }
+
+a.admin { color:#000; }
+a.cidadao { color:#82CC40; }
+a.organizacao { color:#FAAE64; }
+a.ong { color:#E77918; }
+a.empresa { color:#9A7DB5; }
+a.poder_publico { color:#EE302F; }
+a.gestor_publico { color:#30BEB9; }
+a.igreja { color:#CCCCCC; }
+a.movimento { color:#DA3838; }
+a.parlamentar { color:#9F8B8C; }
+a.conferencia { color:#6A026E; }
+a.universidade { color:#026260; }
+
+/* Minificha do usuário
+-----------------------------------------------------------------------------
+*/
+
+.mini_ficha_do_usuario {
+  border: 0;
+  overflow: hidden;
+}
+
+.mini_ficha_do_usuario .avatar {
+  float: left;
+  display: inline;
+  width: 50px;
+  height: 50px;
+}
+
+.mini_ficha_do_usuario .avatar a {
+  display: block;
+  width: 50px;
+  height: 50px;
+  font-size: 11px;
+  line-height: 14px;
+  background-color: #CCC;
+  color: #CCC;
+}
+
+.mini_ficha_do_usuario .tipo,
+.mini_ficha_do_usuario .nome,
+.mini_ficha_do_usuario .local {
+  margin-left: 55px;
+}
+
+.mini_ficha_do_usuario .tipo {
+  font-size: 10px;
+  text-transform: uppercase;
+  line-height: 11px;
+  padding: 1px;
+  margin-bottom: 5px;
+  color: #FFF;
+}
+
+.mini_ficha_do_usuario .nome {
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.mini_ficha_do_usuario .local {
+  font-size: 11px;
+  line-height: 14px;
+  margin-bottom: 0;
+}
+
+.mini_ficha_do_usuario .nome a {
+  color: #333;
+}
+
+.ficha_do_usuario_mini {
+  border:0;
+}
+.ficha_do_usuario_mini a {
+  color:#000;
+}
+.ficha_do_usuario_mini table {
+  width:100%;
+}
+.ficha_do_usuario_mini table td {
+  vertical-align:top;
+}
+.ficha_do_usuario_mini table td.imagem {
+  width:52px;
+}
+.ficha_do_usuario_mini div.retangular_info {
+  float:left;
+  width:220px;
+}
+.ficha_do_usuario_mini p {
+  font-size: 11px;
+  line-height:1.3em;
+  margin:0 0 0 7px;
+}
+.ficha_do_usuario_mini p.tipo {
+  font-family:Tahoma, Verdana, Arial, sans-serif;
+  font-size:10px;
+  line-height:1.15em;
+  margin-bottom:4px;
+  padding:3px;
+  text-transform:uppercase;
+  letter-spacing:0.3px;
+  width:90px;
+}
+.ficha_do_usuario_mini p.nome {
+  font-weight:bold;
+}
+.ficha_do_usuario_mini p.local {
+  font-weight:normal;
+}
+.ficha_do_usuario_mini p.tags {
+  padding-left:22px;
+  background-image:url(/images/icones/tag_proposta.png);
+  background-repeat:no-repeat;
+  background-position:1px 4px;
+  line-height:1.75em;
+  margin:0;
+}
+.ficha_do_usuario_mini p.tags a {
+  color:#16B4E6;
+}
+.ficha_do_usuario_mini p.resumo {
+  font-family:Tahoma,Verdana,Arial,sans-serif;
+  text-align:right;
+  text-transform:uppercase;
+}
+.ficha_do_usuario_mini p.resumo {
+  text-align:right;
+  width:390px;
+  _height:30px;
+  color:#999;
+  float:left;
+}
+.ficha_do_usuario_mini p.resumo span.topicos,
+.ficha_do_usuario_mini p.resumo span.comentarios,
+.ficha_do_usuario_mini p.resumo span.apoios {
+  width:130px;
+  float:left;
+  height: 20px;
+  padding-top: 2px;
+}
+.ficha_do_usuario_mini p.resumo span.apoios {
+  width:90px;
+}
+.ficha_do_usuario_mini p.resumo span.numero {
+  font-size:24px;
+  margin:0 4px 0 0;
+}

@@ -1,0 +1,65 @@
+<div id="divulgacao" style="display:none">
+  <div id="divulgacao_form_wrapper" class="clearfix">
+  <% form_remote_for :divulgacao, :url => { :action => "divulgar" } do |f| -%>
+    <%= hidden_field_tag "topico_id", @topico.id %>
+    <p id="esquerda"><b>De</b><br />
+      <span class="menor">Nome</span>
+      <br />
+      <%= f.text_field "de_nome", :size => 30 %>
+      <br />
+      <span class="menor">Email</span>
+      <br />
+      <%= f.text_field "de_email", :size => 30 %>
+    </p>
+  
+    <p id="direita"><b>Para</b><br />
+      <span class="menor">Emails dos destinatários (digite um email por linha)</span>
+      <br />
+      <%= f.text_area "para_emails", :cols => 42, :rows => 3 %>
+    </p>
+
+    <p id="dica"><b>Sua dica</b><br /> 
+      <span class="menor">Motive os destinatários (opcional)</span>
+      <br />
+      <%= f.text_area "dica", :cols => 60, :rows => 4 %>
+    </p>
+
+    <p id="botao"><%= submit_to_remote "enviar", 
+                                       "Enviar!", 
+                                       :url => { :action => "divulgar" },
+                                       :success => "$('divulgacao_para_emails').value='';$('divulgacao_dica').value='';Effect.BlindUp('divulgacao')" %> 
+                  ou <%= link_to_function "Cancelar", "Effect.BlindUp('divulgacao')" %></p>
+  <% end %>
+  </div>
+</div>
+
+<style type="text/css" media="screen">
+#divulgacao #divulgacao_form_wrapper {
+  background-color:#ccc;
+  padding:10px;
+  margin-bottom:20px;
+}
+#divulgacao p {
+  margin-bottom:2px;
+}
+#divulgacao .menor {
+  font-size:11px;
+}
+#divulgacao #esquerda {
+  float:left;
+  width: 300px;
+}
+#divulgacao #direita {
+  float:left;
+  width: 320px;
+}
+#divulgacao #dica {
+  float:left;
+  width:420px;
+}
+#divulgacao #botao {
+  float:left;
+  width:200px;
+  margin-top:50px;
+}
+</style>

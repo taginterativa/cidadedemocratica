@@ -1,0 +1,16 @@
+(function(){
+document.write('<link rel="stylesheet" type="text/css" href="http://200.207.40.205:9999/stylesheets/widgetCidadeStyle.css" />'); 
+document.write('<div id="widgetCidade_home">'); 
+	document.write('<div id="widgetCidade_titulo">'); 
+		document.write('<p align="center">');
+			document.write('<img width="222px" src="http://cidadedemocratica.org.br/images/selo_perfil.gif">');
+			document.write('<h3 align="center"><a href="<%= @link %>" target="_blank"><%= @title %></a></h3>'); 
+		document.write('</p>'); 
+	document.write('</div>'); 
+	document.write('<div id="widgetCidade_corpo">'); 
+		<% @itens.each do |item| -%>
+		    document.write('<p><img src="http://cidadedemocratica.org.br/images/icones/link.png"/><a href="<%= item[4] %>" target="_blank"><%= h truncate(item[0], :length => 57) %></a></p>')
+		<% end -%>
+	document.write('</div>'); 
+document.write('<p align="center" id="widgetCidade_footer">bugiganga by <a href="http://www.cidadedemocratica.org.br/" target="_blank">Cidade Democratica</p>')
+document.write('</div>') })()

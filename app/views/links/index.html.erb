@@ -1,0 +1,33 @@
+<h1>Links de &quot;<%= link_to @topico.titulo, topico_url(:topico_slug => @topico.to_param) %>&quot;</h1>
+
+<% if @links and not @links.empty? -%>
+<ul id="links_list">
+	<% @links.each do |link| %>
+		<li id="link_<%= link.id.to_s %>">
+			<%= image_tag('icones/arrow_up_do.png') %> 
+			<%= link.nome.capitalize %> - 
+			<%= link_to link.url, link.url, {:target => "blank"} %>  
+			<%= link_to image_tag("icones/delete.png"), 
+		                { :controller => "links", 
+		                  :action => "destroy", 
+		                  :id => link.id, 
+		                  :topico_slug => @topico.to_param 
+		                }, 
+		                :confirm => "Você tem certeza?" %>
+		</li>
+	<% end %>
+</ul>
+<% else -%>
+	<p>Ainda não há links. Adicione seu primeiro link!</p>
+<% end -%>
+
+<%- if logged_in? and (@topico.user == current_user) %>
+  <%= sortable_element('links_list', :url => {:controller => :links, :action => :update_positions, :topico_slug => @topico.to_param}) %>
+  <p>Clique e arraste no nome dos links para ordenar.</p>
+<%- end%>
+
+<% if @topico.links.size > 30 %>
+	<p>O limite de links para este tópico já está completo!</p>
+<% else %>
+	<%= render :partial => "novo_link" %>
+<% end %>

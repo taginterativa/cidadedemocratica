@@ -1,0 +1,55 @@
+<ul class="dropdown">
+  <li>
+    <%= link_to_function "Painel", "$('menu_painel').toggle();", :class => "dir" %>
+    <ul id="menu_painel" style="display: none;">
+      <li>
+        <%= link_to "Tela inicial", admin_url %>
+      </li>
+      <li>
+        <%= link_to "Configurações", admin_configuracoes_url %>
+      </li>      
+      <li>
+        <%= link_to "Trocar senha", :controller => "/users", :action => "trocar_senha" %>
+      </li>
+      <li>
+        <%= link_to "Logout", "/logout" %>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <%= link_to_function "Usuários", "$('menu_de_usuarios').toggle();", :class => "dir" %>
+    <ul id="menu_de_usuarios" style="display: none;">
+      <li>
+        <%= link_to "Usuários", admin_users_path %>
+      </li>
+      <li>
+        <%= link_to "Histórico de Logins", :controller => "users", :action => "historico_de_logins" %>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <%= link_to_function "Localização", "$('menu_de_localizacao').toggle();", :class => "dir" %>
+    <ul id="menu_de_localizacao" style="display: none;">
+      <li>
+        <%= link_to "Estados", admin_estados_path %>
+      </li>
+      <li>
+        <%= link_to "Cidades", admin_cidades_path %>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <%= link_to_function "Tags e Comentários", "$('menu_de_problemas').toggle();", :class => "dir" %>
+    <ul id="menu_de_problemas" style="display: none;">
+      <li>
+        <%= link_to "Tags", admin_tags_path %>
+      </li>
+      <li>
+        <%= link_to "Comentários", admin_comentarios_path %>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <%= link_to "Relatórios", admin_relatorios_path %>
+  </li>
+</ul>

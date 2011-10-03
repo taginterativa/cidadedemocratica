@@ -1,0 +1,131 @@
+<h1>Usuários</h1>
+<p>
+  <strong><% if params[:busca] %>Busca: <% end %><%= pluralize(@users.total_entries, "usuário") %></strong> |
+  <% if params[:busca] %><%= link_to "Mostrar todos", admin_users_url %> |<% end %>
+  <%= link_to_function "Filtrar", "$('filtro').toggle()" %> |
+  <%= link_to "Criar novo usuário", cadastrar_url, :popup => true %>
+</p>
+<%= render :partial => "filtros" %>
+<p style="text-align:right"><%= link_to "#{image_tag("icones/disk.png")} Salvar em CSV", params.merge(:format => "csv"), :style => "text-decoration:none" %></p>
+<table class="crud">
+  <tr>
+    <th class="id">ID</th>
+    <th>Tipo</th>
+    <th></th>
+    <th>Nome, Email, Idade etc.</th>
+    <th colspan="2">Ações</th>
+  </tr>
+<% for user in @users %>
+  <tr class="<%= user.state %>">
+    <td class="id"><%= user.id %></td>
+    <td class="tipo"><% if user.type -%><span class="nome <%= user.type.to_s.underscore %>"><%= user.nome_do_tipo %></span><% end -%></td>
+    <td class="status">
+<% if user.active? -%>
+      <span class="ativo"><%= image_tag("icones/accept.png", :alt => "Ativo", :title => "Ativo") %></span>
+<% elsif user.pending? -%>
+      <span class="aguardando_confirmacao"><%= image_tag("icones/status_away.png", :alt => "Aguardando confirmação", :title => "Aguardando confirmação") %></span>
+<% elsif user.suspended? -%>
+      <span class="banido"><%= image_tag("icones/user_delete.png", :alt => "Banido", :title => "Banido") %></span>
+<% elsif user.deleted? -%>
+      <span class="deleted"><%= image_tag("icones/cancel.png", :alt => "Deleted", :title => "Deleted") %></span>
+<% end -%>
+    </td>
+    <td>
+<% if user.dado and user.dado.nome -%>
+      <%= link_to(user.nome, perfil_url(user), :target => "_blank") %>
+<% if user.pessoa? %>
+      <%= " (#{user.dado.idade} anos)" %>
+<% end %>
+      <br />
+<% end -%>
+      <%= user.email %><br />
+      <span class="cadastro_em">Cadastro em <%= l user.created_at, :format => :short %></span><br />
+      [Tópicos: <%= user.topicos.size %>; Comentários: <%= user.comments_count %>; Apoios: <%= user.adesoes.size %>; Segue: <%= user.seguidos.size %>; Observatório: <%= user.observatorios.size == 1 %>]
+    </td>
+    <td>
+      <%= link_to "Mudar tipo", :action => "mudartipo", :id => user.id %><br />
+      <%= link_to "Alterar estado", :action => "mudarstate", :id => user.id %><br />
+      <%= link_to "Banir",  { :action => "banir", :id => user.id }, :confirm => "Tem certeza?", :style => "color:red" if user.active? %>
+      <%= link_to "Remover", admin_user_path(user.id), :confirm => "Tem certeza?", :method => :delete %> <br />
+      <%= link_to_remote "Enviar email com observatório", 
+                         :url => { 
+                           :action => "observatorio_email", 
+                           :id => user.id 
+                          } if user.observatorios and 
+                               not user.observatorios.empty? and 
+                               user.observatorios.first.receber_email and
+                               not user.observatorios.first.atividades(7.days.ago).empty? %>
+    </td>
+  </tr>
+<% end %>
+</table>
+<%= will_paginate @users %>
+
+<style type="text/css" media="screen">
+
+.id { width: 36px; }
+.tipo { width: 90px; }
+.tipo .nome {
+  font-size: 11px;
+  font-family: Tahoma, Verdana, sans-serif;
+  padding: 2px 5px;
+  text-transform: lowercase;
+}
+.status { width: 16px; }
+.cadastro_em { font-size: 11px; color: #999; }
+.cidadao { background-color: #82CC40; color: #FFF; }
+.universidade { background-color: #026260; color: #FFF; }
+.conferencia { background-color: #6A026E; color: #FFF; }
+.movimento { background-color: #DA3838; color: #FFF; }
+.ong { background-color: #E77918; color: #FFF; }
+.empresa { background-color: #9A7DB5; color: #FFF; }
+.poder_publico { background-color: #EE302F; color: #FFF; }
+.gestor_publico { background-color: #30BEB9; color: #FFF; }
+.parlamentar { background-color: #000; color: #FFF; }
+.admin { background-color: #3366FF; color: #FFF; }
+.cidadao,
+.universidade,
+.conferencia,
+.movimento,
+.ong,
+.empresa,
+.poder_publico,
+.gestor_publico,
+.parlamentar,
+.admin {
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border: 0;
+}
+
+/* caso precise identificar por row-color... */
+tr.pending { }
+tr.active { }
+tr.suspended { background-color:#EDCDCD;}
+tr.deleted {}
+
+/* Busca */
+.busca {
+  background-color: #EAE3C5;
+  margin-bottom: 20px;
+  padding: 20px;
+  overflow: hidden; /* Mesmo funcionamento do clearfix. */
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+.busca li {
+  list-style: none;
+  float: left;
+  display: inline;
+  margin: 0 10px 0 0;
+}
+.busca label {
+  display: block;
+}
+.busca select {
+  padding: 1px 0;
+}
+
+</style>

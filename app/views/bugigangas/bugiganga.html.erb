@@ -1,0 +1,27 @@
+<h1>Bugigangas do Cidade</h1>
+
+<p>Copie e cole o código abaixo</p>
+
+<% form_for '/bugigangas/bugiganga', :url => { :controller => 'bugigangas', :action => "bugiganga" } do |f| %>
+	<fieldset>
+			Quantidade itens a mostrar: <br/>
+			<select name="itens" id="itens" class="filtro">
+				<option selected="selected" value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+			</select>
+			<%= submit_tag 'Gerar bugiganga' %>
+	</fieldset>
+<% end %>
+
+
+<p>
+	<textarea type="text" name="seloPerfil" id="seloPerfil" rows="3" cols="40"><%= @script %></textarea>
+</p>
+
+
+
+<p><%= @script %></p>

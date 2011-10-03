@@ -1,0 +1,39 @@
+<div id="filtros">
+  <h2>Filtre por...</h2>
+
+  <% if @total_por_tipo -%>
+  <div id="filtro_de_proponente">
+    <p class="nome">Tipo</p>
+    <ul class="filtro">
+    <% @total_por_tipo.each do |t| -%>
+      <li>
+        <%= link_to_with_context "#{t.type.to_s.underscore.pluralize.humanize.gsub(/(publicos)/,'públicos')} (#{t.total})", 
+                                  {
+                                    :user_type => t.type.to_s.underscore.pluralize.downcase,
+                                    :users_order => params[:users_order] || params[:order]
+                                  }.delete_if { |k, v| k.to_s == "order" },
+                                  :class => "#{t.type.to_s.underscore.downcase.strip}" -%>
+      </li>
+    <% end -%>
+    </ul>
+  </div>
+  <% end -%>
+  <%= render :partial => "topicos/splash_promocional" if @eh_de_jundiai %>
+
+  <%= filtro("Estado", @estados.collect { |e| link_to_with_context("#{e.abrev} (#{e.total})", 
+                                                                   :estado_abrev => e.slug, 
+                                                                   :cidade_slug => nil, 
+                                                                   :bairro_id => nil) 
+                                        }, :expandido => true) if @estados %>
+  <%= filtro("Cidade", @cidades.collect { |c| link_to_with_context("#{c.nome} (#{c.total})", 
+                                                                   :estado_abrev => c.estado.slug, 
+                                                                   :cidade_slug => c.slug, 
+                                                                   :bairro_id => nil) 
+                                        }, :expandido => true) if @cidades %>
+  <%= filtro("Bairro", @bairros.collect { |b| link_to_with_context("#{b.nome} (#{b.total})", 
+                                                                   :estado_abrev => b.cidade.estado.slug, 
+                                                                   :cidade_slug => b.cidade.slug, 
+                                                                   :bairro_id => b.id) 
+                                        }, :expandido => true) if @bairros %>
+  <%#= render :partial => "promocao/chamada_lateral" %>
+</div> <!-- filtros -->

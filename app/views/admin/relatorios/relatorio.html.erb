@@ -1,0 +1,43 @@
+<h1>Relatório<br />CIDADE DEMOCRÁTICA</h1>
+ 
+<div class="grid_12 alpha omega">
+  <h2>Período</h2>
+  <h3><%= l @data_de, :format => "%d %b%Y" %> a <%= l @data_ate, :format => "%d %b%Y" %></h3>
+  
+  <h2>Temas analisados</h2>
+  <h3><%= @tags.collect{ |t| t.name }.join(",") %></h3>
+
+  <h2>Território</h2>
+  <h3>
+   <%= "Cidade: #{@cidade.nome} - #{@cidade.estado.abrev}" if @cidade -%>
+   <%= "Estado: #{@estado.nome}" if @estado %>
+   <%= "Em todo o país" if not @estado and not @cidade %>
+  </h3>
+</div>
+
+<%= render :partial => "relatorio_resumo" %>
+<%= render :partial => "relatorio_territorios" %>
+<%= render :partial => "relatorio_topicos_mais_ativos" %>
+<%= render :partial => "relatorio_pessoas_e_entidades" %>
+
+<!-- style da pagina -->
+<%= stylesheet_link_tag "topicos_cmp" %>
+<style type="text/css" media="screen">
+h2 {
+  color:#333;
+}
+h3, h4 {
+  color:#3875D7;
+  font-size:16px;
+}
+h4 {
+  border-bottom:1px solid #333;  
+}
+h4 span {
+  color: #333;
+}
+p.lnk_mostrar_dados {
+  font-size:11px;
+  margin:0; 
+}
+</style>

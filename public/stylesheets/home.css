@@ -1,0 +1,147 @@
+/* Página de entrada da cidade (ver controller Home.cidade)
+-----------------------------------------------------------------------------
+*/
+h1 {  margin-bottom:5px; }
+#bairros li { list-style: none; margin-left: 0; }
+
+/* Cores específicas para alguns elementos */
+
+#estatisticas_da_cidade .pessoas {
+  color: #FF9900;
+}
+
+#estatisticas_da_cidade .propostas {
+  color: #82CC40;
+}
+
+#estatisticas_da_cidade .problemas {
+  color: #F38077;
+}
+
+.qtd_de_pessoas,
+.qtd_de_propostas,
+.qtd_de_problemas {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 10px 0 20px;
+  text-transform: none;
+}
+
+.qtd_de_pessoas, .qtd_de_propostas, .qtd_de_problemas { font-size: 30px; }
+.qtd_de_pessoas { color: #FAAE63; }
+.qtd_de_propostas { color: #A7D170; }
+.qtd_de_problemas { color: #F38077; }
+.lista_topicos_lateral {
+  font-size: 14px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.lista_topicos_lateral p {
+  margin: 0;
+}
+.lista_topicos_lateral li {
+  padding: 0;
+  margin: 0;
+}
+.lista_topicos_lateral li .credito_topico_lateral {
+  font-size: 10px;
+  text-align: right;
+  color: black;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 24px;
+  letter-spacing: -1px;
+  margin: 0 0 10px 0;
+}
+
+#filtrar_por_tag_ou_bairro {
+  margin: 0 0 20px 0;
+}
+
+.topico .titulo {
+  width: 280px;
+}
+
+/* TABS dos topicos */
+#tabs_topicos {
+  clear:both;
+  height:20px;
+  list-style:none outside none;
+  margin:0 0 20px;
+  padding:0;
+  border-bottom:1px solid #CCCCCC;
+}
+
+#tabs_topicos li {
+  float:left;
+  margin:0 3px 0;
+  text-align:center;
+  border-top:1px solid #CCCCCC;
+  border-left:1px solid #CCCCCC;
+  border-right:1px solid #CCCCCC;
+}
+
+#tabs_topicos li a {
+  font-size: 12px;
+  font-weight: bold;
+  background-color:#DDDDDD;
+  color:#777777;
+  display:block;
+  height:20px;
+  padding:0 5px;
+  width:110px;
+}
+
+#tabs_topicos li a:hover {
+  text-decoration:none;
+}
+
+#tabs_topicos li a.active {
+  color:#333333;
+  background-color:#FFFFFF;
+}
+
+
+#ultimos_apoios .number {
+  font-size:16px;
+  font-weight:bold;
+  text-align:center;
+  letter-spacing:-0.75pt;
+}
+
+#ultimos_comentarios ul.dois_itens_comentario {
+  list-style:none;
+  margin:0 0 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #91D2D6;
+}
+
+#ultimos_comentarios ul.dois_itens_comentario li.comment {
+  margin-left:100px;
+}
+
+#ultimos_comentarios ul.dois_itens_comentario li.comment div.icon {
+  float:left;
+  margin:0 10px 0 0;
+}
+
+#ultimos_comentarios ul.dois_itens_comentario li.comment div.detalhes div.o_comentario {
+  border:1px solid gray;
+  padding:5px 5px 5px 7px;
+  font-size:12px;
+}
+
+#ultimos_comentarios ul.dois_itens_comentario li.comment span.quando {
+  font-size:11px;
+  font-weight: bold;
+}
+
+#ultimos_comentarios ul.dois_itens_comentario li.comment div.detalhes div.o_comentario p {
+  line-height: 15px;
+}
+
+p.descricao span.problema, #ultimos_apoios .problema { color:#F38077; }
+p.descricao span.proposta, #ultimos_apoios .proposta { color:#82CC40; }

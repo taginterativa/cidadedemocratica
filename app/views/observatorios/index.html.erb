@@ -1,0 +1,16 @@
+<% title "Meu observatório" %>
+<% if logged_in? -%>
+  <% if current_user.observatorios.empty? -%>
+    <%= render :partial => "empty_design_logado" %>
+  <% else -%>
+    <%= render :partial => "lista_de_topicos" %>
+  <% end -%>
+<% else -%>
+  <%= render :partial => "empty_design_nao_logado" %>
+<% end -%>
+
+<style type="text/css" media="screen">
+h1#cidade_corrente {
+  display: none;
+}
+</style>

@@ -1,0 +1,2 @@
+<%= options_for_select([["Todas Cidades", 0]]) %>
+<%= options_for_select( cidades.collect{|c| [c.nome, c.slug]} )  %>

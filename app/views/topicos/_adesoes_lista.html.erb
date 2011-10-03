@@ -1,0 +1,9 @@
+<h2>Quem apoia</h2>
+<% if usuarios and (usuarios.size > 0) -%>
+    <%= usuarios(usuarios , :ficha_do_usuario_options => { :badge => "_mini", :with_tags => false } )  %>
+<% else -%>
+  <p class="no_adesoes">
+    Ninguém aderiu ainda a <%= topico.nome_do_tipo(:demonstrativo => :true) %>.<br />
+    <span class="call2action">Apóie a causa!</span><br />
+    <span class="hint">Clique no botão &#8220;Apoie!&#8221; à direita do título <%= topico.nome_do_tipo(:artigo => :definido) %></span>
+<% end -%>

@@ -1,0 +1,39 @@
+<div class="grid_16">
+  <ul id="links_no_topo" class="clearfix">
+<% if logged_in? -%>
+    <li><%= "Olá, #{current_user.nome.split.first.capitalize}!" %></li>
+<% if usuario_logado.admin? -%>
+    <li><%= link_to "Administrar", admin_url %></li>
+    <li><%= link_to "Cadastrar novo usuário", cadastrar_url %></li>
+<% else -%>
+    <li class="meu_perfil">
+      <%= link_to "Minhas Opções &#9660;", perfil_url(:id => current_user.id) %>
+      <ul>
+        <li>
+          <%= link_to "Meu Perfil", perfil_url(:id => current_user.id) %>
+        </li>
+        <li>
+          <%= link_to "Avatar...", :controller => "avatar", :action => "new" %>
+        </li>
+        <li>
+          <%= link_to "Dados básicos...", :controller => "users", :action => "edit" %>
+        </li>
+        <li>
+          <%= link_to "Dados de contato...", :controller => "users", :action => "edit" %>
+        </li>
+        <li>
+          <%= link_to "Trocar senha...", :controller => "users", :action => "trocar_senha" %>
+        </li>
+        <li>
+          <%= link_to "Selos", :controller => "users", :action => "selos" %>
+        </li>
+      </ul>
+    </li>
+<% end -%>
+    <li><%= link_to "Logout", logout_url %></li>
+<% else -%>
+    <li><%= link_to "Cadastre-se", cadastrar_url %></li>
+    <li><%= link_to "Login", login_url %></li>
+<% end -%>
+  </ul>
+</div>

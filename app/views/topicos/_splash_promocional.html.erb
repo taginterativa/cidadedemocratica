@@ -1,0 +1,9 @@
+<% if @usar_splash and @cidade %>
+<div style="margin-bottom:20px">
+  <div>
+  <h2>Descubra e Participe</h2>
+  <%= link_to image_tag("cidadonos_campanha_peq.png"), "http://www.cidadonos.org.br/" if (@cidade.id == 85) -%>
+  <%= link_to image_tag("logo_varzea2022b.png", :width => 220, :height => 72), "http://www.varzea2022.sp.gov.br/" if (@cidade.id == 119) -%>
+  </div>
+</div>
+<% end -%>

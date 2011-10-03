@@ -1,0 +1,145 @@
+<div id="rodape" class="container_16 rounded clearfix">
+  <div class="grid_10 alpha">
+    <div id="caixa_rodape_esq">
+      <h3 id="logo_rodape" style="background: url(../images/cidadonos-nome-branco.png) no-repeat scroll 0 0 transparent;">CIDADONOS</h3>
+      <p id="descricao_rodape">Cidadonos é um concurso que vai premiar as melhores ideias e propostas para transformar Jundiaí na cidade dos sonhos dos seus moradores.</p>
+      <table>
+        <tr>
+          <td style="width: 42%; border-right: 2px dotted white;">
+          <h3>Sobre</h3>
+            <ul>
+              <li><%= link_to_modal_box ("Apoiadores", :controller => "home", :action => "cidadonos_apoiadores") %></li>
+              <li><%= link_to_modal_box ("Parceiros", :controller => "home", :action => "cidadonos_parceiros") %></li>
+            </ul>
+          <h3>. . . . . . . . . . . . . . . . .</h3>
+            <ul>
+              <li><%= link_to_modal_box ("Quem somos", :controller => "home", :action => "cidadonos_quemsomos") %>
+                <%#= link_to ("Quem Somos", :controller => "home", :action => "quem_somos", :host => "www.cidadedemocratica.org.br") %></li>
+              <li><%= link_to "Regulamento", "https://docs.google.com/document/d/1sGlYEP72p4VUwkwDunc1ce8me_Vn_MnOWshsWpPw8p0/edit?hl=pt_BR", :target => "_blank" %>
+                <%#= link_to ("Para cidadãos", :controller => "home", :action => "para_cidadaos", :host => "www.cidadedemocratica.org.br") %></li>
+              <li><%= link_to "Para Cidadãos", "https://docs.google.com/leaf?id=0B2yeYWGHr4UNOTEyZjA3ZDUtOTNkMy00YWUyLTliMDQtNTFiOTAwOGMzNDQ3&hl=pt_BR", :target => "_blank" %></li>
+              <li><%= link_to "Para Professores", "https://docs.google.com/leaf?id=0B2yeYWGHr4UNYjFiMDFhZGYtYTBjNi00ZmUzLTgwM2UtYzUzOTBmMTA0MTA2&hl=pt_BR", :target => "_blank" %></li>
+              <li><%= link_to "Para Escolas", "https://docs.google.com/leaf?id=0B2yeYWGHr4UNYzdiOWMxZjMtYTA1Mi00M2UxLWEzYzUtYjRlYWRmZGQyZTQ2&hl=pt_BR", :target => "_blank" %></li>
+              <li><%= link_to "Para Entidades", "https://docs.google.com/leaf?id=0B2yeYWGHr4UNMjEyYmJmNjctNDg1MS00MmE0LTk3YmYtMjJmNjM5MDk1NzA1&hl=pt_BR", :target => "_blank" %></li>
+              <li><%= link_to "Para Empresas", "https://docs.google.com/leaf?id=0B2yeYWGHr4UNYWFhMGU3YTYtMzU1MS00YjQ3LWJhYmMtNTc2ODdkNDMxYjU3&hl=pt_BR", :target => "_blank" %></li>
+              <li><%= link_to "Para Governantes", "https://docs.google.com/leaf?id=0B2yeYWGHr4UNOGIzYjIxY2YtYzg3YS00MTVhLWI0NjItM2MwZTRlNWE1OTA4&hl=pt_BR", :target => "_blank" %></li>
+            </ul>
+          </td>
+          <td style="padding-left:40px">
+          <h3>Participe</h3>
+            <ul>
+              <li>
+                <%= link_to "Cadastre-se", cadastrar_url(:host => "www.cidadedemocratica.org.br") %>
+              </li>
+              <li>
+                <%= link_to("Termos de uso", :controller => "home", :action => "termos_de_uso", :host => "www.cidadedemocratica.org.br") %>
+              </li>
+              <li>
+                <%= link_to ("Manual de Boas Práticas", :controller => "home", :action => "boas_praticas", :host => "www.cidadedemocratica.org.br") %>
+              </li>
+              <li>
+                <%= link_to ("Ajuda", :controller => "home", :action => "ajuda", :host => "www.cidadedemocratica.org.br") %>
+              </li>
+              <li style="padding-top:20px">
+                <h3 style="background: url(../images/logo_powered-by_cidadedemocratica-novo.png) no-repeat scroll 0 0 transparent;height:48px">&nbsp;</h3>
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+<!-- Twitter Widget -->
+  <div class="grid_3 omega">
+
+<% if (RAILS_ENV=="production") -%>
+<script src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'profile',
+  rpp: 3,
+  interval: 3000,
+  width: 315,
+  height: 300,
+  theme: {
+    shell: {
+      background: '#ED915C',
+      color: '#ffffff'
+    },
+    tweets: {
+      background: '#ffffff',
+      color: '#787878',
+      links: '#0000ff'
+    }
+  },
+  features: {
+    scrollbar: false,
+    loop: false,
+    live: false,
+    hashtags: true,
+    timestamp: true,
+    avatars: false,
+    behavior: 'default'
+  }
+}).render().setUser('votojundiai').start();
+</script>
+<% else -%>
+<p>Aqui vai o tal do Twitter... <br />
+   desligado no ambiente de DEV</p>
+<% end -%>
+    
+  </div>
+</div> <!-- rodape -->
+<% if (@settings["aviso_ligado"].to_i==1) and !cookies['aviso_allsite'] -%><!-- AVISO via modal -->
+<div id="aviso_geral">
+<% if @settings["aviso_geral_tipo"]=="texto" -%>
+  <%= simple_format(@settings["aviso_geral_texto"]) %>
+<% elsif @settings["aviso_geral_tipo"]=="arquivo" -%>
+  <%= render :partial => @settings["aviso_geral_arquivo"] %>
+<% end -%>
+<!-- dismiss + Modalbox.close -->
+<a href="#" id="dismiss_welcome" class="hide" title="Hide" onclick="javascript:entendiMaisFechar();return false;">Ok, já entendi</a>
+<script type="text/javascript" charset="utf-8">
+function entendiMaisFechar() {
+    //dismiss_window_hide_dismissible_welcome_message(); => Set cookie!
+    document.cookie = 'aviso_allsite=1; expires=<%= CGI.rfc1123_date(2.months.from_now) %>; path=/';
+    Modalbox.hide();
+  }
+</script>
+</div>
+<script type="text/javascript">
+window.onload = Modalbox.show($('aviso_geral'), { title: "Cidade Democrática", loadingString: "Aguarde...", transitions: false });
+</script>
+<!-- AVISO via modal --><% end -%>
+
+<!-- Aplica as bordas redondas. -->
+<script type="text/javascript">
+  /*
+  DD_roundies.addRule("#conteudo, #rodape, .rounded", "10px", true);
+  DD_roundies.addRule("#links_no_topo", "0 0 5px 5px", true);
+  DD_roundies.addRule("#lapela_1 a, #lapela_2 a, #lapela_3 a, #lapela_4 a, #lapela_5 a", "5px 5px 0 0", true);
+  */
+</script>
+
+<% if logged_in? -%>
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+sfHover = function() {
+  var sfEls = document.getElementById("links_no_topo").getElementsByTagName("LI");
+  for (var i=0; i<sfEls.length; i++) {
+    sfEls[i].onmouseover=function() {
+      this.className+=" sfhover";
+    }
+    sfEls[i].onmouseout=function() {
+      this.className=this.className.replace(new RegExp(" sfhover\\b"), "");
+    }
+  }
+}
+if (window.attachEvent) window.attachEvent("onload", sfHover);
+//--><!]]>
+</script>
+<% end -%>
+
+<% if RAILS_ENV == "production" -%>
+<%= render :partial => "layouts/google_analytics" %>
+<% end -%>

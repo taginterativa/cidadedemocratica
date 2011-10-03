@@ -1,0 +1,49 @@
+<div class="grid_16 alpha omega">
+<h1>Trocar a senha de <%= current_user.nome %></h1>
+<%= error_messages_for :user, :header_message => "Opa!" -%>
+
+<div class="grid_4 alpha">
+<% form_for :user, :url => trocar_senha_url do |f| %>
+  <fieldset>
+    <ol>
+      <li>
+        <%= f.label :old_password, "Senha atual" %>
+        <%= f.password_field :old_password, :class => "texto" %>
+      </li>
+      <li>
+        <%= f.label :password, "Nova senha" %>
+        <%= f.password_field :password, :class => "texto" %>
+      </li>
+      <li>
+        <%= f.label :password_confirmation, "Confirmação da nova senha" %>
+        <%= f.password_field :password_confirmation, :class => "texto" %>
+      </li>
+      <li>
+        <%= f.submit "Salvar" %> ou <%= link_to "Cancelar", perfil_url(:id => current_user.id) %>
+      </li>
+    </ol>
+  </fieldset>
+<% end %>
+</div>
+
+<div class="grid_12 omega">
+  <div class="wrapper">
+    <h5>Por que pedem minha senha atual?</h5>
+    <p>Caso seu notebook tenha sido roubado, caso você tenha usado o <b>Cidade Democrática</b> em algum computador público ou <i>cyber café</i> - e tenha se esquecido de fazer o <i>logout</i>... - alguém mal intencionado poderia <i>hackear</i> sua conta, alterando sua senha pessoal.</p>
+    <p>Dessa forma, ao solicitar sua senha atual, apenas você (que sabe sua senha) pode trocar/alterar a senha.</p>
+    <h5>Por que preciso confirmar a nova senha?</h5>
+    <p>A confirmação da nova senha evita confusões, ou seja, sua nova senha deve estar bem guardada na cachola!</p>
+  </div>
+</div>
+
+</div>
+
+<style type="text/css" media="screen">
+.wrapper {
+  background-color:#ccc;
+  padding:7px;
+}
+.wrapper h5 {
+  margin-bottom: 5px;
+}
+</style>

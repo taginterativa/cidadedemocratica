@@ -1,0 +1,10 @@
+<h1>Nova cidade</h1>
+
+<% form_for(@cidade, :url => admin_cidades_path) do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => "form", :locals => { :f => f } %>
+  <p>
+    <%= f.submit "Salvar" %> ou
+    <%= link_to "Voltar", admin_cidades_path %>
+  </p>
+<% end %>

@@ -1,0 +1,13 @@
+<% if escolhido -%>
+<p>De <b><%= @data_de.strftime("%d/%m/%Y") %></b><br />
+  até <b><%= @data_ate.strftime("%d/%m/%Y") %></b><br />
+<%= select_date(@data_de, { :prefix => 'de', :start_year => 2008, :end_year => Date.today.year }, :style => "display:none" ) %><br />
+<%= select_date(@data_ate, { :prefix => 'ate', :start_year => 2008, :end_year => Date.today.year }, :style => "display:none" ) %>
+</p>
+<%= link_to "Alterar intervalo", :action => "index" %>
+<% else -%>
+<p>De <%= select_date(@data_de, :prefix => 'de', :start_year => 2008, :end_year => Date.today.year) %><br />
+  até <%= select_date(@data_ate, :prefix => 'ate', :start_year => 2008, :end_year => Date.today.year) %>
+</p>
+<%= submit_to_remote "intervalo_btn", "Usar esse intervalo", :url => { :action => "definir_intervalo" } %>
+<% end -%>

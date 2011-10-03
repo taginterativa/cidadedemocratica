@@ -1,0 +1,13 @@
+Olá <%= @topico.user.nome %>!
+
+<%= @comentario.user.nome %> deixou o seguinte comentário n<%= @topico.nome_do_tipo(:artigo => :definido) %> "<%= @topico.titulo %>" no CidadeDemocrática:
+
+<%= @comentario.body %>
+Registrado em <%=l @comentario.created_at, :format => "%d de %B de %y às %H:%M" %>.
+
+Conheça o perfil de <%= @comentario.user.nome %> em:
+http://www.cidadedemocratica.org.br/perfil/<%= @comentario.user.id.to_s %>
+
+-----------------------------------
+Cidade Democrática
+www.cidadedemocratica.org.br

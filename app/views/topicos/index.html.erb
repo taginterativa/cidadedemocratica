@@ -1,0 +1,55 @@
+<% if params[:topico_type] and params[:topico_type] != "topicos" -%>
+<% title_string = params[:topico_type].camelize -%>
+<% else -%>
+<% title_string = "Propostas e problemas" -%>
+<% end -%>
+<% title_string += ": #{@tag.name}" if @tag -%>
+<% title_string += " em #{@bairro.nome}" if @bairro -%>
+<% title title_string -%>
+
+<%= render :partial => "topicos/breadcrumb" %>
+
+<div class="grid_13 alpha">
+  <div class="grid_4 suffix_1 alpha">
+    <ul id="estatisticas_da_cidade" class="resumo clearfix">
+      <li class="esquerda">
+        <p class="qtd propostas"><%= @contadores[:propostas] %></p>
+        <p class="sobre">Propostas</p>
+      </li>
+      <li class="direita">
+        <p class="qtd problemas"><%= @contadores[:problemas] %></p>
+        <p class="sobre">Problemas</p>
+      </li>
+      <li class="esquerda">
+        <p class="qtd comentarios"><%= @contadores[:comentarios] %></p>
+        <p class="sobre">Comentários</p>
+      </li>
+      <li class="direita">
+        <p class="qtd apoios"><%= @contadores[:adesoes] %></p>
+        <p class="sobre">Apoios</p>
+      </li>
+    </ul>
+    <%= render :partial => "topicos/splash_promocional" if @usar_splash %>
+    <%= render :partial => "topicos/usuarios_relacionados", :locals => { :users => @users } %>
+    <%= render :partial => "topicos/cloud", :locals => { :tags => @tags } %>
+    <%= render :partial => "topicos/portal_odm", :locals => { :cidade => @cidade, :estado => @estado } %>
+  </div>
+
+  <div class="grid_7 suffix_1 omega">
+    <%= topicos(@topicos, :titulo_max_chars => 58, :mostrar_local => true) %>
+    <%= will_paginate @topicos %>
+  </div>
+
+</div>
+
+<div id="barra_lateral" class="grid_3 omega">
+  <h2>Ordenar</h2>
+  <ul id="ordenador">
+    <li><%= link_to_with_context "Relevância", :order => "relevancia" %></li>
+    <li><%= link_to_with_context "Recentes", :order => "recentes" %></li>
+    <li><%= link_to_with_context "Antigos", :order => "antigos" %></li>
+    <li><%= link_to_with_context "Mais comentários", :order => "mais_comentarios" %></li>
+    <li><%= link_to_with_context "Mais apoios", :order => "mais_apoios" %></li>
+  </ul>
+  <%= render :partial => "filtros" %>
+</div>

@@ -1,0 +1,15 @@
+Olá,
+
+<%= @de_nome %> visitou o site Cidade Democrática e encontrou uma questão sobre <%= @topico.local.cidade.nome %> (<%= @topico.local.cidade.estado.abrev.upcase %>) que ele quer compartilhar com você.
+
+Questão: <%= @topico.titulo %>
+<%=h @url %>
+<% if @dica and not @dica.blank? -%>
+
+E escreveu a seguinte mensagem: <%= @dica %>
+<% end -%>
+
+-----------------------------------
+Cidade Democrática
+www.cidadedemocratica.org.br
+É o site onde pessoas comuns e entidades podem se expressar, se comunicar e gerar mobilização para uma cidade cada vez melhor.

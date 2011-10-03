@@ -1,0 +1,39 @@
+.notice, .error, .warning, .info {
+  /* height: 25px;
+  line-height: 25px; */
+  margin: 3px auto 5px;
+  padding: 0 0 0 27px;
+  /* width: 900px; */
+}
+
+.notice {
+  border-top: 1px solid #9c9;
+  border-bottom: 1px solid #9c9;
+  background: #e2f9e3 url(/images/icones/tick.png) no-repeat 5px center;
+  color: #060;
+}
+
+.error {
+  border-top: 1px solid #c68484;
+  border-bottom: 1px solid #c68484;
+  background: #fcc url(/images/icones/exclamation.png) no-repeat 5px center;
+  color: #c00;
+}
+
+.warning {
+  border-top: 1px solid #dd0;
+  border-bottom: 1px solid #dd0;
+  background: #ffc url(/images/icones/error.png) no-repeat 5px center;
+  color: #000;
+}
+
+.info {
+  border-top: 1px solid #82c2d4;
+  border-bottom: 1px solid #82c2d4;
+  background: #ebf5f8 url(/images/icones/information.png) no-repeat 5px center;
+  color: #000;
+}
+
+#flash_message p {
+  margin-bottom: 0;
+}

@@ -1,0 +1,2 @@
+class NingsController < ApplicationController
+end

@@ -1,0 +1,38 @@
+div#seletor {
+  width:340px;
+  height:27px; 
+/*  background-color:#DAEF9F;
+  border:2px solid #AAB27F; */
+}
+div#seletor fieldset ol li {
+  list-style:none;
+  float:left;
+  margin:0 0 0 3px;
+}
+div#seletor fieldset ol li#escolha {
+  margin:0;
+}
+div#seletor fieldset ol li.myselect {
+
+}
+div#seletor fieldset ol li#escolha p,
+div#seletor fieldset ol li#botao p {
+  font-size:14px;
+  line-height:27px;
+  font-weight:bold;
+  color:#AAB27F;
+}
+div#seletor fieldset ol li#botao p a {
+  padding:0 10px;
+}
+div#seletor fieldset ol li#botao p a:hover {
+  text-decoration:none;
+  background-color:#009BCA;
+  color:#fff;
+}
+div#seletor fieldset ol li select {
+  font-size:12px;
+}
+div#seletor fieldset ol li select#local_cidade_slug {
+  width:100px;
+}

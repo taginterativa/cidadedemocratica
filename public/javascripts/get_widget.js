@@ -1,0 +1,13 @@
+var stringww = '<script language="javascript" src="http://www.cidadedemocratica.org.br/javascripts/rss_widget.js"></script>'
+stringww += '<link rel="stylesheet" type="text/css" href="http://www.cidadedemocratica.org.br/stylesheets/widgetCidadeStyle.css" />'
+stringww += '<div id="widgetCidade_home">'
+stringww += '<div id="widgetCidade_titulo">'
+stringww += '<img width="240px" src="http://cidadedemocratica.org.br/images/selo_perfil.gif"><br/>'
+stringww += '<p align="center"><a href="(::Link::)"><h3>(::Title::)</h3></a></p>'
+stringww += '</div>'
+stringww += '<div id="widgetCidade_corpo">'
+stringww += '<p><a href="(::Link::)"><b>(::Title::)</b></a></p>'
+stringww += '</div>'
+stringww += '<p align="center" id="widgetCidade_footer">bugiganga by <a href="http://www.cidadedemocratica.org.br/" target="_blank">Cidade Democratica</p>'
+stringww += '</div>'
+document.write(stringww);

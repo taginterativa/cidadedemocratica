@@ -1,0 +1,11 @@
+<% if usuarios and (usuarios.size > 0) -%>
+<ul id="usuarios_mais_engajados" class="lista_sem_bullets">
+  <% usuarios.each do |u| %>
+  <li class="clearfix"><%= ficha_do_usuario(u, :badge => "_mini", :with_tags => false ) %></li>
+  <% end -%>
+</ul>
+<% else -%>
+  <p class="no_cidadaos">
+    Ainda não há cidadãos ou entidades localizados em <b><%= @cidade_corrente.nome %></b>.<br />
+    <span class="hint">Assim que algum cidadão ou entidade de <b><%= @cidade_corrente.nome %></b> se cadastrar, ele aparecerá listado aqui.</span>
+<% end -%>

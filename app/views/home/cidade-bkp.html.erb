@@ -1,0 +1,54 @@
+<div class="grid_11 alpha">
+  <h2>Propostas e problemas</h2>
+  <div id="filtrar_por_tag_ou_bairro" class="grid_11 alpha omega">
+    <%= render :partial => "topicos/cloud", :locals => { :tags => @tags } %>
+  </div> <!-- filtrar_por_tag_ou_bairro -->
+
+  <div class="grid_11 alpha omega">
+    <div id="principais_topicos" class="grid_8 alpha omega">
+      <h3>Questões mais relevantes</h3>
+      <%= topicos(@topicos, :titulo_max_chars => 62) %>
+    </div>
+
+    <div id="filtrar_por_bairro" class="grid_3 alpha omega">
+      <h3>Explore por bairro</h3>
+      <ul id="bairros">
+        <% @bairros.each do |bairro| -%>
+        <li>
+          <%= link_to "#{bairro.nome} (#{bairro.total})",
+                      :controller => "topicos",
+                      :action => "index",
+                      :cidade_slug => @cidade_corrente.slug,
+                      :bairro_id => bairro.id %>
+        </li>
+        <% end -%>
+        <li>
+          <a href="#"><b>Todos os bairros &raquo;</b></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="grid_5 omega">
+  <h2>Painel Popular</h2>
+  <ul id="estatisticas_da_cidade" class="rounded resumo clearfix">
+    <li>
+      <p class="qtd pessoas"><%= @contadores[:users] %></p>
+      <p class="sobre">Pessoas e entidades</p>
+    </li>
+    <li>
+      <p class="qtd propostas"><%= @contadores[:propostas] %></p>
+      <p class="sobre">Propostas</p>
+    </li>
+    <li>
+      <p class="qtd problemas"><%= @contadores[:problemas] %></p>
+      <p class="sobre">Problemas</p>
+    </li>
+  </ul>
+
+  <h2>Pessoas e entidades</h2>
+  <%= render :partial => "home/cidadaos_da_cidade", 
+             :locals => { :usuarios => @usuarios_mais_engajados } -%>
+  </ul>
+</div>

@@ -1,0 +1,115 @@
+<h1><%= "Selos de #{@user.nome.nome_proprio}" %></h1>
+
+<!-- bloco primário -->
+<div class="grid_16 alpha omega">
+
+  <div class="grid_8 alpha">
+  	<h2>Selo do seu perfil</h2>
+
+		<div class="selo">
+			<img src="/images/caixa_selos_topo.gif" width="400" height="10" />
+			<p>
+				<%= @script_perfil %>
+			</p>
+			
+			<img src="/images/caixa_selos_base.gif" width="400" height="10" />
+		</div>
+		
+		<div class="emenda">
+			&nbsp;
+		</div>
+		
+		<div class="selo">
+			<img src="/images/caixa_selos_topo.gif" width="400" height="10" />
+			
+			<p>
+				Para colocar o selo acima em seu site ou blog, copie e cole o texto da caixa dentro de sua página.<br /><br />
+				<textarea type="text" name="seloPerfil" id="seloPerfil" rows="3" cols="37"><%= @script_perfil %></textarea>
+			</p>
+		
+		<img src="/images/caixa_selos_base.gif" width="400" height="10" />
+		</div>
+
+  </div>
+
+  <div class="grid_8 omega">
+	<h2>Selo da sua cidade</h2>
+	
+	<div class="selo">
+		<img src="/images/caixa_selos_topo.gif" width="400" height="10" />
+	<p>Configure as opções abaixo para gerar o selo.</p>
+    <% form_for :local, @local, :url => { :controller => 'users', :action => "selos" } do |f| %>
+		<fieldset>
+		<ul>
+		    <li id="li_local_estado">
+		      <%= label_tag :estado, "Estado" %>
+		      <%= select_estado(@local, :cidade_corrente => @cidade_corrente) %>
+		    </li>
+		    <li id="li_local_cidade">
+		      <%= label_tag :cidade, "Cidade" %>
+		      <%= select_cidade(@local, :cidade_corrente => @cidade_corrente) %>
+		      <%= image_tag("spinners/spinner.gif", :id => "spinner_cidade", :style => "display:none;") %>
+		    </li>
+			<li id="li_opcao_selo">
+				Opção: <br/><select name="banner" id="banner_id" class="filtro">
+					<option selected="selected" value="tema">Temas</option>
+					<option value="problema">Problema</option>
+					<option value="proposta">Proposta</option>
+				</select>
+			</li>
+			<li id="li_selo_tamanho">
+				Largura: <br/><select name="tamanho" id="tamanho_selo_id" class="filtro">
+					<option selected="selected" value="120">120</option>
+					<option value="240">240</option>
+				</select>
+			</li>
+		
+		</ul><br />
+		<%= submit_tag 'Gerar selo' %>
+		</fieldset>
+	<% end %>
+	<img src="/images/caixa_selos_base.gif" width="400" height="10" />
+	</div>
+
+	<div class="emenda">
+		&nbsp;
+	</div>
+
+	<div class="selo">
+		<img src="/images/caixa_selos_topo.gif" width="400" height="10" />
+	<textarea type="text" name="seloCidade" id="seloCidade" rows="4" cols="33"><%= @script_cidade %></textarea>
+	
+	 <img src="/images/caixa_selos_base.gif" width="400" height="10" />
+	</div>
+
+		<div class="emenda">
+			&nbsp;
+		</div>
+
+		<div class="selo">
+			<img src="/images/caixa_selos_topo.gif" width="400" height="10" />
+	<p>Selo criado:</p>
+	<p>
+		<%= @script_cidade %>
+	</p>
+	
+	<%= observe_field(:estado_id,
+	                  :update => "local_cidade_id",
+	                  :url => { :controller => "locais",
+	                            :action => "cidades_options_for_select"
+	                          },
+	                  :with => "estado_id",
+	                  :before => "$('spinner_cidade').show();",
+	                  :complete => "$('spinner_cidade').hide();"
+	                  ) -%>
+
+			<img src="/images/caixa_selos_base.gif" width="400" height="10" />
+		</div>
+  </div>
+
+  <div class="grid_4 omega">
+	<!-- Espaco para colocar o selo da cidade democratica -->
+
+  </div>
+
+</div>

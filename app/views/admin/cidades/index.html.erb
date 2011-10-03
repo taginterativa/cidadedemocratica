@@ -1,0 +1,87 @@
+<h1>Cidades</h1>
+<p>
+  <strong><% if params[:busca] %>Busca: <% end %><%= pluralize(@cidades.total_entries, "cidade") %></strong> |
+  <% if params[:busca] %><%= link_to "Mostrar todas", admin_cidades_url %> |<% end %>
+  <%= link_to "Nova cidade", new_admin_cidade_path %>
+</p>
+<% form_tag admin_cidades_url, :method => :get do %>
+  <div class="busca">
+    <ol>
+      <li>
+        <%= label_tag :busca_nome, "Nome" %>
+        <%= text_field_tag :busca_nome, params[:busca_nome], :size => 30 %>
+      </li>
+      <li>
+        <%= label_tag :estado, "Estado" %>
+        <%= select_tag("estado_id", "<option></option>"+options_for_select(Estado.find(:all, :order => "abrev ASC").collect { |c| [ "#{c.abrev}", "#{c.id}" ] }, params[:estado_id]) ) %>
+      </li>
+      <li>
+        <label>&nbsp;</label>
+        <%= submit_tag "Buscar", :name => :busca %>
+      </li>
+    </ol>
+  </div>
+<% end %>
+
+<table class="crud">
+  <tr>
+    <th>ID</th>
+    <th>Nome (slug)</th>
+    <th>Estado</th>
+    <th>Ações</th>
+  </tr>
+<% for cidade in @cidades %>
+  <tr>
+    <td><%= cidade.id %></td>
+    <td>
+      <%= link_to cidade.nome, edit_admin_cidade_path(cidade.id) %> (<%= cidade.slug %>)<br />
+      Relevância: <%= cidade.relevancia %>
+    </td>
+    <td><%= cidade.estado.abrev %></td>
+    <td class="novos_bairros">
+      <%= link_to pluralize(cidade.bairros.count, "bairro"), admin_bairros_path(:cidade_id => cidade.id) %><br />
+      <%= link_to "Novos bairros...", maisbairros_admin_cidade_path(cidade.id) %><br />
+      <%= link_to "Remover", admin_cidade_path(cidade.id), :confirm => "Tem certeza?", :method => :delete %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate(@cidades) %>
+
+<style type="text/css" media="screen">
+.busca {
+-moz-border-radius-bottomleft:5px;
+-moz-border-radius-bottomright:5px;
+-moz-border-radius-topleft:5px;
+-moz-border-radius-topright:5px;
+background-color:#F5F5F5;
+margin-bottom:20px;
+overflow:hidden;
+padding:20px;
+}
+.busca li {
+display:inline;
+float:left;
+list-style-image:none;
+list-style-position:outside;
+list-style-type:none;
+margin:0 10px 0 0;
+}
+.busca label {
+display:block;
+}
+.busca select {
+padding:1px 0;
+}
+
+.bairros,
+.remover {
+  width: 80px;
+}
+
+.novos_bairros {
+  width: 100px;
+}
+
+</style>

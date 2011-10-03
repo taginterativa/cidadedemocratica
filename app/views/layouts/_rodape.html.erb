@@ -1,0 +1,117 @@
+<div id="rodape" class="container_16 rounded clearfix">
+  <div class="grid_10 alpha">
+    <div id="caixa_rodape_esq">
+      <h3 id="logo_rodape">CIDADE DEMOCRÁTICA</h3>
+      <p id="descricao_rodape">É uma plataforma de participação política, onde cidadãos e entidades podem se expressar, se comunicar e gerar mobilização para a construção de uma sociedade cada vez melhor.</p>
+
+      <table>
+        <tr>
+          <td style="width: 42%; border-right: 2px dotted white;">
+          
+         <h3>Sobre</h3>
+            <ul>
+              <li><%= link_to ("Quem Somos", :controller => "home", :action => "quem_somos") %></li>
+              <li><%= link_to ("Para cidadãos", :controller => "home", :action => "para_cidadaos") %></li>
+              <li><%= link_to ("Para entidades", :controller => "home", :action => "para_entidades") %></li>
+              <li><%= link_to ("Parceiros", parceiros_url, :title => "Conheça quem apoio o Cidade Democrática") %></li>
+            </ul>
+          </td>
+          <td style="padding-left:40px">
+          <h3>Participe</h3>
+            <ul>
+              <li>
+                <a href="/">Home</a>
+              </li>
+              <li>
+                <%= link_to "Cadastre-se", cadastrar_url %>
+              </li>
+              <!-- li>
+                <%= link_to "Bugigangas (NOVO!)", bugigangas_url %>
+              </li-->
+              <li>
+                <%= link_to("Termos de uso", :controller => "home", :action => "termos_de_uso") %>
+              </li>
+              <li>
+                <%= link_to ("Manual de Boas Práticas", :controller => "home", :action => "boas_praticas") %>
+              </li>
+              <li>
+                <%= link_to ("Ajuda", :controller => "home", :action => "ajuda") %>
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+<!-- Twitter Widget -->
+  <div class="grid_3 omega">
+
+<% if (RAILS_ENV=="production") -%>
+<script src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'profile',
+  rpp: 3,
+  interval: 3000,
+  width: 315,
+  height: 300,
+  theme: {
+    shell: {
+      background: '#89c4d6',
+      color: '#ffffff'
+    },
+    tweets: {
+      background: '#ffffff',
+      color: '#787878',
+      links: '#0000ff'
+    }
+  },
+  features: {
+    scrollbar: false,
+    loop: false,
+    live: false,
+    hashtags: true,
+    timestamp: true,
+    avatars: false,
+    behavior: 'default'
+  }
+}).render().setUser('cidademocratica').start();
+</script>
+<% else -%>
+<p>Aqui vai o tal do Twitter... <br />
+   desligado no ambiente de DEV</p>
+<% end -%>
+    
+  </div>
+</div><!-- rodape -->
+<!-- when debugging... -->
+<table border="1" style="display:none">
+<% for header in request.env.select {|k,v| k.match("^HTTP.*")} %>
+  <tr>
+    <td><%=header[0].split('_',2)[1]%></td><td><%=header[1]%></td>    
+  </tr>
+<% end %>
+</table>
+<%= render :partial => "layouts/rodape_modal_automatico" %>
+<% if logged_in? -%>
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+sfHover = function() {
+  var sfEls = document.getElementById("links_no_topo").getElementsByTagName("LI");
+  for (var i=0; i<sfEls.length; i++) {
+    sfEls[i].onmouseover=function() {
+      this.className+=" sfhover";
+    }
+    sfEls[i].onmouseout=function() {
+      this.className=this.className.replace(new RegExp(" sfhover\\b"), "");
+    }
+  }
+}
+if (window.attachEvent) window.attachEvent("onload", sfHover);
+//--><!]]>
+</script>
+<% end -%>
+
+<% if (RAILS_ENV == "production") -%>
+<%= render :partial => "layouts/google_analytics" %>
+<% end -%>

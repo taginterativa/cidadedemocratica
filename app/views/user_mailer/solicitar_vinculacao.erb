@@ -1,0 +1,7 @@
+Olá,
+
+<%= @user.nome %> quer fazer parte de <%= @organizacao.nome %>, no site Cidade Democrática.
+
+Para aceitar, clique no link abaixo:
+
+<%= host + vincular_path(@user.id_criptografado) %>

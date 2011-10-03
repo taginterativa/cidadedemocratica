@@ -1,0 +1,36 @@
+<div class="grid_5 alpha">
+  <div class="fazer_login" style="border-right: 1px dotted #CCC;">
+    <h1>Fazer login</h1>
+    <p style="margin-bottom: 40px;">Digite e-mail, senha e entre!</p>
+    <%= render :partial => "users/form_login" %>
+  </div>
+</div>
+
+<div class="grid_6 cadastrar">
+  <h1>Cadastrar</h1>
+  <p>Digite e-mail, senha e confirme. Você receberá mais instruções em sua caixa de e-mails.</p>
+  <%= render :partial => "users/form_cadastro" %>
+</div>
+
+<div class="grid_5 omega">
+  <%= render :partial => "sessions/aviso_guardamos" %>
+  <%= error_messages_for :user,
+                         :header_message => "Opa!" %>
+  <div style="margin-top:30px;padding:10px;border:3px solid #F3F3ED;background-color:white;" class="rounded">
+    <!--p>
+      Cadastre-se no <b>Cidade Democrática</b>:
+    </p-->
+    <ul id="lista_login">
+      <li><%= image_tag("login_pobrema.gif") %><br />
+				Reporte problemas de sua cidade</li>
+      <li><%= image_tag("login_poprosta.gif") %><br />
+				Proponha sugestões para problemas coletivos</li>
+      <li><%= image_tag("login_positivo.gif") %><br />
+				Apóie soluções, opine!</li>
+      <li><%= image_tag("login_ideia.gif") %><br />
+				Contribua com ideias, responda perguntas chaves</li>
+      <li><%= image_tag("login_foto.gif") %><br />
+				Localize, fotografe, documente suas ações</li>
+    </ul>
+  </div>
+</div>

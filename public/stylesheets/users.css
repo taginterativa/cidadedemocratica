@@ -1,0 +1,364 @@
+/* Perfil
+-----------------------------------------------------------------------------
+*/
+
+h1#cidade_corrente {
+  display:none;
+}
+
+h1.nome_e_tipo_do_usuario {
+  line-height:40px;
+}
+
+h1 .tipo {
+  display:block;
+  float:left;
+  font-size:18px;
+  font-weight:normal;
+  letter-spacing:0;
+  line-height:20px;
+  margin:9px 10px 0 0;
+  padding:2px 10px;
+  text-transform:uppercase;
+}
+
+#ficha_do_usuario {
+  background: #F0F0F0;
+  padding: 10px;
+}
+
+#ficha_do_usuario .ficha_do_usuario {
+  margin: 0 0 10px 0;
+  width: 130px;
+}
+
+#ficha_do_usuario .avatar {
+  display: block;
+  float: none;
+}
+
+#local {
+  background: #F0F0F0;
+  padding: 10px;
+}
+
+#descricao {
+  background: #F0F0F0;
+  padding: 10px;
+  font-size: 12px;
+}
+
+#descricao .wrapper {
+  overflow: auto;
+  height: 210px;
+}
+
+ul#contato {
+  background: #FFFFFF none repeat scroll 0 0;
+  padding: 0;
+  margin: 5px 0 10px 10px;
+}
+
+ul#contato li {
+  display: inline;
+  padding: 0 0px 0 0;
+}
+
+#resumo_de_atividades {
+  height: 236px;
+}
+
+ul#contato li {
+  list-style: none;
+  margin: 0 0 10px 0;
+}
+
+ul#contato li p {
+  margin: 0;
+}
+
+ul#contato li .sobre {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+ul#contato li .valor {
+  font-size: 12px;
+}
+
+ul#fatos {
+  margin: 0;
+}
+
+ul#fatos li {
+  font-size: 12px;
+  margin: 0 0 0 15px;
+}
+
+.edit_area {
+  background-color:#f0f0f0;
+  width:26px;
+  position:relative;
+  padding:4px;
+  top:8px;
+}
+
+.edit_area p {
+  text-align:center;
+  margin-bottom:0;
+}
+
+.topico .titulo {
+  width: 440px;
+}
+
+.row_problema {
+  background: #82CC40;
+}
+
+.row_proposta {
+  background: #82CC40;
+}
+
+.users_show .proposta .titulo {
+  background: #82CC40;
+  padding: 10px;
+}
+
+.users_show .problema .titulo {
+  background: #F38077;
+  padding: 10px;
+}
+
+#temas_relacionados {
+  list-style-image: url(/images/icones/tag_proposta.png);
+}
+
+#ficha_do_usuario img.imagem_grande {
+  display: block;
+  margin: 0 auto;
+  border: 5px solid #FFF;
+  height: 190px;
+  width: 190px;
+}
+
+#ficha_do_usuario img.faixa_vip {
+  display: block;
+  width: 190px;
+  height: 30px;
+  margin: 10px auto 0;
+}
+
+#avatar_wrapper_bottom p {
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+}
+
+/* Lista de Atividades
+-----------------------------------------------------------------------------
+*/
+
+/* primeiro, as lapelas/tabs "resumo", "propostas", "problemas" */
+#lista_atividades_recentes_perfil, #lapelas_atividades_recentes_perfil {
+  list-style: none;
+}
+
+#lista_atividades_recentes_perfil li {
+  padding: 5px;
+  margin: 5px 0;
+}
+
+#lista_atividades_recentes_perfil li a, 
+#lapelas_atividades_recentes_perfil li a {
+  color: black;
+}
+
+#lapelas_atividades_recentes_perfil {
+  border-bottom: 1px solid #2B696E;
+}
+
+#lapelas_atividades_recentes_perfil li {
+  display: inline;
+  background: #CECFC2;
+  padding: 5px 5px 2px 5px;
+  margin: 5px 0;
+}
+
+#lapelas_atividades_recentes_perfil li.selected {
+  border-left: 1px solid #2B696E;
+  border-top: 1px solid #2B696E;
+  border-right: 1px solid #2B696E;
+  background:white;padding-bottom:3px;
+}
+
+/* depois, a lista de atividades propriamente dita */
+p#atividades_count {
+  font-size:11px;
+  font-weight:bold;
+  margin:0 0 10px;
+}
+
+ul#atividades li {
+  list-style:none;
+  margin:0 0 20px 0;
+  padding:10px 0 30px 0px;
+  border-bottom: 1px solid black; /* #94E4E8; */
+  background-position: 0px 10px; /* X-pos Y-pos (from top-left) */
+  background-repeat: no-repeat;
+  min-height:30px;
+}
+
+ul#atividades li div.icon {
+  float: left;
+  height: 25px;
+  width: 25px;
+}
+ul#atividades li div.detalhes {
+  padding-left: 44px;
+}
+
+ul#atividades li span.problema { color:#F38077; }
+ul#atividades li span.proposta { color:#82CC40; }
+
+ul#atividades li span.topico_type { 
+  text-transform:uppercase;
+  font-weight:bold;
+}
+ul#atividades li div.titulo_problema {
+  margin:10px 0 0;
+  padding:2px 7px;
+  background-color:#F38077;
+}
+ul#atividades li div.titulo_proposta {
+  margin:10px 0 0;
+  padding:2px 7px;
+  background-color:#82CC40;
+}
+ul#atividades li div.titulo_problema a,
+ul#atividades li div.titulo_proposta a {
+  color:#fff;
+}
+ul#atividades li span.quando {
+  font-size:11px;
+  color:#777;
+  padding-left: 44px;
+}
+ul#atividades li div.o_comentario {
+  font-size: 11px;
+  padding: 20px 20px 0 20px;
+  border: 1px solid #AAA;
+}
+ul#atividades li div.o_comentario p {
+  line-height: 15px;
+}
+
+.adesao .descricao {
+  margin: 0;
+}
+
+/* Lista de usuários
+-----------------------------------------------------------------------------
+*/
+
+ul.filtro li {
+  font-size:16px;
+  margin:0;
+  list-style:none;
+}
+ul.filtro li a { font-weight:bold; }
+ul.filtro li a.filtro_cidadao { color:#82CC40; }
+ul.filtro li a.filtro_ong { color:#E77918; }
+ul.filtro li a.filtro_organizacao { color:#FAAE64; }
+ul.filtro li a.filtro_poder_publico { color:#EE302F; }
+ul.filtro li a.filtro_empresa { color:#9A7DB5; }
+ul.filtro li a.filtro_gestor_publico { color:#30BEB9; }
+
+#contador_e_ordenador {
+  margin-bottom: 0;
+}
+
+ul#lista_de_usuarios {
+  margin: 0 0 10px 0;
+  _margin-top:20px;
+}
+ul#lista_de_usuarios li {
+  list-style: none;
+  float: left;
+  display: inline;
+  width: 680px;
+  height: 100px;
+  margin: 0;
+  border-bottom:1px solid #ccc;
+  padding:30px 0 0px;
+}
+/* FORM de cadastro */
+.dados_obrigatorios input.texto {
+  width: 90%;
+}
+.dados_complementares input.texto,
+.dados_complementares textarea {
+  width: 90%;
+}
+.descricao textarea {
+/*  width: 90%;
+  height: 251px; */
+}
+#user_dado_fone,
+#user_dado_fax {
+  width: 90px;
+}
+.fazer_login input.texto {
+  width: 252px;
+}
+.cadastrar input.texto {
+  width: 322px;
+}
+p.salvar_cadastro {
+  height:50px;
+  background-image:url(/images/seta_cadastro.png);
+  background-repeat:no-repeat;
+  background-position:600px 0;
+  text-align:right;
+}
+/* Empty design: sobrescrevendo "layout.css" */
+.rounded p.no_tags {
+  background-position:65px 20px;
+  padding:80px 0 0 10px;
+}
+
+/* Acrescentado ao "will_paginate.css" */
+.pagination {
+  text-align:center;
+}
+
+/* SELOS */
+div.selo, div.selo_codigo {
+  background: #DDF1F2;
+  width: 400px;
+  margin: 0 auto;
+  padding: 0;
+  line-height: 9px;
+}
+div.selo p, div.selo form {
+  margin: 10px auto;
+  text-align: center;
+  line-height: 1.2em;
+}
+div.selo form fieldset ul {
+  padding: 0;
+  list-style: none;
+  margin: 0;
+}
+div.selo form fieldset ul li {
+  margin: 0;
+}
+.emenda {
+  background: #DDF1F2;
+  width: 100px;
+  margin: 0 auto;
+}
+#seloCidade {
+  position: relative;
+  left: 80px;
+}

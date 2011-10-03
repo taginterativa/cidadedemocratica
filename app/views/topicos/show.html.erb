@@ -1,0 +1,252 @@
+<% title "#{@topico.type}: #{@topico.titulo.nome_proprio}" %>
+<div class="grid_16 alpha omega">
+  <div class="grid_11 alpha">
+    <div id="topico" class="<%= @topico.type.to_s.underscore %> clearfix">
+      <%= render :partial => "divulgacao_chamada" if flash[:notice] and flash[:notice].include?("Congrat") %>
+      <div>
+        <div class="titulo">
+        <h1><%= @topico.titulo %></h1>
+        </div>
+        <p class="tipo_topico"><%= @topico.type.to_s.camelize %></p>
+      </div>
+      <p class="localizacao">
+        <%= image_tag("icones/world_#{@topico.locais.first.ambito}.png") %>
+        <%= descrever_locais(@topico.locais) %>
+        <%= link_to("[Editar]", { :controller => "topicos",
+                                  :action => "localizacao",
+                                  :topico_slug => @topico.to_param },
+                                :title => "Editar localização do tópico",
+                                :class => "edit_lnk") if (logged_in? and ((@topico.user == current_user) or current_user.admin?)) -%>
+      </p>
+      <p class="tags">
+        <%= image_tag("icones/tag_#{@topico.type.to_s.underscore}.png", :title => "Tags", :alt => "Tags:") %>
+        <%= @topico.tags.collect{|t| link_to(t.name, { :action => "index",
+                                                       :tag_id => t.id,
+                                                       :topico_type => @topico.type.downcase.pluralize },
+                                                     :title => "Veja demais #{@topico.nome_do_tipo} de '#{t.name}'") }.join(", ") %>
+        <%= link_to("[Editar]", { :action => "tags",
+                                  :topico_slug => @topico.to_param },
+                                :title => "Editar tags do tópico",
+                                :class => "edit_lnk") if (logged_in? and ((@topico.user == current_user) or current_user.admin?)) -%>
+
+      </p>
+      <div class="conteudo clearfix rounded">
+        <%= ficha_do_usuario(@topico.user) -%>
+        <div class="descricao">
+      <% 
+        tmp = auto_link(simple_format(escape_once(@topico.descricao)), :urls, :target => "_blank" ) do |text|
+          truncate(text, 25)
+        end 
+      -%>
+    <%= tmp %>
+        </div>
+        <ul class="opcoes" style="font-size:12px">
+<% if logged_in? and @topico.pode_editar? %>
+        <li>
+          <b><%= @topico.type.to_s.camelize %></b>
+          <br/><%= link_to "[Editar]", { :controller => "topicos", 
+                                         :action => "edit", 
+                                         :topico_slug => @topico.to_param },
+                                       :class => "edit_lnk" -%>
+        </li>
+<% end %>
+        <li class="fotos">
+          <b>Fotos</b>
+<% if @topico.imagens and not @topico.imagens.empty? -%>
+          <ul class="clearfix">
+            <% for imagem in @topico.imagens -%>
+            <li><%= link_to image_tag(imagem.public_filename(:mini)), imagem.public_filename, :rel => "lightbox[galeria]" %></li>
+            <% end -%>
+          </ul>
+<% end -%>
+<% if logged_in? and (@topico.user == current_user) -%>
+          <%= link_to "[+Fotos]", :controller => "imagens", :action => "index", :topico_slug => @topico.to_param -%>
+<% end -%>
+        </li>
+        <li class="links">
+          <b>Links relacionados</b>
+<% if @links and not @links.empty? -%>
+            <% @links.each do |l| %>
+              <br/><%= link_to l.nome.capitalize, l.url, {:target => "blank"} %>
+            <% end %>
+
+<% end %>
+<% if logged_in? and (@topico.user == current_user) -%>
+            <br/><%= link_to "[+Links]", :controller => "links", :action => "index", :topico_slug => @topico.to_param -%>
+<% end -%>
+        </li>
+        </ul>
+      </div>
+    </div>
+
+    <ul id="comentar_ou_fazer_campanha" class="clearfix">
+      <li>
+        <div id="botao_de_comentar" class="botao_de_acao">
+          <%= link_to_function image_tag("icones/megafone_bot.png", :alt => "Comente") + "Comente",
+                               visual_effect(:slide_down, "novo_comentario", :duration => 1) %>
+        </div>
+      </li>
+
+      <li>
+        <div id="botao_de_campanha" class="botao_de_acao">
+          <%= link_to_function image_tag("icones/divulgue_bot.png", :alt => "Faça uma campanha") + "Faça uma campanha",
+                               visual_effect(:slide_down, "divulgacao", :duration => 1) %>
+        </div>
+      </li>
+    </ul>
+
+    <div class="grid_11 alpha omega">
+      <%= render :partial => "divulgacao_addthis",
+                 :locals => {
+                   :mostrar => false,
+                   :name_suffix => ""
+                 } -%>
+    </div>
+
+    <div class="grid_11 alpha omega">
+      <%= render :partial => "comments/novo_comentario" %>
+    </div>
+
+    <div class="grid_11 alpha omega">
+      <div class="grid_8 alpha">
+        <h2>Comentários <%= link_to_function "[+]",
+                            visual_effect(:slide_down, "comentarios_estatisticas", :duration => 1),
+                            :id => "link_comentarios_estatisticas" %></h2>
+        <%= comentarios_estatisticas(@comentarios, @topico) %>
+        <%= comentarios(@comentarios) %>
+      </div>
+      <div class="grid_3 omega">
+        <%= render :partial => "topicos/adesoes_lista",
+                   :locals => {
+                     :usuarios => @topico.usuarios_que_aderem,
+                     :topico => @topico
+                    } -%>
+      </div>
+    </div>
+
+  </div>
+  <div class="grid_5 omega">
+    <%= render :partial => "topicos/splash_promocional_grande" if @usar_splash %>
+    <% unless logged_in? and (@topico.user==current_user) -%>
+      <div id="botao_de_apoiar" class="botao_de_acao">
+        <%= link_to image_tag("positivo.png", :alt => (@topico.is_apoiado(current_user) ? "Deixe de apoiar" : "Apoie!")) + (@topico.is_apoiado(current_user) ? "Deixe de apoiar" : "Apoie!"),
+                    {
+                      :controller => "topicos",
+                      :action => "processar_aderir",
+                      :id => @topico.id
+                    } %>
+      </div>
+      <div id="botao_de_seguir" class="botao_de_acao">
+        <%= link_to image_tag("seguindo.png", :alt => (@topico.is_seguido(current_user) ? "Pare de seguir" : "Siga!")) + (@topico.is_seguido(current_user) ? "Pare de seguir" : "Siga!"),
+                    {
+                      :controller => "topicos",
+                      :action => "processar_seguir",
+                      :topico_slug => @topico.to_param
+                    } %>
+      </div>
+    <% end -%>
+    <% if (@settings["facebook_ilikeit"].to_i == 1) -%>
+    <% page_url = request.protocol + request.host + request.request_uri %>
+    <div id="facebook_ilikeit">
+      <iframe src="http://www.facebook.com/plugins/like.php?href=<%= page_url %>&amp;layout=standard&amp;show_faces=true&amp;width=250&amp;action=like&amp;colorscheme=light&amp;height=50" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:250px; height:50px;" allowTransparency="true"></iframe>
+      <% content_for :header do %>
+      <meta property="og:site_name" content="Cidade Democrática"/>
+      <meta property="og:type" content="cause"/>
+      <meta property="og:title" content="<%= @topico.type.to_s.humanize %>: <%= @topico.titulo %>"/>
+      <meta property="og:url" content="<%= page_url %>"/>
+      <meta property="og:image" content="http://profile.ak.fbcdn.net/hprofile-ak-snc4/hs468.snc4/49311_100001089376554_6583_n.jpg"/>
+      <!-- meta property="fb:admins" content="<%= @settings["facebook_admins"] %>"/-->
+      <meta property="fb:app_id" content="167124046654135"/>
+  <% end -%>
+    </div>
+    <% end -%>
+    <ul id="resumo_de_atividades" class="resumo clearfix">
+        <div class="resumo_lista">
+          <p class="qtd"><%= @topico.comments_count %></p>
+          <p class="sobre">Comentários</p>
+        </div>
+        <div class="resumo_lista">
+          <p class="qtd"><%= @topico.adesoes_count %></p>
+          <p class="sobre">Apoiam</p>
+        </div>
+        <div class="resumo_lista">
+          <p class="qtd"><%= @topico.usuarios_que_seguem.size %></p>
+          <p class="sobre">Seguem</p>
+        </div>
+        <li>
+          <p class="qtd"><%= distance_of_time_in_words_to_now(@topico.created_at).gsub(/aproximadamente/, "") %></p>
+          <p class="sobre">Criado</p>
+        </li>
+        <li>
+          <p class="qtd">
+<% if @topico.ultima_atividade -%>
+            <%= distance_of_time_in_words_to_now(@topico.ultima_atividade.created_at).gsub(/aproximadamente/, "") %>
+<% else -%>
+            ---
+<% end -%>
+          </p>
+          <p class="sobre">Última atividade</p>
+        </li>
+      </ul>
+      <!-- resumo_de_atividades -->
+
+  <div id="topicos_relacionados">
+    <h2><%= pluralize(@topicos_relacionados.length, "tópico relacionado", "tópicos relacionados") %></h2>
+    <%= render :partial => "topicos_relacionados",
+               :locals => { :topicos_relacionados => @topicos_relacionados } %>
+  </div>
+  <!-- topicos_relacionados -->
+  
+  <div id="denuncie">
+    <h2>Denuncie <%= image_tag("icones/denuncie.png") %></h2>
+    <p><b>Você achou que <%= @topico.nome_do_tipo(:demonstrativo => true) %> ou algum comentário é inapropriado?</b><br />
+       Então comunique-se conosco e faça já sua denúncia para a equipe do <b>cidade democrática</b>!
+      <% if logged_in? -%>
+      <%= link_to_modal_box "Denunciar", topico_denunciar_url(:topico_slug => @topico.to_param) %>
+      <% else -%>
+      <%= link_to_function "Denunciar", "alert('Cadastre-se já (ou efetue seu login) e faça sua denúncia: recurso exclusivo aos usuários do site.')" %>
+      <% end -%>
+      </p>
+  </div>
+  <!-- denuncie -->
+  
+  </div>
+</div>
+<% content_for :rodape do %>
+  <%= javascript_include_tag "builder" %>
+  <%= javascript_include_tag "lightbox" %>
+  <%= stylesheet_link_tag "lightbox" %>
+<style type="text/css" media="screen">
+#denuncie h2 {
+  margin:0;
+  color:#A84EB1;
+}
+#denuncie h2 img {
+  margin-left:10px;
+}
+#denuncie p {
+  background:#EEE;
+}
+#denuncie p a {
+  display:inline;
+  background:#A84EB1;
+  color:#FFF;
+  font-weight:bold;
+  text-decoration:none;
+  padding:3px;
+}
+#denuncie p a:hover {
+  background:#FFF;
+  color:#A84EB1;
+}
+  
+.edit_lnk {
+  background:#009BCC;
+  color:white;
+}
+.edit_lnk:hover { 
+  background:white;
+  color:#009BCC;
+}
+</style>
+<% end %>

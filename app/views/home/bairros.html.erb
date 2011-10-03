@@ -1,0 +1,41 @@
+<div class="grid_16 alpha omega clearfix">
+  <% groups = 5 %>
+  <% total_in_groups = (@bairros.length / groups).floor + 1 -%>
+  <% @bairros.in_groups_of(total_in_groups)  do |bairros| -%>
+  <!-- CADA COLUNA -->
+  <div class="coluna" style="width:<%= (840/groups).to_i %>px;">
+    <% ultima_letra = nil -%>
+    <% for b in bairros -%>
+      <% if b -%>
+        <% if ultima_letra.nil? or ultima_letra != b.nome[0].chr -%>
+          <!-- NOVA LETRA -->
+          <div class="indice_letra"><%= b.nome[0].chr -%></div>
+          <% ultima_letra = b.nome[0].chr #guarda a ultima letra impressa -%>
+        <% end -%>
+        <p><%= link_to_with_context b.nome, :controller => "topicos", 
+                                            :action => "index", 
+                                            :bairro_id => b.id -%></p>
+      <% end -%>
+    <% end -%>
+  </div>
+  <% end -%>
+</div>
+
+<style type="text/css" media="screen">
+.coluna {
+  float:left;
+  position:relative;
+  margin:0 5px;
+  padding:0 5px;
+}
+.coluna p {
+  margin-bottom:2px;
+}
+.indice_letra {
+  border-bottom:1px dotted gray;
+  font-size:20px;
+  font-weight:bold;
+  color:gray;
+  margin-top:30px;
+}
+</style>

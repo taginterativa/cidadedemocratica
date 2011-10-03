@@ -1,0 +1,31 @@
+<div id="seletor_de_estados" <%= defineAmbito("estadual", @topico.locais, ['class="escondido clearfix"','class="clearfix"']) %>>
+  <p><b>Estados e Distrito Federal do Brasil:</b></p>
+  <div class="coluna">
+<% Estado.find(:all, :order => "abrev ASC, nome ASC").each_with_index do |estado, i| %>
+  <p class="estados">
+    <%= check_box_tag "locais[][pais_id][1][estado_id]", estado.id, false, :id => "locais_pais_1_estado_#{estado.id}" %>
+    <%= estado.nome %> (<%= estado.abrev %>)
+  </p>
+  <% if (i==12) -%></div><div class="coluna"><% end -%>
+<% end %>
+  </div>
+</div>
+
+<style type="text/css" media="screen">
+div.coluna {
+  width:240px;
+  float:left;
+}
+p.estados {
+  margin:2px 0;
+}
+</style>
+
+<script type="text/javascript" charset="utf-8">
+//Dado o ID do checkbox, marca-o.
+function marcarEstado(elemId) {
+  if ($(elemId)) {
+    $(elemId).checked = true;
+  }
+}
+</script>

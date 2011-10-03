@@ -1,0 +1,32 @@
+<div class="grid_16 alpha omega novo_topico">
+  <h1>Faça uma nova proposta</h1>
+  <%= render :partial => "topicos/passos_para_novo_topico" %>
+  <div class="grid_11 alpha">
+    <% form_for :topico do |f| -%>
+      <% if @problema -%>
+      <!-- Se PROPOSTA vinculada a um problema... -->
+      <%= hidden_field_tag "topico[parent_id]", @problema.id.to_s %>
+      <p>Vinculada ao problema &quot;<%= @problema.titulo %>&quot;.</p>
+      <% end -%>
+      <!-- FORM -->
+      <%= render :partial => "form_topico", :locals => { :f => f } %>
+      <%= submit_tag "Continuar &raquo;", :id => "bot_continuar" %>
+    <% end %>
+  </div>
+  <div class="grid_5 omega">
+    <!--
+    <div class="orientacoes caixa">
+      <h2>Orientações</h2>
+      <p>
+        Siga estas orientações para que ... :
+      </p>
+      <ul>
+        <li>Limite-se a um único problema.</li>
+        <li>A</li>
+        <li>A</li>
+      </ul>
+    </div>
+    -->
+    &nbsp;
+  </div>
+</div>

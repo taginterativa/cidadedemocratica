@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<%= render :partial => "layouts/head" %>
+</head>
+<body class="<%= controller_name %> <%= controller_name %>_<%= action_name %>" style="background: url(../images/fundo_varzea2022.jpg) repeat fixed left top #E46229;">
+<div class="container_16">
+    <div class="grid_16">
+    <ul class="clearfix" id="links_no_topo" style="background:#D6101D">
+      <li><a href="http://www.cidadedemocratica.org.br/usuario/cadastrar">Cadastre-se</a></li>
+      <li><a href="http://www.cidadedemocratica.org.br/login">Login</a></li>
+    </ul>
+  </div>
+  <%#= render :partial => "layouts/faixa_login" %>
+</div>
+
+<div id="container_seletor_home" class="container_16 clearfix"><!-- testeira -->
+
+<div class="grid_11 alpha">
+  <div id="elementos_seletor_home">
+    <div id="logo_e_cidade_corrente" class="clearfix">
+      <div class="clearfix">
+        <h1 id="logo">
+        <%= link_to "Cidadonos", "http://www.varzea2022.gov.br/", 
+                    :style => "background: url(../images/logo_varzea2022b.png) no-repeat scroll 0 0 transparent;height: 115px" %></h1>
+<style type="text/css" media="screen">
+#logo a, #logo a:visited {
+  background: url("../images/logo_cidadonos.png") no-repeat scroll 0 0 transparent;
+}
+a, .cloud a, .cloud a:visited {
+  color: #DE4714;
+}
+#rodape {
+  background-color: #DE4714;
+  border: 1px solid white;
+}
+#links_no_topo li a:hover {
+  background:#F4B890;
+  color: #FFFFFF;
+}
+#busca_google {
+  float:left;
+}
+#busca_google #cse-search-box input[type="submit"] {
+  background: none repeat scroll 0 0 #F4B890;
+  border: 2px solid #DE4714;
+}
+</style>
+  <%#= render :partial => "layouts/busca_google" %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="grid_5 omega">
+  <ul id="bots_acao" style="margin:20px 0 0 650px">
+      <li>
+        <%= link_to "Aponte um Problema",
+                    novo_topico_url(:topico_type => "problema", :host => "www.cidadedemocratica.org.br"),
+                    :id => "link_novo_problema",
+                    :class => "botao",
+                    :title => "Aponte um Problema" %>
+      </li>
+      <li>
+        <%= link_to "Crie uma Proposta",
+                    novo_topico_url(:topico_type => "proposta", :host => "www.cidadedemocratica.org.br"),
+                    :id => "link_nova_proposta",
+                    :class => "botao",
+                    :title => "Crie uma Proposta" %>
+      </li>
+  </ul>
+  <h2 id="USP">Uma cidade mobilizando mãos construtoras de sonhos comuns</h2>
+</div>
+</div><!-- END: testeira -->
+
+<div id="conteudo" class="container_16 rounded clearfix"><!-- conteudo -->
+  <div class="grid_16">
+    <%= flash_message -%>
+    <%= yield %>
+  </div>
+</div><!-- END: conteudo -->
+
+<%= render :partial => "layouts/varzea2022_rodape" %>
+<%= yield :rodape %>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<div class="grid_12 alpha omega">
+  <div class="grid_6 alpha">
+    <h3>Período</h3>
+    <p>
+      <span class="date"><%= l @data_de, :format => "%d %b%Y" %></span> 
+      a <span class="date"><%= l @data_ate, :format => "%d %b%Y" %></span>
+    </p>
+  </div>
+  <div class="prefix_1 grid_5 omega">
+    <% form_for :intervalo, :url => "", :html => { :method => :get } do |f| %>
+     De <%= select_date(@data_de, :prefix => 'de', :start_year => 2008, :end_year => Date.today.year) %><br />
+    até <%= select_date(@data_ate, :prefix => 'ate', :start_year => 2008, :end_year => Date.today.year) %><br />
+    <%= submit_tag "definir intervalo"%>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<% prefix = "" unless prefix %>
+<div id="seletor<%= prefix %>">
+  <fieldset>
+    <ol>
+      <li id="escolha">
+        <p>Escolha a cidade:</p>
+      </li>
+      <li class="myselect">
+        <%= select_estado(Local.new, :dom_id => "rodape_estado_id") %>
+      </li>
+      <li class="myselect">
+        <%= select_tag("local[cidade_slug]", 
+                       options_for_select( Cidade.find(:all, 
+                                                       :conditions => { 
+                                                          :estado_id => cidade_escolhida(Local.new).estado_id 
+                                                       }, 
+                                                       :order => "nome ASC").collect { |c| [ c.nome, c.slug ] },
+                                           cidade_escolhida(Local.new).id)
+                      ) %>
+        <%= image_tag("spinners/spinner.gif", :id => "spinner_cidade", :style => "display:none;") %>
+      </li>
+      <li id="botao">
+        <p><%= link_to_function "Ir!", "go2city()" %></p>
+      </li>
+    </ol>
+  </fieldset>
+  <%= observe_field(:rodape_estado_id,
+                    :update => "local_cidade_slug",
+                    :url => { :controller => "locais",
+                              :action => "cidades_slugs_options_for_select"
+                            },
+                    :with => "estado_id",
+                    :before => "$('spinner_cidade').show();",
+                    :complete => "$('spinner_cidade').hide();"
+                    ) -%>
+</div>
+<script type="text/javascript" charset="utf-8">
+function go2city() {
+  var url_atual = location.href;
+  var url_nova = url_atual.substring(0, url_atual.search(/^http:\/\/.+\//)) +"/"+ $('local_cidade_slug').value+"/topicos";
+  //alert(url_nova);
+  location.href = url_nova;
+}
+</script>

@@ -1,0 +1,10 @@
+<% if @usar_splash %>
+<div style="margin-bottom:20px">
+  <div>
+  <h5>Descubra e Participe</h5>
+  <% tmp_cidades = @topico.locais.collect { |l| l.cidade_id } -%>
+  <%= link_to image_tag("cidadonos_campanha.png"), "http://www.cidadonos.org.br/" if tmp_cidades.include?(85) -%>
+  <%= link_to image_tag("logo_varzea2022b.png", :width => 270, :height => 88), "http://www.varzea2022.sp.gov.br/" if tmp_cidades.include?(119) -%>
+  </div>
+</div>
+<% end -%>

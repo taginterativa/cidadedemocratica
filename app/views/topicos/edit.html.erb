@@ -1,0 +1,29 @@
+<% title "#{@topico.type}: #{@topico.titulo.nome_proprio}" %>
+<div class="grid_16 alpha omega novo_topico">
+  <div class="grid_11 alpha">
+    <h1>Editar</h1>
+
+    <% form_for :topico, :url => salvar_topico_url(:topico_slug => @topico.to_param) do |f| -%>
+      <%= render :partial => "form_topico", :locals => { :f => f, :topico => @topico } %>
+
+      <%= submit_tag "Atualizar" %> ou <%= link_to 'cancelar', topico_url(:topico_slug => @topico.to_param) %>
+
+    <% end %>
+  </div>
+  <div class="grid_5 omega">
+    <!--
+    <div class="orientacoes caixa">
+      <h2>Orientações</h2>
+      <p>
+        Siga estas orientações para que ... :
+      </p>
+      <ul>
+        <li>Limite-se a um único problema.</li>
+        <li>A</li>
+        <li>A</li>
+      </ul>
+    </div>
+    -->
+    &nbsp;
+  </div>
+</div>

@@ -1,0 +1,96 @@
+<% title "Tour" -%>
+<div class="grid_16 alpha omega">
+  <div class="grid_8 alpha">
+    <div id="video">
+<object width="446" height="360">
+  <param name="movie" value="http://www.youtube.com/v/kjO0Zqwozc0&hl=pt-br&fs=1"></param>
+  <param name="allowFullScreen" value="true"></param>
+  <param name="allowscriptaccess" value="always"></param>
+  <embed src="http://www.youtube.com/v/kjO0Zqwozc0&hl=pt-br&fs=1" 
+         type="application/x-shockwave-flash" 
+         allowscriptaccess="always" 
+         allowfullscreen="true" 
+         width="446" 
+         height="360"></embed>
+</object>
+    </div>
+  </div>
+  <div class="grid_7 omega">
+    <div id="chamada">
+      <p id="call">Atue! Mobilize! Participe!</p>
+      <p><span class="destaque">Cidade Democrática</span> é um site onde <span class="destaque">cidadãos</span> e <span class="destaque">entidades</span> podem se <span class="destaque">expressar</span>, se <span class="destaque">comunicar</span> e gerar <span class="destaque">mobilização</span> para uma cidade cada vez melhor.</p>
+    </div>
+  </div>
+</div>
+<style type="text/css" media="screen">
+/* IGUAL AO ARQUIVO seletor_estado_cidade.css
+   mas personalizado para funcionar na home  */
+/* USEI prefix = home para identificar o seletor */
+div#seletor_home {
+  width:936px;
+  height:70px;
+  background-image:url(/images/faixa_home.gif);
+  background-repeat:no-repeat;
+  margin-bottom:20px;
+}
+div#seletor_home fieldset ol li {
+  list-style:none;
+  float:left;
+  margin:0 0 0 20px;
+}
+div#seletor_home fieldset ol li.myselect {
+  margin-top:20px;
+}
+div#seletor_home fieldset ol li#escolha p,
+div#seletor_home fieldset ol li#botao p {
+  font-size:38px;
+  line-height:70px;
+  font-weight:bold;
+  color:#AAB27F;
+}
+div#seletor_home fieldset ol li#escolha {
+  margin-right:20px;
+}
+div#seletor_home fieldset ol li#botao {
+  margin-left:130px;
+}
+div#seletor_home fieldset ol li#botao p a {
+  padding:0 10px;
+}
+div#seletor_home fieldset ol li#botao p a:hover {
+  text-decoration:none;
+  background-color:#009BCA;
+  color:#fff;
+}
+div#seletor_home fieldset ol li label {
+  font-size:11px;
+  display:block;
+}
+div#seletor_home fieldset ol li select {
+  font-size:22px;
+}
+div#seletor_home fieldset ol li select#local_cidade_slug {
+  width:200px;
+}
+/* demais elementos da home */
+div#video {
+  width:446px;
+  height:360px;  
+  background-image:url(/images/video_placeholder.jpg);
+  border:4px solid #DAEF9F;
+}
+div#chamada p {
+  color:#666;
+  font-size:28px;
+  line-height:1.5em;
+}
+div#chamada p#call {
+  font-size:32px;
+  font-weight:bold;
+  color:#009BCA; /* #ACB57E; #DAEF9F; */
+}
+div#chamada p span.destaque {
+  color:#000;
+  font-weight:bold;
+}
+</style>

@@ -1,0 +1,13 @@
+<h1>Novas cidades para o estado &quot;<%= @estado.nome %>&quot;</h1>
+
+<% form_tag(:action => "novascidades") do %>
+
+  <p><%= text_area_tag "nomes_das_cidades", nil, :rows => 10, :cols => 40 %><br />
+  <span class="formHint">Digite uma cidade por linha</span>
+  </p>
+  
+  <p>
+    <%= submit_tag "Salvar" %> ou
+    <%= link_to "Voltar", admin_estados_path %>
+  </p>
+<% end %>

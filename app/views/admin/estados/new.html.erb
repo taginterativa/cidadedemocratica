@@ -1,0 +1,10 @@
+<h1>Novo estado</h1>
+
+<% form_for(@estado, :url => admin_estados_path) do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => "form", :locals => { :f => f } %>
+  <p>
+    <%= f.submit "Salvar" %> ou
+    <%= link_to "Voltar", admin_estados_path %>
+  </p>
+<% end %>

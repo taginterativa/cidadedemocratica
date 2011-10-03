@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<Module>
+<ModulePrefs title="Cidade Democratica">
+<Require feature="opensocial-0.8" />
+</ModulePrefs>
+
+<Content type="html">
+<![CDATA[ 
+
+	<link href="http://200.207.40.205:9999/stylesheets/960/reset.css?1256214302" media="screen" rel="stylesheet" type="text/css" />
+	<link href="http://200.207.40.205:9999/stylesheets/960/960.css?1256214302" media="screen" rel="stylesheet" type="text/css" />
+	<link href="http://200.207.40.205:9999/stylesheets/960/text.css?1256214302" media="screen" rel="stylesheet" type="text/css" />
+	<link href="http://200.207.40.205:9999/stylesheets/layout.css?1256221446" media="screen" rel="stylesheet" type="text/css" />
+
+	<link href="http://200.207.40.205:9999/stylesheets/cloud.css?1256214302" media="screen" rel="stylesheet" type="text/css" />
+	<link href="http://200.207.40.205:9999/stylesheets/will_paginate.css?1256214302" media="screen" rel="stylesheet" type="text/css" />
+	<link href="http://200.207.40.205:9999/stylesheets/flash.css?1257269722" media="screen" rel="stylesheet" type="text/css" />
+	<link href="http://200.207.40.205:9999/stylesheets/forms.css?1256214302" media="screen" rel="stylesheet" type="text/css" />
+
+	<link href="http://200.207.40.205:9999/stylesheets/users_cmp.css?1257254904" media="screen" rel="stylesheet" type="text/css" />
+	<link href="http://200.207.40.205:9999/stylesheets/topicos_cmp.css?1256216958" media="screen" rel="stylesheet" type="text/css" />
+	<link href="http://200.207.40.205:9999/stylesheets/listas_cmp.css?1256214302" media="screen" rel="stylesheet" type="text/css" />
+	
+	<div id="geral">
+
+		<input type="hidden" id="id_owner">
+		<input type="hidden" id="id_viewer">
+	
+		<div id="conteudo">
+		</div>
+		
+	</div>
+	
+	<script type="text/javascript" src="http://200.207.40.205:9999/javascripts/ning.js"></script>
+
+	<script>
+		gadgets.util.registerOnLoadHandler(getData);
+		gadgets.window.adjustHeight(900);
+		
+	</script>
+  
+]]> 
+</Content>
+</Module>

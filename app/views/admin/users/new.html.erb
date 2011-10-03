@@ -1,0 +1,10 @@
+<h1>Nova organização</h1>
+
+<% form_for(@user, :url => admin_users_path) do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => "form_organizacao", :locals => { :f => f } %>
+  <p>
+    <%= f.submit "Salvar" %> ou
+    <%= link_to "Voltar", admin_users_path %>
+  </p>
+<% end %>

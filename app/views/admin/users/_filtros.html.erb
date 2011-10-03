@@ -1,0 +1,96 @@
+<div id="filtro" style="display:none">
+<% form_tag admin_users_url, :method => :get do %>
+  <div class="busca">
+    <h3 style="margin:0">Filtros</h3>
+    <div class="grid_4 alpha">
+    <ol>
+      <li>
+        <%= label_tag :busca_nome, "Nome" %>
+        <%= text_field_tag :busca_nome, params[:busca_nome], :size => 34 %>
+      </li>
+      <li>
+        <%= label_tag :busca_email, "E-mail" %>
+        <%= text_field_tag :busca_email, params[:busca_email], :size => 34 %>
+      </li>
+      <li>
+        <%= label_tag :busca_tipo, "Tipo" %>
+        <%= select_tipo_de_usuario(:name => :busca_tipo, :include_blank => true) %>
+      </li>
+    </ol>
+    </div>
+    
+    <div class="grid_3">
+    <ol>
+      <li>
+        <%= label_tag :busca_status, "Status" %>
+        <%= select_tag(:busca_status, options_for_select( [ ['', ''],
+                                                          ['Não confirmados', 'pending'], 
+                                                          ['Confirmados', 'active'],
+                                                          ['Banidos', 'suspended'],
+                                                          ['Removidos', 'deleted'] ], params[:busca_status])) %>
+      </li>
+      <li>
+        <%= label_tag :busca_idade, "Idade" %>
+        <%= select_tag(:busca_idade, options_for_select( [ ['', ''],
+                                                          ['0 a 4 anos', '0-4'], 
+                                                          ['5 a 9 anos', '5-9'],
+                                                          ['10 a 14 anos', '10-14'],
+                                                          ['15 a 19 anos', '15-19'],
+                                                          ['20 a 24 anos', '20-24'],
+                                                          ['25 a 29 anos', '25-29'],
+                                                          ['30 a 34 anos', '30-34'],
+                                                          ['35 a 39 anos', '35-39'],
+                                                          ['40 a 44 anos', '40-44'],
+                                                          ['45 a 49 anos', '45-49'],
+                                                          ['50 a 54 anos', '50-54'],
+                                                          ['55 a 59 anos', '55-59'],
+                                                          ['60 a 64 anos', '60-64'],
+                                                          ['65 a 69 anos', '65-69'],
+                                                          ['70 a 74 anos', '70-74'],
+                                                          ['mais de 75 anos', '75-200'] ], params[:busca_idade])) %>
+      </li>
+      <li>
+        <%= label_tag :busca_sexo, "Sexo" %>
+        <%= select_tag(:busca_sexo, options_for_select( [ ['', ''],
+                                                          ['Masculino', 'm'], 
+                                                          ['Feminino', 'f'] ], params[:busca_sexo])) %>
+      </li>
+    </ol>
+    </div>
+    
+    <div class="grid_3">
+    <ol>
+      <li>
+        <%= label_tag :busca_estado, "Estado" %>
+        <%= select_tag("busca_estado", "<option></option>"+options_for_select(@estados.collect { |c| [ "#{c.abrev}", "#{c.id}" ] }, params[:busca_estado]) ) %>
+        <%= observe_field("busca_estado", :url => { 
+                                            :controller => "../locais",
+                                            :action => "cidades_options_for_select",
+                                            :first_option => true }, 
+                                          :with => "estado_id",
+                                          :update => "busca_cidade",
+                                          :before => "$('cidade_spinner').show()",
+                                          :complete => "$('cidade_spinner').hide()") %>
+      </li>
+      <li>
+        <%= label_tag :busca_cidade, "Cidade" %>
+        <%= image_tag("spinners/spinner.gif", :id => "cidade_spinner", :style => "display:none") %>
+        <%= select_tag("busca_cidade", "<option></option>"+options_for_select(@cidades.collect { |c| [ "#{c.nome}", "#{c.id}" ] }, params[:busca_cidade]) ) %>
+      </li>
+    </ol>
+    </div>
+    
+    <div class="grid_1 omega">
+      <ol>
+        <li>
+          <%= label_tag :per_page, "itens/página" %>
+          <%= select_tag("per_page", options_for_select([10, 25, 50, 100, 500, 1000, 5000, 10000], @per_page) ) %>
+        </li>
+        <li>
+          <%= submit_tag "Filtrar", :name => :busca %>
+        </li>
+      </ol>
+    </div>
+  </div>
+<% end %>
+</div>

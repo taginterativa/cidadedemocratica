@@ -1,0 +1,170 @@
+<div class="grid_16 alpha omega"><!-- LINHA 1: CIDADES MAIS ATIVAS + TEMAS MAIS RELEVANTES -->
+  <div class="grid_8 alpha">
+    <h2 class="subtitulo_home">Cidades mais ativas <%= link_to "[ Todas ]", cidades_url %></h2>
+    <div class="rounded destaque cloud">
+      <% cidades_cloud(@cidades, %w(nuvem_1 nuvem_2 nuvem_3 nuvem_4 nuvem_5 ), :relevancia => true) do |cidade, c| -%>
+        <span class="<%= c %>">
+        <%= link_to "#{cidade.nome} <!-- span class=\"count\">#{cidade.total}</span -->", {
+                      :controller => "topicos", 
+                      :action => "index", 
+                      :topico_type => "topicos",
+                      :estado_abrev => cidade.estado.abrev.downcase,
+                      :cidade_slug => cidade.slug 
+                    },
+                    :title => "#{cidade.total} tópicos na cidade de '#{cidade.nome}'" %>
+        </span>
+      <% end -%>
+    </div>
+  </div>
+  <div class="grid_8 omega">
+    <h2 class="subtitulo_home">Temas mais relevantes <%= link_to "[ Todos ]", temas_url %></h2>
+    <div class="rounded destaque cloud">
+      <% tag_cloud(@tags, %w(nuvem_1 nuvem_2 nuvem_3 nuvem_4 nuvem_5), :relevancia => true) do |tag, c| -%>
+        <span class="<%= c %>">
+        <%= link_to "#{tag.name} <!-- span class=\"count\">#{tag.total}</span -->", {
+                      :controller => "topicos", 
+                      :action => "index",
+                      :topico_type => "topicos",
+                      :tag_id => tag.id 
+                     },
+                     :title => "#{tag.total} tópicos do tema '#{tag.name}'" -%></span>
+      <% end -%>
+    </div>
+  </div>
+</div>
+
+<div class="grid_16 alpha omega" style="margin-top: 10px"><!-- LINHA 2: DIVIDIDA EM DUAS COLUNAS: COL. 1 = PESSOAS E ENTIDADES; COL. 2 = PROPST. E PROBLM. -->
+  <div class="grid_8 alpha">
+    <h2>Pessoas e entidades</h2>
+    <div>
+      <table width="400">
+        <tr>
+
+      <% @usuarios.each_with_index do |usuario, i| -%>
+        <td width="25%" align="left">  
+        <div class="layout_borda">
+        <%= link_to avatar(usuario, 
+                           :image_only => true, 
+                           :thumbnails => :thumb),
+                    perfil_url(usuario.id),
+                    :class => "img_link #{usuario.nome_da_classe}",
+                    :title => "Conheça o perfil de #{usuario.nome}" -%></div></td>
+        <% if (i==3) %></tr><tr><% end -%>
+      <% end -%>
+        </tr>
+      </table>
+    </div>
+    <h2>Como funciona</h2>
+    <div style="margin-bottom:30px">
+      <object width="400" height="324">
+        <param name="movie" value="http://www.youtube.com/v/kjO0Zqwozc0&hl=pt-br&fs=1"></param>
+        <param name="allowFullScreen" value="true"></param>
+        <param name="allowscriptaccess" value="always"></param>
+        <embed src="http://www.youtube.com/v/kjO0Zqwozc0&hl=pt-br&fs=1" 
+               type="application/x-shockwave-flash" 
+               allowscriptaccess="always" 
+               allowfullscreen="true" 
+               width="400" 
+               height="324"></embed>
+      </object>
+    </div>
+    
+    <h2>Últimos apoios</h2>
+    <ul id="ultimos_apoios">
+    <% @apoios.each do |apoio| -%>
+    <li style="list-style:none; margin: 0 0 20px">
+      <div class="clearfix <%= apoio.topico.class.to_s.downcase %>" style="display: block">
+        <div style="width: 80px; float: left; margin: 0 10px 0 0">
+          <%#= ficha_do_usuario(apoio.user, :badge => "_mini", :with_tags => false) %>
+          <div class="layout_borda">
+          <%= link_to avatar(apoio.user, 
+                             :image_only => true, 
+                             :thumbnails => :thumb),
+                      perfil_url(apoio.user.id),
+                      :class => "img_link #{apoio.user.nome_da_classe}",
+                      :title => "Conheça o perfil de #{apoio.user.nome}" -%></div>
+        </div>
+        <div style="float: left; padding-top: 16px">
+          <%= image_tag("icones/atividades_adesoes.png") %>
+          <p class="number <%= apoio.topico.class.to_s.downcase %>"><%= apoio.topico.adesoes_count %></p>
+        </div>
+        <div class="detalhes" style="margin:0 0 0 120px">
+          <p class="titulo rounded" style="min-height: 40px; padding: 10px 10px 10px 25px">
+            <%= link_to truncate(apoio.topico.titulo, 78), topico_url(:topico_slug => apoio.topico.to_param), :style => "color: #FFFFFF; font-weight: bold" %>
+          </p>
+        </div>
+      </div>
+    </li>
+    <% end -%>
+    </ul>
+        
+    <h2>Quem anda seguindo o quê?</h2>
+    <ul id="ultimos_seguidores">
+    <% @seguidores.each do |seguidor| -%>
+    <li style="list-style:none; margin: 0 0 20px">
+      <div class="clearfix <%= seguidor.topico.class.to_s.downcase %>" style="display: block">
+        <div style="width: 80px; float: left; margin: 0 10px 0 0">
+          <div class="layout_borda">
+          <%= link_to avatar(seguidor.user, 
+                             :image_only => true, 
+                             :thumbnails => :thumb),
+                      perfil_url(seguidor.user.id),
+                      :class => "img_link #{seguidor.user.nome_da_classe}",
+                      :title => "Conheça o perfil de #{seguidor.user.nome}" -%></div>
+        </div>
+        <div style="float: left; padding-top: 16px">
+          <%= image_tag("icones/atividades_seguidos.png") %>
+        </div>
+        <div class="detalhes" style="margin:0 0 0 120px">
+          <p class="titulo rounded" style="min-height: 40px; padding: 10px 10px 10px 25px">
+            <%= link_to truncate(seguidor.topico.titulo, 78), topico_url(:topico_slug => seguidor.topico.to_param), :style => "color: #FFFFFF; font-weight: bold" %>
+          </p>
+        </div>
+      </div>
+    </li>
+    <% end -%>
+    </ul>
+  </div>
+  <!-- coluna 2 -->
+  <div class="grid_8 omega">
+    <h2>Propostas e problemas</h2>
+    <ul id="tabs_topicos">
+      <li><a href="#topicos1">Mais recentes</a></li>
+      <li><a href="#topicos2">Mais comentados</a></li>
+      <li><a href="#topicos3">Mais apoiados</a></li>
+    </ul>
+    
+    <div id="topicos1">
+    <%= topicos(@topicos, :titulo_max_chars => 60, :mostrar_local => true, :mostrar_atividades => false) %>
+    </div>
+    <div id="topicos2">
+    <%= topicos(@topicos_mais_comentados, :titulo_max_chars => 60, :mostrar_local => true, :mostrar_atividades => true) %>
+    </div>
+    <div id="topicos3">
+    <%= topicos(@topicos_mais_apoiados, :titulo_max_chars => 60, :mostrar_local => true, :mostrar_atividades => true) %>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+    new Control.Tabs('tabs_topicos');
+    </script>
+    
+    <!-- COMENTARIOS -->
+    <h2>Últimos comentários</h2>
+    <div id="ultimos_comentarios">
+      <% @comentarios.each do |comentario| -%>
+      <ul class="dois_itens_comentario">
+        <li style="width: 80px; float: left; margin: 0 20px 0 0">
+          <div class="layout_borda">
+          <%= link_to avatar(comentario.user, 
+                             :image_only => true, 
+                             :thumbnails => :thumb),
+                      perfil_url(comentario.user.id),
+                      :class => "img_link #{comentario.user.nome_da_classe}",
+                      :title => "Conheça o perfil de #{comentario.user.nome}" -%></div>
+        </li>
+      <%= descreve(comentario, comentario.user, nil, :truncate_comentario => 220) %>
+      </ul>
+      <% end -%>
+    </div>
+  </div>
+</div>
+

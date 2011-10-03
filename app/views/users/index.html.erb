@@ -1,0 +1,48 @@
+<% title_string = "Pessoas e Entidades" -%>
+<% title title_string -%>
+<div class="grid_16 alpha omega">
+  <div class="grid_12 alpha">
+
+    <%= render :partial => "users/breadcrumb" %>
+
+    <div id="contador_e_ordenador" class="clearfix">
+      <ul id="ordenador">
+        <li><%= link_to_with_context "Relevância",
+                                     :user_type => params[:user_type],
+                                     :user_order => "relevancia" %></li>
+        <li><%= link_to_with_context "Recém cadastrados",
+                                     :user_type => params[:user_type],
+                                     :user_order => "recentes" %></li>
+        <li><%= link_to_with_context "Mais tópicos",
+                                     :user_type => params[:user_type],
+                                     :user_order => "mais_topicos" %></li>
+        <li><%= link_to_with_context "Mais comentários",
+                                     :user_type => params[:user_type],
+                                     :user_order => "mais_comentarios" %></li>
+        <li><%= link_to_with_context "Mais apoios",
+                                     :user_type => params[:user_type],
+                                     :user_order => "mais_apoios" %></li>
+        <li><%= link_to_with_context "A-Z",
+                                     :user_type => params[:user_type],
+                                     :user_order => "a-z" %></li>
+        <li><%= link_to_with_context "Z-A",
+                                     :user_type => params[:user_type],
+                                     :user_order => "z-a" %></li>
+      </ul>
+      <p id="contador">
+        <span class="total"><%= @users.total_entries %></span>
+        <span class="tipo">usuários</span>
+      </p>
+    </div>
+
+    <ul id="lista_de_usuarios">
+<% @users.each do |u| %>
+      <li><%= ficha_do_usuario(u, :badge => "_full", :with_summary => true) %></li>
+<% end -%>
+    </ul>
+    <%= will_paginate @users %>
+  </div>
+  <div class="grid_4 omega">
+    <%= render :partial => "filtros" %>
+  </div>
+</div>
