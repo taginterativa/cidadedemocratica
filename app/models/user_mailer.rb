@@ -1,5 +1,5 @@
-require "text/format"
-
+# DEPRECATED: now using config.gem - see at environment.rb
+#require "text/format" 
 class UserMailer < Mailer
   helper :mailer
 
