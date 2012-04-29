@@ -4,19 +4,14 @@
 # you don't control web/app server and can't set it the proper way
 # ENV['RAILS_ENV'] ||= 'production'
 
-# ATENÇÃO: Para upload pra LOCAWEB, USE:
-# RAILS_GEM_VERSION = "2.2.2" # => e renomeie o arquivo controller/application.rb
-#
 # Specifies gem version of Rails to use when vendor/rails is not present
-# RAILS_GEM_VERSION = "2.3.5" unless defined? RAILS_GEM_VERSION
 RAILS_GEM_VERSION = "2.3.11" unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), "boot")
 
 # trying to use this plugin...
-# require "rubygems"
-require "desert"
+require "bundler/desert"
 
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
@@ -27,31 +22,7 @@ Rails::Initializer.run do |config|
   # Skip frameworks you're not going to use. To use Rails without a database
   # you must remove the Active Record framework.
   # config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
-  
-  # Para carregar modelos dentro de pastas...
-  # config.load_paths += Dir["#{RAILS_ROOT}/app/models/[a-z]*"]
-
-  # Specify gems that this application depends on. 
-  # They can then be installed with "rake gems:install" on new installations.
-  # config.gem "bj"
-  # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
-  # config.gem "aws-s3", :lib => "aws/s3"
-  config.gem "unicode", 
-             :lib => "unicode"
-  config.gem "mislav-will_paginate",
-             :lib => "will_paginate",
-             :source => "http://gems.github.com"
-  config.gem "weppos-helperful",
-             :lib => "helperful",
-             :source => "http://gems.github.com"
-  config.gem "fastercsv"
-  config.gem 'rails-settings', 
-             :lib => 'settings'
-  config.gem "googlecharts", 
-             :lib => "googlecharts"
-  config.gem "text-format",
-             :lib => "text/format"
-  
+    
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named
@@ -99,5 +70,5 @@ Rails::Initializer.run do |config|
   config.i18n.default_locale = "pt-BR"
 
   $KCODE = "u"
-  require "jcode"
+  require "bundler/jcode"
 end
