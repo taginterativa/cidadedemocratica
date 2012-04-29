@@ -1,9 +1,0 @@
-production:
-  adapter: mysql
-  encoding: utf8
-  database: cidadedemocrat
-  username: cidadedemocrat
-  password: GAIDPY74
-  host: mysql01.cidadedemocratica.org.br
-  pool: 8
-  reconnect: true
