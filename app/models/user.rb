@@ -6,6 +6,16 @@ class User < ActiveRecord::Base
   include Authentication::ByCookieToken
   include Authorization::StatefulRoles
 
+  # Fix para warning "object#type is deprecated" ao chamar o atributo type
+  def type
+    read_attribute(:type)
+  end
+
+  # Fix para warning "object#type is deprecated" ao chamar o atributo type
+  def type=(type)
+    write_attribute(:type, type)
+  end
+
   # Tanto pessoas físicas quanto jurídicas são usuários, e portanto têm login
   # e senha para criar propostas e editar seus perfis. Algumas pessoas físicas
   # - cidadãos, gestores pub. - podem pertencer a uma pessoa jurídica - empresa,
