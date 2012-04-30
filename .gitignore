@@ -19,3 +19,13 @@
 
 # Ignore database.yml
 /config/database.yml
+
+# Ignore uploaded files
+/public/images/uploaded/*
+
+# Ignore cache files
+/public/javascripts/cache
+/public/stylesheets/cache
+
+# Don't ignore .gitkeeper files
+!*.gitkeeper
