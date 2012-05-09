@@ -10,4 +10,4 @@ RewriteRule ^(.*)$ http://www.cidadedemocratica.org.br/$1 [R=permanent,L]
 RewriteCond /home/cidadedemocratica/apps/cidadedemocratica/current/tmp/manutencao.txt -f
 RewriteCond %{SCRIPT_FILENAME} !manutencao.html
 RewriteCond %{REQUEST_URI} !^.*(.css|.js|.gif|.png|.jpg|.jpeg)$
-RewriteRule ^.*$ /manutencao.html [L]
+RewriteRule ^.*$ http://www.cidadedemocratica.org.br/manutencao.html [L]
