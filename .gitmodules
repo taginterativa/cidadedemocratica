@@ -1,3 +1,6 @@
 [submodule "public/javascripts/livepipe-ui"]
 	path = public/javascripts/livepipe-ui
 	url = git://github.com/syntacticx/livepipe-ui.git
+[submodule "public/javascripts/modalbox"]
+	path = public/javascripts/modalbox
+	url = http://github.com/okonet/modalbox.git
