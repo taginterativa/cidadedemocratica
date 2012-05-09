@@ -70,7 +70,7 @@ h3 {
   position: relative;
   float: right;
   display: inline;
-  z-index: 1;
+  z-index: 999;
   background: #2CB3BC;
   color: #FFF;
   margin: 0 10px 0 0;
