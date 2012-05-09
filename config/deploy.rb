@@ -21,6 +21,12 @@ after "deploy", "deploy:cleanup" # keep only the last 5 releases
 namespace :deploy do
   task :start do; end
   task :stop do; end
+  task :ativar_manutencao, :roles => :app, :except => { :no_release => true } do
+    run "touch #{deploy_to}/current/tmp/manutencao.txt"
+  end
+  task :desativar_manutencao, :roles => :app, :except => { :no_release => true } do
+    run "rm #{deploy_to}/current/tmp/manutencao.txt"
+  end
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "touch #{deploy_to}/current/tmp/restart.txt"
   end
