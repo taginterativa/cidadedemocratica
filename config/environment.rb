@@ -66,6 +66,12 @@ Rails::Initializer.run do |config|
   # config.i18n.load_path << Dir[File.join(RAILS_ROOT, 'my', 'locales', '*.{rb,yml}')]
   config.i18n.default_locale = "pt-BR"
 
+  # Load email.yml settings
+  if Rails.env != 'test'
+    email_settings = YAML::load(File.open("#{Rails.root.to_s}/config/email.yml"))
+    config.action_mailer.smtp_settings = email_settings[Rails.env] unless email_settings[Rails.env].nil?
+  end
+
   $KCODE = "u"
   require "jcode"
 end
