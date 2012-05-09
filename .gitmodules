@@ -1,0 +1,3 @@
+[submodule "public/javascripts/livepipe-ui"]
+	path = public/javascripts/livepipe-ui
+	url = git://github.com/syntacticx/livepipe-ui.git
