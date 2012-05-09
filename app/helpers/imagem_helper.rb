@@ -38,7 +38,7 @@ module ImagemHelper
       # A imagem existe (está no file-system)
       # Fazer o ajuste de posicionamento dentro do DIV
       wh = ImageSize.of_file("#{RAILS_ROOT}/public#{user.imagem.public_filename}")
-      w,h = wh.to_s.split("x")[0], wh.to_s.split("x")[1]
+      w,h = wh.width, wh.height
       #Agora vamos centralizar a imagem no retangulo 190x200
       dw = 0
       dw = ((w - 190)/2).to_i if (w.to_i > 190) #ponto médio horizontal
