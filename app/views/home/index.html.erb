@@ -90,7 +90,7 @@
         </div>
         <div class="detalhes" style="margin:0 0 0 120px">
           <p class="titulo rounded" style="min-height: 40px; padding: 10px 10px 10px 25px">
-            <%= link_to truncate(apoio.topico.titulo, 78), topico_url(:topico_slug => apoio.topico.to_param), :style => "color: #FFFFFF; font-weight: bold" %>
+            <%= link_to truncate(apoio.topico.titulo, :length => 78), topico_url(:topico_slug => apoio.topico.to_param), :style => "color: #FFFFFF; font-weight: bold" %>
           </p>
         </div>
       </div>
@@ -117,7 +117,7 @@
         </div>
         <div class="detalhes" style="margin:0 0 0 120px">
           <p class="titulo rounded" style="min-height: 40px; padding: 10px 10px 10px 25px">
-            <%= link_to truncate(seguidor.topico.titulo, 78), topico_url(:topico_slug => seguidor.topico.to_param), :style => "color: #FFFFFF; font-weight: bold" %>
+            <%= link_to truncate(seguidor.topico.titulo, :length => 78), topico_url(:topico_slug => seguidor.topico.to_param), :style => "color: #FFFFFF; font-weight: bold" %>
           </p>
         </div>
       </div>
