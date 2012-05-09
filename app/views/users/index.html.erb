@@ -37,7 +37,7 @@
 
     <ul id="lista_de_usuarios">
 <% @users.each do |u| %>
-      <li><%= ficha_do_usuario(u, :badge => "_full", :with_summary => true) %></li>
+  <li><%= ficha_do_usuario(u, :badge => "_full", :with_summary => true, :truncate => 60) %></li>
 <% end -%>
     </ul>
     <%= will_paginate @users %>
