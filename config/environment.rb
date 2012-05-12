@@ -67,9 +67,9 @@ Rails::Initializer.run do |config|
   config.i18n.default_locale = "pt-BR"
 
   # Load email.yml settings
-  if Rails.env != 'test'
+  if RAILS_ENV != 'test'
     email_settings = YAML::load(File.open("#{Rails.root.to_s}/config/email.yml"))
-    config.action_mailer.smtp_settings = email_settings[Rails.env] unless email_settings[Rails.env].nil?
+    config.action_mailer.smtp_settings = email_settings[RAILS_ENV] unless email_settings[RAILS_ENV].nil?
   end
 
   $KCODE = "u"
