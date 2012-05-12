@@ -7,7 +7,11 @@ RewriteCond %{HTTP_HOST} ^www.cidadedemocratica\.com\.br
 RewriteRule ^(.*)$ http://www.cidadedemocratica.org.br/$1 [R=permanent,L]
 
 # Modo manutencao
-RewriteCond /home/cidadedemocratica/apps/cidadedemocratica/current/tmp/manutencao.txt -f
+RewriteCond %{DOCUMENT_ROOT}/../tmp/manutencao.txt -f
 RewriteCond %{SCRIPT_FILENAME} !manutencao.html
 RewriteCond %{REQUEST_URI} !^.*(.css|.js|.gif|.png|.jpg|.jpeg)$
 RewriteRule ^.*$ http://www.cidadedemocratica.org.br/manutencao.html [L]
+
+RewriteCond %{DOCUMENT_ROOT}/../tmp/manutencao.txt !-f
+RewriteCond %{SCRIPT_FILENAME} manutencao.txt
+RewriteRule ^.*$ http://www.cidadedemocratica.org.br/
