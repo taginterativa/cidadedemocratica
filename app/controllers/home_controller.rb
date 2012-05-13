@@ -1,34 +1,37 @@
 class HomeController < ApplicationController
 
+  before_filter :define_ante_sala
+  caches_action :index, :layout => false
+
+  def define_ante_sala
+    if params[:site] == "cidadonos" or request.host.include?("cidadonos")
+      cidadonos
+    elsif params[:site] == "varzea2022" or request.host.include?("varzea2022")
+      varzea2022
+    end
+  end
+
   # Ante sala do site
   def index
-    if params[:site]=="cidadonos" or request.host.include?("cidadonos")
-      cidadonos
-    elsif params[:site]=="varzea2022" or request.host.include?("varzea2022")
-      varzea2022
-    else
-      @estados = Estado.find(:all, :order => "abrev ASC")
-      @cidades = Cidade.mais_ativas(:order => "cidades.relevancia DESC",
-                                    :limit => @settings["home_cloud_items"].to_i).sort_by { |c| c.nome }
-      @tags = Tag.do_contexto(:pais => nil,
-                              :estado => nil,
-                              :cidade => nil,
-                              :bairro => nil,
-                              :topico_type => nil,
-                              :ultimos_dias => nil,
-                              :order => "tags.relevancia DESC",
-                              :limit => @settings["home_cloud_items"].to_i)
-      @usuarios = User.nao_admin.ativos.com_avatar.aleatorios.find(:all, :limit => 8)
-    
-      @topicos = Topico.de_user_ativo.find(:all, :include => [:locais], :order => "topicos.id DESC", :limit => @settings["home_numero_topicos"].to_i)
-      @topicos_mais_comentados = Topico.de_user_ativo.find(:all, :include => [:locais], :order => "topicos.comments_count DESC", :limit => @settings["home_numero_topicos"].to_i)
-      @topicos_mais_apoiados   = Topico.de_user_ativo.find(:all, :include => [:locais], :order => "topicos.adesoes_count DESC", :limit => @settings["home_numero_topicos"].to_i)
-    
-      @apoios = Adesao.por_user_ativo.find(:all, :include => [:user, :topico], :order => "adesoes.created_at DESC", :limit => @settings["home_numero_apoios"].to_i)
-      @seguidores = Seguido.por_user_ativo.find(:all, :include => [:topico], :order => "seguidos.created_at DESC", :limit => @settings["home_numero_seguidores"].to_i)
-      @comentarios = Comentario.de_user_ativo.find(:all, :order => "comments.id DESC", :limit => @settings["home_numero_comentarios"].to_i)
-      render :action => "index", :layout => "ante_sala"
-    end
+    @cidades = Cidade.mais_ativas(:order => "cidades.relevancia DESC",
+                                  :limit => @settings["home_cloud_items"].to_i).sort_by { |c| c.nome }
+    @tags = Tag.do_contexto(:pais => nil,
+                            :estado => nil,
+                            :cidade => nil,
+                            :bairro => nil,
+                            :topico_type => nil,
+                            :ultimos_dias => nil,
+                            :order => "tags.relevancia DESC",
+                            :limit => @settings["home_cloud_items"].to_i)
+    @usuarios = User.nao_admin.ativos.com_avatar.aleatorios.find(:all, :limit => 8)
+  
+    @topicos = Topico.de_user_ativo.find(:all, :include => [:locais], :order => "topicos.id DESC", :limit => @settings["home_numero_topicos"].to_i)
+    @topicos_mais_comentados = Topico.de_user_ativo.find(:all, :include => [:locais], :order => "topicos.comments_count DESC", :limit => @settings["home_numero_topicos"].to_i)
+    @topicos_mais_apoiados   = Topico.de_user_ativo.find(:all, :include => [:locais], :order => "topicos.adesoes_count DESC", :limit => @settings["home_numero_topicos"].to_i)
+  
+    @apoios = Adesao.por_user_ativo.find(:all, :include => [:user, :topico], :order => "adesoes.created_at DESC", :limit => @settings["home_numero_apoios"].to_i)
+    @seguidores = Seguido.por_user_ativo.find(:all, :include => [:topico], :order => "seguidos.created_at DESC", :limit => @settings["home_numero_seguidores"].to_i)
+    @comentarios = Comentario.de_user_ativo.find(:all, :order => "comments.id DESC", :limit => @settings["home_numero_comentarios"].to_i)
   end
   
   # REMENDO (ATENÇÃO: esse método aqui abaixo é um remendo, não prosseguir o desenvolvimento assim... 
