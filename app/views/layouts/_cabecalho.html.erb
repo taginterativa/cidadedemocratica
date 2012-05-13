@@ -1,0 +1,57 @@
+<div id="testeira" class="container_16 clearfix">
+  <%= render :partial => "layouts/faixa_login" %>
+  <div id="logo_e_cidade_corrente" class="grid_16 clearfix">
+    <div class="grid_11 alpha">
+    <h1 id="logo">
+<% if @cidade_corrente -%>
+      <%= link_to "Cidade Democrática", topicos_url(:cidade_slug => @cidade_corrente.to_param) %>
+<% else -%>
+      <%= link_to "Cidade Democrática", root_url %>
+<% end -%>
+    </h1>
+    <%= image_tag "beta.png", :size => "30x10", :id => "beta_icon" %>
+    <h2 id="USP">Crie e apoie propostas para uma cidade melhor</h2>
+
+    </div>
+    <div class="grid_5 omega">
+      <ul id="bots_acao">
+          <li>
+            <%= link_to "Aponte um Problema",
+                        novo_topico_url(:topico_type => "problema"),
+                        :id => "link_novo_problema",
+                        :class => "botao",
+                        :title => "Aponte um Problema" %>
+          </li>
+          <li>
+            <%= link_to "Crie uma Proposta",
+                        novo_topico_url(:topico_type => "proposta"),
+                        :id => "link_nova_proposta",
+                        :class => "botao",
+                        :title => "Crie uma Proposta" %>
+          </li>
+      </ul>
+    </div>
+  </div>
+  <ul id="navegacao_geral" class="clearfix">
+    <li id="lapela_2">
+      <%= link_to_aba_selecionada "Propostas e problemas",
+                                  topicos_url(:topico_type => "topicos") %>
+    </li>
+    <li id="lapela_3">
+      <%= link_to_aba_selecionada "Pessoas e entidades",
+                                  usuarios_url %>
+    </li>
+    <li id="lapela_4">
+      <%= link_to_aba_selecionada "Meu observatório", 
+                                  observatorio_url %>
+    </li>
+    <li id="lapela_5">
+      <%= link_to_aba_selecionada "Tour", tour_url %>
+    </li>
+    
+    <li style="float:right">
+      <%= render :partial => "layouts/busca_google_pequena" %>
+    </li>
+  </ul> <!-- navegacao_geral -->
+  
+</div> <!-- testeira -->

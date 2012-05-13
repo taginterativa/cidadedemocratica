@@ -1,0 +1,101 @@
+<div class="container_16">
+  <%= render :partial => "layouts/faixa_login" %>
+</div>
+
+<div id="container_seletor_home" class="container_16 clearfix">
+
+<div id="fundo_seletor_home" class="grid_16 alpha omega clearfix">
+  &nbsp;
+</div>
+
+  <div id="elementos_seletor_home">
+    <div id="logo_e_cidade_corrente" class="clearfix">
+      <div class="clearfix">
+  <h1 id="logo">
+<% if cidade_corrente -%>
+    <%= link_to "Cidade Democrática", topicos_url(:cidade_slug => cidade_corrente.to_param) %>
+<% else -%>
+    <%= link_to "Cidade Democrática", root_url %>
+<% end -%>
+  </h1>
+  <%#= image_tag "beta.png", :size => "30x10", :id => "beta_icon" %>
+  <%= render :partial => "layouts/busca_google" %>
+  <h2 id="USP">Crie e apoie propostas para uma cidade melhor</h2>
+      </div>
+
+      <div class="clearfix">
+        <form id="form_seletor">
+          <p>Participe no seu estado, cidade ou em todo país.</p>
+          <fieldset>
+            <ol>
+              <li>
+                <%= select_tag "estado", options_for_select([["Todos Estados", 0]]+ Estado.find(:all, :order => "abrev ASC").collect{|e| [e.abrev, e.abrev.downcase]} ) %>
+              </li>
+              <li>
+                <span id="spinner_selecao" class="spinner" style="display: none;"><%= image_tag("spinners/spinner.gif") %></span>
+                <%= select_tag "cidade", options_for_select([["Todas Cidades", 0]]) %>
+                <%= observe_field "estado",
+                                  :update => "cidade",
+                                  :url => {
+                                    :controller => "locais",
+                                    :action => "cidades_slugs"
+                                  },
+                                  :with => "estado_abrev",
+                                  :before => "$('spinner_selecao').show();",
+                                  :complete => "$('spinner_selecao').hide();" -%>
+              <!-- // $('cidade').selectedIndex = -1; -->
+              </li>
+              <li>
+                <input type="button" value="Ir" id="botao_seletor" onclick="javascript:processaEscolha($('estado'), $('cidade'))"/>
+              </li>
+              <li>
+                <input type="button" value="Cadastre-se!" id="botao_cadastro" onclick="javascript:location.href='/usuario/cadastrar'"/>
+              </li>
+            </ol>
+          </fieldset>
+        </form>
+<script type="text/javascript" charset="utf-8">
+function processaEscolha(objEstado, objCidade) {
+  if ((objEstado.value==0) && (objCidade.value==0)) {
+    location.href='/topicos';
+  }
+  else {
+    if ((objEstado.value!=0)) {
+      //alert('Estado selecionado');
+      if (objCidade.value==0) {
+        location.href='/topicos/estado/'+objEstado.value;
+      }
+      else {
+        location.href='/topicos/estado/'+objEstado.value+'/cidade/'+objCidade.value;
+      }
+    }
+    else {
+      //alert('Todos Estados!');
+      location.href='/topicos';
+    }
+  }
+}
+</script>				
+<style type="text/css" media="screen">
+span.spinner {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+-moz-border-radius-bottomleft:3px;
+-moz-border-radius-bottomright:3px;
+-moz-border-radius-topleft:3px;
+-moz-border-radius-topright:3px;
+background:white none repeat scroll 0 0;
+border:1px solid #999999;
+height:16px;
+margin:3px 0 0 -30px;
+padding:13px;
+position:absolute;
+}
+</style>
+      </div>
+
+    </div>
+
+  </div>
+</div> <!-- testeira -->
