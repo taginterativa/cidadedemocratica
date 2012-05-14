@@ -8,3 +8,4 @@ gem "rails-settings", "1.0.0", :require => 'settings'
 gem "googlecharts", "1.6.0"
 gem "mysql2", "0.2.7"
 gem "capistrano"
+gem 'newrelic_rpm'
