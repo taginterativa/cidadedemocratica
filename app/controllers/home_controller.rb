@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
 
   before_filter :define_ante_sala
-  caches_action :index, :layout => false
+  caches_action :index, :expires_in => 1.minute, :layout => false
 
   def define_ante_sala
     if params[:site] == "cidadonos" or request.host.include?("cidadonos")
