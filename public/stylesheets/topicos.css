@@ -151,6 +151,7 @@ ul.filtro li {
   font-size: 11px;
   margin: 0 0 10px 155px;
   color: #009BCA;
+  overflow: hidden;
 }
 
 #topico .tags img {
