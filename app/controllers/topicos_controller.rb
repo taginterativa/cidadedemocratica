@@ -9,8 +9,7 @@ class TopicosController < ApplicationController
   protect_from_forgery :except => [ :auto_complete_for_topico_tags_com_virgula, :tags_by_link ]
 
   caches_action :index, :expires_in => 1.minute, :cache_path => Proc.new { |c| c.params }
-  caches_action :show, :expires_in => 1.minute, :cache_path => Proc.new { |c| c.params }
-    
+
 
   # Lista os tópicos de acordo com os filtros e ordenações escolhidas pelo
   # usuário.
