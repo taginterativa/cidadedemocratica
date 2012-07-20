@@ -4,8 +4,11 @@
 # User-Agent: *
 # Disallow: /
 User-Agent: *
+Crawl-delay: 3600
 Disallow: /topicos/auto_complete_for_topico_tags_com_virgula
-User-Agent: *
 Disallow: /users/solicitar_alteracao_de_senha
-User-Agent: *
 Disallow: /topicos/mostrar_similares
+Disallow: /*?*page=
+
+User-Agent: bingbot
+Disallow: /
