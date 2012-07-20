@@ -6,7 +6,14 @@ class ImagensController < ApplicationController
   end
 
   def create
-    if @topico.imagens.create(params[:imagem])
+    imagem = @topico.imagens.create(params[:imagem])
+    if imagem
+        image_in = "#{RAILS_ROOT}/public#{imagem.public_filename}"
+        # Refazendo thumb, small e mini
+        sizes = {:thumb => '75x75', :small => '50x50', :mini => '30x30'}
+        sizes.each do |k,v|
+          system "convert -resize #{v} #{image_in} #{RAILS_ROOT}/public/#{imagem.public_filename(k)}"
+        end
       flash[:notice] = "Imagem salva com sucesso."
       redirect_to :action => "index", :topico_slug => @topico.to_param
     end
