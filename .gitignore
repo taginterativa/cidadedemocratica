@@ -29,3 +29,9 @@
 
 # Don't ignore .gitkeeper files
 !*.gitkeeper
+
+# Ignore email settings
+/config/email.yml
+
+# Ignore .htaccess
+/public/.htaccess
