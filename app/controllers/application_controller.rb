@@ -26,11 +26,8 @@ class ApplicationController < ActionController::Base
   # include WhereIsTheUser
   # before_filter :define_cidade_corrente
 
-  # Até o dia do lançamento...
-  # before_filter :check_access if Rails.env == "production"
-
   # Mantém o desenvolvimento seguro e livre de indexadores.
-  before_filter :autenticar_no_desenvolvimento, :get_settings
+  before_filter :get_settings
 
   def obter_localizacao
     @pais = Pais.find(1)
@@ -71,19 +68,4 @@ class ApplicationController < ActionController::Base
   def get_settings
     @settings = Settings.all
   end
-
-  def check_access
-    authenticate_or_request_with_http_basic do |user_name, password|
-      (user_name == "cidade") && (password == "cd2009amarelo")
-    end
-  end
-
-  def autenticar_no_desenvolvimento
-    if !ambiente_producao? #RAILS_ENV == "development"
-      authenticate_or_request_with_http_basic do |user_name, password|
-        (user_name == "desenvolvimento") && (password == "campinas")
-      end
-    end
-  end
-
 end
