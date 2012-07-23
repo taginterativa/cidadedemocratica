@@ -20,7 +20,7 @@
 4. Rode a aplicação:  
   `$ ./script/server`
 
-5. Visite (http://localhost:3000)
+5. Visite <http://localhost:3000>
 
 # Licença:
 Copyright (c) 2009 Cidade Democrática
