@@ -9,14 +9,18 @@
 
 # Como utilizar no ambiente de desenvolvimento:
 1. Clone o repositório:  
-  `git clone git://github.com/marcosmlopes/cidadedemocratica.git`
-2. Mude para pasta do projeto:
-  `cd cidadedemocratica`
-3. Instale as depêndencias da aplicação:
-  `bundle install`
-4. Rode a aplicação
-  `./script/server`
-5. Visite http://localhost:3000
+  `$ git clone git://github.com/marcosmlopes/cidadedemocratica.git`
+
+2. Mude para pasta do projeto:  
+  `$ cd cidadedemocratica`
+
+3. Instale as depêndencias da aplicação:  
+  `$ bundle install`
+
+4. Rode a aplicação:  
+  `$ ./script/server`
+
+5. Visite (http://localhost:3000)
 
 # Licença:
 Copyright (c) 2009 Cidade Democrática
