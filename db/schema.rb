@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100806193434) do
+ActiveRecord::Schema.define(:version => 20120819175835) do
 
   create_table "adesoes", :force => true do |t|
     t.integer  "topico_id",  :null => false
@@ -207,6 +207,7 @@ ActiveRecord::Schema.define(:version => 20100806193434) do
     t.string   "taggable_type", :limit => 20
     t.string   "context",       :limit => 40
     t.datetime "created_at"
+    t.string   "tagger_site"
   end
 
   add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
@@ -219,25 +220,6 @@ ActiveRecord::Schema.define(:version => 20100806193434) do
 
   add_index "tags", ["name"], :name => "index_tags_on_name"
   add_index "tags", ["relevancia"], :name => "index_tags_on_relevancia"
-
-  create_table "temas", :force => true do |t|
-    t.string   "nome"
-    t.integer  "parent_id"
-    t.integer  "lft"
-    t.integer  "rgt"
-    t.string   "slug"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "temas", ["slug"], :name => "index_temas_on_slug"
-
-  create_table "temas_topicos", :id => false, :force => true do |t|
-    t.integer "tema_id",   :null => false
-    t.integer "topico_id", :null => false
-  end
-
-  add_index "temas_topicos", ["topico_id", "tema_id"], :name => "index_temas_topicos_on_topico_id_and_tema_id", :unique => true
 
   create_table "topicos", :force => true do |t|
     t.string   "type",             :limit => 20
@@ -253,6 +235,7 @@ ActiveRecord::Schema.define(:version => 20100806193434) do
     t.integer  "adesoes_count",                  :default => 0
     t.integer  "relevancia",                     :default => 0
     t.integer  "seguidores_count",               :default => 0
+    t.string   "site"
   end
 
   add_index "topicos", ["adesoes_count"], :name => "index_topicos_on_adesoes_count"
@@ -311,7 +294,7 @@ ActiveRecord::Schema.define(:version => 20100806193434) do
   add_index "users", ["parent_id"], :name => "index_users_on_parent_id"
   add_index "users", ["relevancia"], :name => "index_users_on_relevancia"
   add_index "users", ["slug"], :name => "index_users_on_slug"
-  add_index "users", ["state"], :name => "users_state"
+  add_index "users", ["state"], :name => "users_state", :length => {"state"=>12}
   add_index "users", ["topicos_count"], :name => "index_users_on_topicos_count"
   add_index "users", ["type"], :name => "index_users_on_type"
 
