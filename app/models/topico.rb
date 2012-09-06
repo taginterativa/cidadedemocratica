@@ -54,8 +54,8 @@ class Topico < ActiveRecord::Base
       errors.add_to_base("Precisa de ao menos uma tag (não vazia!)")
     elsif tags_com_virgula.strip.gsub(/\,+/, ' ').strip.empty?
       errors.add_to_base("Tags, por favor...")
-    elsif tags_com_virgula =~ /\"+|\'+|\t+|\d+/
-      errors.add_to_base("Use palavras apenas com letras (não números) e espaços em branco")
+    elsif tags_com_virgula =~ /\"+|\'+|\t+/
+      errors.add_to_base("Use palavras apenas com letras, números e espaços em branco")
     end
   end
   
