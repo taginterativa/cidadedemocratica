@@ -421,7 +421,7 @@ class UsersController < ApplicationController
     
     if request.post?
       @contato.attributes = params[:contato]
-      if @contato.valid?
+      if verify_recaptcha(:model => @contato, :message => 'As palavras do captcha não conferem') && @contato.valid?
         @contato.enviar(@user, @contato)
         flash[:notice] = "Mensagem enviada com sucesso!"
         redirect_to perfil_url(@user)

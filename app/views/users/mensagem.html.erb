@@ -14,5 +14,7 @@
 <%= label_tag :mensagem, "Mensagem" %><br/>
 <%= text_area :contato, :mensagem, :cols => 60, :rows => 10 %><br/>
 
+<%= recaptcha_tags %><br/>
+
 <%= submit_tag 'Enviar' %> ou <%= link_to 'Voltar', perfil_url(@user) %>
 <% end %>

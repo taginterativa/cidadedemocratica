@@ -9,3 +9,4 @@ gem "googlecharts", "1.6.0"
 gem "mysql2", "0.2.7"
 gem "capistrano"
 gem 'newrelic_rpm'
+gem "recaptcha", :require => "recaptcha/rails"
