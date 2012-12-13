@@ -6,6 +6,7 @@ gem 'mysql2'
 gem 'exception_notification', :require => 'exception_notifier'
 gem "recaptcha", :require => "recaptcha/rails"
 gem 'jquery-rails'
+gem "rails-settings", :require => 'settings'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
