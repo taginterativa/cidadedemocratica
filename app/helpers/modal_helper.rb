@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module ModalHelper
 
   # Creates a link tag of the given name using a URL created by the set of

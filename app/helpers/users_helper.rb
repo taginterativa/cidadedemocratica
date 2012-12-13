@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module UsersHelper
 
   #
@@ -92,7 +94,7 @@ module UsersHelper
 
   def ficha_do_usuario(usuario, options = {})
     options = {
-      :badge => "", #opcoes: _mini, 
+      :badge => "", #opcoes: _mini,
       :with_tags => true,
       :with_summary => false
     }.merge(options)
@@ -213,9 +215,9 @@ module UsersHelper
     str += descreve_tipo_do_topico_e_seu_autor(topico_comentado, target)
     str += ":</p>"
     if options[:truncate_comentario]
-      str += "<div class=\"o_comentario rounded\">#{simple_format(truncate(obj.body, :length => options[:truncate_comentario]))}</div>" 
+      str += "<div class=\"o_comentario rounded\">#{simple_format(truncate(obj.body, :length => options[:truncate_comentario]))}</div>"
     else
-      str += "<div class=\"o_comentario rounded\">#{simple_format(obj.body)}</div>" 
+      str += "<div class=\"o_comentario rounded\">#{simple_format(obj.body)}</div>"
     end
   end
 

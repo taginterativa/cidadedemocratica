@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module TopicosHelper
 
   # Infos de cada topico
@@ -30,30 +32,30 @@ module TopicosHelper
   end
 
   def comentario(comentario, options = {})
-    render :partial => "comments/comentario", 
+    render :partial => "comments/comentario",
            :locals => { :comentario => comentario }
   end
 
   def comentarios(comentarios, options = {})
-    render :partial => "comments/comentarios", 
+    render :partial => "comments/comentarios",
            :locals => { :comentarios => comentarios }
   end
 
   def comentarios_estatisticas(comentarios, topico, options = {})
-    render :partial => "comments/comentarios_estatisticas", 
-           :locals => { 
+    render :partial => "comments/comentarios_estatisticas",
+           :locals => {
              :comentarios => comentarios,
              :topico => topico
            }
   end
-  
+
   def comentarios_estatisticas_media_por_tempo(from, total, options={})
     from_time = from.to_time
     to_time = Time.now.to_time
     distance_in_minutes = (((to_time - from_time).abs)/60).round
     media = (distance_in_minutes/total).round
     case media
-      when 0..1             then 
+      when 0..1             then
         outra_media = total
         outra_media = (total/distance_in_minutes).round if (distance_in_minutes != 0)
         return "#{pluralize(outra_media,'comentário')} por minuto"

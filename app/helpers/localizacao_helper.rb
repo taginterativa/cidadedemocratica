@@ -1,8 +1,10 @@
+# encoding: utf-8
+
 module LocalizacaoHelper
   def select_estado(local, my_options = {})
-    options = { 
+    options = {
       :dom_id => "estado_id"
-    }.merge!(my_options)  
+    }.merge!(my_options)
     #select_tag "estado_id", options_for_select(Estado.find(:all, :order => "abrev ASC").collect { |c| [ c.abrev, c.id ] }, cidade_escolhida(local, options).estado_id), :id => options[:dom_id]
     select_tag("local[estado_id]", options_for_select(Estado.find(:all, :order => "abrev ASC").collect { |c| [ c.abrev, c.id ] }, cidade_escolhida(local, options).estado_id), :id => options[:dom_id])
   end
@@ -61,28 +63,28 @@ module LocalizacaoHelper
       locais.each do |local|
         if local and local.tem_bairro? and local.tem_cidade? and local.tem_estado?
           descricao_dos_locais << link_to("#{local.bairro.nome}, #{local.bairro.cidade.nome} - #{local.bairro.cidade.estado.abrev}", {
-                                            :controller => "topicos", 
-                                            :action => "index", 
+                                            :controller => "topicos",
+                                            :action => "index",
                                             :topico_type => "topicos",
                                             :estado_abrev => "#{local.bairro.cidade.estado.abrev.downcase}",
                                             :cidade_slug => "#{local.bairro.cidade.slug}",
                                             :bairro_id => "#{local.bairro.id}" })
         elsif local and local.tem_cidade? and local.tem_estado?
           descricao_dos_locais << link_to("#{local.cidade.nome} - #{local.cidade.estado.abrev}", {
-                                            :controller => "topicos", 
-                                            :action => "index", 
+                                            :controller => "topicos",
+                                            :action => "index",
                                             :topico_type => "topicos",
                                             :estado_abrev => "#{local.cidade.estado.abrev.downcase}",
                                             :cidade_slug => "#{local.cidade.slug}" })
         elsif local and local.tem_estado?
           descricao_dos_locais << link_to("#{local.estado.abrev}", {
-                                            :controller => "topicos", 
-                                            :action => "index", 
+                                            :controller => "topicos",
+                                            :action => "index",
                                             :topico_type => "topicos",
                                             :estado_abrev => "#{local.estado.abrev.downcase}" })
         else
           descricao_dos_locais << link_to("Em todo o país", {
-                                            :controller => "topicos", 
+                                            :controller => "topicos",
                                             :action => "index",
                                             :topico_type => "topicos" })
         end

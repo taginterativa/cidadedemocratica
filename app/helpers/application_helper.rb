@@ -1,4 +1,5 @@
-# Methods added to this helper will be available to all templates in the application.
+# encoding: utf-8
+
 module ApplicationHelper
 
   def flash_message
@@ -38,7 +39,7 @@ module ApplicationHelper
       else
         max_count = tags.sort_by{ |t| t.total.to_i }.last.total.to_f
       end
-      
+
       tags.sort{ |b,a| b.name.downcase.remover_acentos <=> a.name.downcase.remover_acentos }.each do |tag|
         if options[:relevancia]
           index = ((tag.relevancia.to_f / max_count.to_f) * (classes.size - 1)).to_i
@@ -50,10 +51,10 @@ module ApplicationHelper
       end
     end
   end
-  
+
   def cidades_cloud(cidades, classes, options = {})
     if cidades and not cidades.empty?
-      max_count = cidades.sort_by{ |t| t.total.to_i }.last.total.to_f 
+      max_count = cidades.sort_by{ |t| t.total.to_i }.last.total.to_f
       max_count = cidades.sort_by{ |t| t.relevancia.to_i }.last.relevancia.to_f if options[:relevancia]
       cidades.sort_by{ |a| a.nome.remover_acentos }.each do |cidade|
         index = ((cidade.total.to_f / max_count.to_f) * (classes.size - 1)).to_i

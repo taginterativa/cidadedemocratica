@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module GraficosHelper
 #---------------------------------------------------#
 #        Graficos IMAGENS estáticas = GEM           #
@@ -14,10 +16,10 @@ module GraficosHelper
       :axis_with_labels => false,
       :axis_labels => false
     }.merge!(my_options)
-  
+
     # Define os marcadores (as datas!) no eixo X
     define_valores_eixo_x(obj, options)
-  
+
     # Define os valores do eixo Y
     aux = []
     obj.each {|r| aux << r[:total].to_i }
@@ -30,8 +32,8 @@ module GraficosHelper
         options[:axis_labels] = [eixo_y]
       end
     end
-  
-    Gchart.line(:data => [aux], 
+
+    Gchart.line(:data => [aux],
                 :size => "#{options[:width]}x#{options[:height]}",
                 :title => options[:title],
                 :axis_with_labels => options[:axis_with_labels],
@@ -51,14 +53,14 @@ module GraficosHelper
       :line_colors => "",
       :show_legend => true
     }.merge!(my_options)
-    
+
     total = 0
     obj.each { |r| total += r[:total].to_i }
     aux = [[],[],[]]
     obj.each do |r|
       srand
       percentage = number_to_percentage(100 * r[:total].to_i / total, :precision => 1)
-    
+
       # A fatia receberá qual etiqueta/nome?
       if options[:klass] and (options[:key].to_s == "id")
         tmp = options[:klass].find(r[:id])
@@ -66,13 +68,13 @@ module GraficosHelper
       else
         obj_row_name = r[options[:key]]
       end
-    
+
       # Setup values for chart...
       aux[0] << r[:total].to_i
       aux[1] << "#{obj_row_name}: #{r[:total]}"
       aux[2] << "#{((rand(239))+15).to_s(16)}#{((rand(239))+15).to_s(16)}#{((rand(239))+15).to_s(16)}"
     end
-  
+
     cores = options[:line_colors].blank? ? "#{aux[2].join(',')}" : options[:line_colors]
     legenda = options[:show_legend] ? aux[1] : ""
     Gchart.pie(:data => [ aux[0] ],
@@ -90,7 +92,7 @@ module GraficosHelper
     return [0,1] if dif <= 1
     if dif > 10
       umq = ((arr.max + arr.min)/5).to_i
-      return [arr.min, umq, 2*umq, 3*umq, 4*umq, arr.max]      
+      return [arr.min, umq, 2*umq, 3*umq, 4*umq, arr.max]
     elsif (dif > 3) and (dif < 10)
       umt = ((arr.max + arr.min)/3).to_i
       return [arr.min, umt, 2*umt, arr.max]
@@ -99,7 +101,7 @@ module GraficosHelper
       return [arr.min, med, arr.max]
     end
   end
-  
+
   def define_valores_eixo_x(obj, options = {})
     eixo_x1 = []
     eixo_x2 = []
@@ -111,7 +113,7 @@ module GraficosHelper
       intervalos = 5  if dif.to_i <= 10
       dias = dif/intervalos
       inseriu_ano = false
-      0.upto(intervalos) do |i| 
+      0.upto(intervalos) do |i|
         eixo_x1 << (inicio + (i * dias)).strftime("%d%b")
         eixo_x2 << (inicio + (i * dias)).strftime("%Y") if !inseriu_ano
         inseriu_ano = true
@@ -120,7 +122,7 @@ module GraficosHelper
       options[:axis_labels] = [eixo_x1, eixo_x2]
     end
   end
-  
+
 #---------------------------------------------------#
 #   Graficos interativos = Google visualization     #
 #---------------------------------------------------#
@@ -135,17 +137,17 @@ module GraficosHelper
       :div_id => "#{rand(99999)}",
       :titulo_h3 => "Título padrão"
     }.merge!(my_options)
-    
+
     my_array= ajusta_dias_faltantes_com_zero(de, ate, array)
     graph, total = lineGraphScript(de, ate, my_array, options)
-    
+
     valor  = content_tag(:span, total, :class => "valor")
     titulo = content_tag(:h3, "#{options[:titulo_h3]}: #{valor}")
-    
+
     str    = graph + titulo + content_tag(:div, "Gráfico #{options[:div_id]}", :id => "graph_#{options[:div_id]}")
     return content_tag(:div, str, :class => "grid_12 alpha omega")
   end
-  
+
   def lineGraphScript(de, ate, array, my_options = {})
     options = {
       :width => 600,
@@ -153,7 +155,7 @@ module GraficosHelper
       :legend => 'bottom'
     }.merge!(my_options)
     excluir = [ :div_id, :titulo_h3, :data_name ]
-        
+
     str  = ""
     str += "<script type=\"text/javascript\" charset=\"utf-8\">\n"
     content_for :loading_charts do
@@ -166,7 +168,7 @@ module GraficosHelper
     str += "\t#{tmp_data}.addColumn('string', 'Dias');\n"
     str += "\t#{tmp_data}.addColumn('number', '#{options[:data_name]}');\n"
     str += "\t#{tmp_data}.addRows(#{(ate - de).to_i + 1});\n"
-    
+
     total = 0
     0.upto(array.size-1) do |j|
       str += "\t\t#{tmp_data}.setValue(#{j}, 0, '#{array[j].dia.to_time.strftime('%d %b%Y')}');\n"
@@ -178,13 +180,13 @@ module GraficosHelper
     str += "\t#{tmp_chart}.draw(#{tmp_data}, #{google_options.to_json});\n"
     str += "}\n"
     str += "</script>"
-    
+
     return [str, total]
   end
-  
+
   def setup_special_initialize(div_id)
     str  = ""
     str += "\tsetTimeout(\"drawLineChart('graph_#{div_id}')\", 2000);\n"
     return str
-  end  
+  end
 end

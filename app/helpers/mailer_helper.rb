@@ -1,5 +1,7 @@
+# encoding: utf-8
+
 module MailerHelper
-  
+
   # Retorna uma string que descreve textualmente as atividades do observatorio
   def resumo_numerico_do_observatorio(atividades)
     str = "Não houve atividade alguma em seu observatório."
@@ -24,7 +26,7 @@ module MailerHelper
     end
     return str
   end
-  
+
   # Retorna uma string que descreve textualmente os temas do observatorio
   def observatorio_temas(observatorio)
     if observatorio.tags.empty?
@@ -38,7 +40,7 @@ module MailerHelper
     end
     return str
   end
-  
+
   # Retorna uma string que descreve textualmente os locais do observatorio
   def observatorio_locais(observatorio)
     if observatorio.locais.empty?
