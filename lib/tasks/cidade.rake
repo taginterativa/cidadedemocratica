@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 namespace :cidade do
   namespace :contadores do
     desc "Atualiza contadores e relevancia por usuario"
@@ -9,7 +11,7 @@ namespace :cidade do
     task :topico => :environment do
       Topico.find(:all).each{ |t| t.atualiza_contadores }
     end
-    
+
     desc "Atualiza contadores e relevancia de estados, cidades e bairros"
     task :estado_cidade_bairro => :environment do
       Estado.find(:all).each{ |e| e.atualiza_contadores }
@@ -17,7 +19,7 @@ namespace :cidade do
       Bairro.find(:all).each{ |b| b.atualiza_contadores }
       Session.delete_all # para limpar as sessions...
     end
-    
+
     desc "Atualiza contadores e relevancia das tags"
     task :tag => :environment do
       Tema.find(:all).each{ |t| t.atualiza_contadores }
@@ -60,7 +62,7 @@ namespace :cidade do
         #end
       end
     end
-    
+
     desc "Envia e-mail diário aos usuários não confirmados"
     task :nao_confirmados => :environment do
       dias = 7.days.ago
@@ -70,7 +72,7 @@ namespace :cidade do
       end
     end
   end
-  
+
   namespace :verificacoes do
     desc "Verifica localizacoes de usuarios"
     task :users => :environment do
