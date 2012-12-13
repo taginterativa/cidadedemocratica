@@ -2,6 +2,7 @@ source :gemcutter
 
 gem "mysql2", "0.2.7"
 gem "rails", "2.3.14"
+gem "recaptcha", :require => "recaptcha/rails"
 
 gem "unicode", "0.1"
 gem "will_paginate", "2.3.16"
@@ -11,4 +12,3 @@ gem "rails-settings", "1.0.0", :require => 'settings'
 gem "googlecharts", "1.6.0"
 gem "capistrano"
 gem 'newrelic_rpm'
-gem "recaptcha", :require => "recaptcha/rails"

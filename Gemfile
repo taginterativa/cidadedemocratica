@@ -4,6 +4,7 @@ gem 'rails', '3.2.9'
 
 gem 'mysql2'
 gem 'exception_notification', :require => 'exception_notifier'
+gem "recaptcha", :require => "recaptcha/rails"
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
