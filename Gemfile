@@ -5,6 +5,7 @@ gem 'rails', '3.2.9'
 gem 'mysql2'
 gem 'exception_notification', :require => 'exception_notifier'
 gem "recaptcha", :require => "recaptcha/rails"
+gem 'jquery-rails'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -16,4 +17,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
+group :development do
+  gem "better_errors"
+  gem "binding_of_caller"
+end
