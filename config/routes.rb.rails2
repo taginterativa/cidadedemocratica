@@ -468,9 +468,6 @@ ActionController::Routing::Routes.draw do |map|
   map.cidades "/cidades", :controller => "locais", :action => "cidades"
   map.temas "/temas", :controller => "home", :action => "temas"
 
-  # Raiz do site...
-  map.root :controller => "home", :action => "index"  
-
   # See how all your routes lay out with "rake routes"
 
   # Install the default routes as the lowest priority.
