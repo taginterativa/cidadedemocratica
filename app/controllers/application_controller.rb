@@ -3,24 +3,18 @@
 
 class ApplicationController < ActionController::Base
   helper :all
-  helperful :title
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery
 
   # Be sure to include AuthenticationSystem in Application Controller instead
-  include AuthenticatedSystem
+  # TODO include AuthenticatedSystem
 
   # The Exception Notifier plugin provides a mailer object and a default set
   # of templates for sending email notifications when errors occur in a Rails
   # application.
-  include ExceptionNotifiable
-
-  # See ActionController::Base for details
-  # Uncomment this to filter the contents of submitted sensitive data parameters
-  # from your application log (in this case, all fields with names like "password").
-  filter_parameter_logging :password
+  # TODO include ExceptionNotifiable
 
   # Métodos exclusivos da cidade/área corrente
   # include WhereIsTheUser
