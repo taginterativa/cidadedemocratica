@@ -59,12 +59,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
-  
+
   helper_method :ambiente_producao?
   def ambiente_producao?
     (RAILS_ENV=='production')
   end
-  
+
   def get_settings
     @settings = Settings.all
   end
