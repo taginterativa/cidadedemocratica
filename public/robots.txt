@@ -3,12 +3,3 @@
 # To ban all spiders from the entire site uncomment the next two lines:
 # User-Agent: *
 # Disallow: /
-User-Agent: *
-Crawl-delay: 3600
-Disallow: /topicos/auto_complete_for_topico_tags_com_virgula
-Disallow: /users/solicitar_alteracao_de_senha
-Disallow: /topicos/mostrar_similares
-Disallow: /*?*page=
-
-User-Agent: bingbot
-Disallow: /
