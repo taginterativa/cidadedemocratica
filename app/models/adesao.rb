@@ -11,10 +11,10 @@ class Adesao < ActiveRecord::Base
   #=============================================================#
   #                    NAMED Scopes                             #
   #=============================================================#
-  named_scope :por_user_ativo, 
+  scope :por_user_ativo, 
               :include => [:user], 
               :conditions => ["users.state = 'active'"]
-  named_scope :dos_topicos, lambda { |topico_ids|
+  scope :dos_topicos, lambda { |topico_ids|
     if topico_ids.nil?
       { }
     else 
@@ -23,7 +23,7 @@ class Adesao < ActiveRecord::Base
       }
     end
   }
-  named_scope :depois_de, lambda { |data|
+  scope :depois_de, lambda { |data|
     if data.nil?
       { :order => "created_at DESC" }
     else
@@ -31,7 +31,7 @@ class Adesao < ActiveRecord::Base
         :order => "created_at DESC" }
     end
   }
-  named_scope :no_intervalo, lambda { |data_de, data_ate|
+  scope :no_intervalo, lambda { |data_de, data_ate|
     if data_de and data_ate and data_de.kind_of?(Date) and data_ate.kind_of?(Date)
       {
         :conditions => "DATE(adesoes.created_at) >= '#{data_de.strftime('%Y-%m-%d')}' AND DATE(adesoes.created_at) <= '#{data_ate.strftime('%Y-%m-%d')}'"
@@ -40,7 +40,7 @@ class Adesao < ActiveRecord::Base
       {}
     end
   }
-  named_scope :agrupados_por_dia_de_criacao, 
+  scope :agrupados_por_dia_de_criacao, 
   {
     :select => "count(*) AS total, DATE(adesoes.created_at) AS dia",
     :group  => "DAY(adesoes.created_at), MONTH(adesoes.created_at), YEAR(adesoes.created_at)"

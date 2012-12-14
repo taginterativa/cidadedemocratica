@@ -104,10 +104,10 @@ class Topico < ActiveRecord::Base
   #=============================================================#
   #                    NAMED Scopes                             #
   #=============================================================#
-  named_scope :de_user_ativo, 
+  scope :de_user_ativo, 
               :include => [:user], 
               :conditions => ["users.state = 'active'"]
-  named_scope :do_tipo, lambda { |topico_type|
+  scope :do_tipo, lambda { |topico_type|
     if topico_type.nil? or topico_type.to_s.downcase == "topicos"
       {}
     else
@@ -117,7 +117,7 @@ class Topico < ActiveRecord::Base
       }
     end
   }
-  named_scope :do_proponente, lambda { |user_type| 
+  scope :do_proponente, lambda { |user_type| 
     if user_type.nil? 
       {} 
     else 
@@ -126,7 +126,7 @@ class Topico < ActiveRecord::Base
       } 
     end
   }
-  named_scope :do_pais, lambda { |pais|
+  scope :do_pais, lambda { |pais|
     if pais.nil? or not pais.kind_of?(Pais)
       {}
     else
@@ -137,10 +137,10 @@ class Topico < ActiveRecord::Base
       }
     end
   }
-  named_scope :join_do_pais,
+  scope :join_do_pais,
               :joins => "INNER JOIN locais ON (locais.responsavel_id = topicos.id AND locais.responsavel_type = 'Topico')"
               
-  named_scope :do_estado, lambda { |estado|
+  scope :do_estado, lambda { |estado|
     if estado.nil? or not estado.kind_of?(Estado)
       {}
     else
@@ -151,14 +151,14 @@ class Topico < ActiveRecord::Base
       }
     end
   }
-  named_scope :join_do_estado, lambda { |estado|
+  scope :join_do_estado, lambda { |estado|
     if estado and estado.kind_of?(Estado)
       {
         :joins => "INNER JOIN locais ON (locais.responsavel_id = topicos.id AND locais.responsavel_type = 'Topico' AND locais.estado_id = #{estado.id})"
       }
     end
   }
-  named_scope :da_cidade, lambda { |cidade|
+  scope :da_cidade, lambda { |cidade|
     if cidade.nil? or not cidade.kind_of?(Cidade)
       {}
     else
@@ -169,7 +169,7 @@ class Topico < ActiveRecord::Base
       }
     end
   }
-  named_scope :join_da_cidade, lambda { |cidade|
+  scope :join_da_cidade, lambda { |cidade|
     if cidade.nil? or not cidade.kind_of?(Cidade)
       {}
     else
@@ -178,7 +178,7 @@ class Topico < ActiveRecord::Base
       }
     end
   }
-  named_scope :do_bairro, lambda { |bairro|
+  scope :do_bairro, lambda { |bairro|
     if bairro.nil? or not bairro.kind_of?(Bairro)
       {}
     else
@@ -189,28 +189,28 @@ class Topico < ActiveRecord::Base
       }
     end
   }
-  named_scope :join_do_bairro, lambda { |bairro|
+  scope :join_do_bairro, lambda { |bairro|
     if bairro
       {
         :joins => "INNER JOIN locais ON (locais.responsavel_id = topicos.id AND locais.responsavel_type = 'Topico' AND locais.bairro_id = #{bairro.id})"
       }
     end
   }
-  named_scope :apos_o_dia, lambda { |inicio| 
+  scope :apos_o_dia, lambda { |inicio| 
     if inicio.nil?
       {}
     else 
       { :conditions => [ "topicos.created_at >= ?", inicio ] } 
     end
   }
-  named_scope :nos_ultimos_dias, lambda { |dias| 
+  scope :nos_ultimos_dias, lambda { |dias| 
     if dias.nil?
       {}
     else 
       { :conditions => [ "topicos.created_at >= ?", dias.to_i.days.ago ] } 
     end
   }
-  named_scope :com_tags, lambda { |tag_ids|
+  scope :com_tags, lambda { |tag_ids|
     if (tag_ids.nil? or tag_ids.empty?)
       {}
     else
@@ -220,7 +220,7 @@ class Topico < ActiveRecord::Base
       }
     end
   }
-  named_scope :com_tag, lambda { |tag|
+  scope :com_tag, lambda { |tag|
     if tag.nil? or not tag.kind_of?(Tag)
       {}
     else
@@ -229,7 +229,7 @@ class Topico < ActiveRecord::Base
       }
     end
   }
-  named_scope :join_da_tag, lambda { |tag|
+  scope :join_da_tag, lambda { |tag|
     if tag.nil? or not tag.kind_of?(Tag)
       {}
     else
@@ -238,7 +238,7 @@ class Topico < ActiveRecord::Base
       }
     end
   }
-  named_scope :join_das_tags, lambda { |tags_ids|
+  scope :join_das_tags, lambda { |tags_ids|
     if tags_ids.nil?
       {}
     else
@@ -247,7 +247,7 @@ class Topico < ActiveRecord::Base
       }
     end
   }
-  named_scope :que_tem_as_tags, lambda { |tags_ids|
+  scope :que_tem_as_tags, lambda { |tags_ids|
     unless tags_ids.nil?
       t_ids = Tagging.find(:all, :select => "DISTINCT taggable_id", :conditions => "taggable_type = 'Topico' AND tag_id IN (#{tags_ids.join(',')})").map(&:taggable_id)
       unless t_ids.empty?
@@ -257,21 +257,21 @@ class Topico < ActiveRecord::Base
       end
     end
   }
-  named_scope :do_pai, lambda { |parent_id| 
+  scope :do_pai, lambda { |parent_id| 
     if parent_id.nil? 
       {}
     else 
       { :conditions => { :parent_id => parent_id } }
     end
   }
-  named_scope :exceto, lambda { |id| 
+  scope :exceto, lambda { |id| 
     if id.nil?
       {}
     else 
       { :conditions => ["topicos.id <> ?", id] }
     end
   }
-  named_scope :nos_locais, lambda { |locais|
+  scope :nos_locais, lambda { |locais|
     if locais.nil?
       {}
     else
@@ -291,7 +291,7 @@ class Topico < ActiveRecord::Base
       }
     end
   }
-  named_scope :no_intervalo, lambda { |data_de, data_ate|
+  scope :no_intervalo, lambda { |data_de, data_ate|
     if data_de and data_ate and data_de.kind_of?(Date) and data_ate.kind_of?(Date)
       {
         :conditions => "DATE(topicos.created_at) >= '#{data_de.strftime('%Y-%m-%d')}' AND DATE(topicos.created_at) <= '#{data_ate.strftime('%Y-%m-%d')}'"
@@ -300,43 +300,43 @@ class Topico < ActiveRecord::Base
       {}
     end
   }
-  named_scope :agrupados_por_dia_de_criacao, 
+  scope :agrupados_por_dia_de_criacao, 
   {
     :select => "count(*) AS total, DATE(topicos.created_at) AS dia",
     :group  => "DATE(topicos.created_at)" #"DAY(topicos.created_at), MONTH(topicos.created_at), YEAR(topicos.created_at)"
   }
-  named_scope :agrupados_por_tipo, 
+  scope :agrupados_por_tipo, 
   {
     :select => "count(*) AS total, topicos.type",
     :group  => "topicos.type"
   }
-  named_scope :agrupados_por_tags, 
+  scope :agrupados_por_tags, 
   {
     :select => "count(*) AS total, tags.name, tags.id",
     :joins => "INNER JOIN taggings ON (taggings.taggable_id = topicos.id AND taggings.taggable_type = 'Topico') INNER JOIN tags ON (taggings.tag_id = tags.id)",
     :group  => "taggings.tag_id",
   }
-  named_scope :agrupados_pelo_pais,
+  scope :agrupados_pelo_pais,
   {
     :select => "count(*) AS total, locais.pais_id",
     :joins => "INNER JOIN locais ON (locais.responsavel_id = topicos.id AND locais.responsavel_type = 'Topico' AND locais.pais_id IS NOT NULL)",
     :conditions => "locais.estado_id IS NULL AND locais.cidade_id IS NULL AND locais.bairro_id IS NULL",
     :group  => "locais.pais_id"
   }
-  named_scope :agrupados_por_estados,
+  scope :agrupados_por_estados,
   {
     :select => "count(*) AS total, estados.abrev, estados.id",
     :joins => "INNER JOIN locais ON (locais.responsavel_id = topicos.id AND locais.responsavel_type = 'Topico') INNER JOIN estados ON (locais.estado_id = estados.id)",
     :group  => "locais.estado_id"
   }
-  named_scope :agrupados_por_cidades, 
+  scope :agrupados_por_cidades, 
   {
     :select => "count(*) AS total, cidades.nome, cidades.id",
     :joins => "INNER JOIN locais ON (locais.responsavel_id = topicos.id AND locais.responsavel_type = 'Topico') INNER JOIN cidades ON (locais.cidade_id = cidades.id)",
     :conditions => "locais.cidade_id IS NOT NULL",
     :group  => "locais.cidade_id"
   }
-  named_scope :agrupados_por_cidades_do_estado, lambda { |estado|
+  scope :agrupados_por_cidades_do_estado, lambda { |estado|
     if estado and estado.kind_of?(Estado)
       {
         :select => "count(*) AS total, cidades.nome, cidades.id",
@@ -346,14 +346,14 @@ class Topico < ActiveRecord::Base
       }
     end
   }
-  named_scope :agrupados_por_bairros, 
+  scope :agrupados_por_bairros, 
   {
     :select => "count(*) AS total, bairros.nome, bairros.id",
     :joins => "INNER JOIN locais ON (locais.responsavel_id = topicos.id AND locais.responsavel_type = 'Topico') INNER JOIN bairros ON (locais.bairro_id = bairros.id)",
     :conditions => "locais.bairro_id IS NOT NULL",
     :group  => "locais.bairro_id"
   }  
-  named_scope :agrupados_por_bairros_da_cidade, lambda { |cidade|
+  scope :agrupados_por_bairros_da_cidade, lambda { |cidade|
     if cidade and cidade.kind_of?(Cidade)
     {
       :select => "count(*) AS total, bairros.nome, bairros.id",

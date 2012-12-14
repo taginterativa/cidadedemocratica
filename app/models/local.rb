@@ -19,16 +19,16 @@ class Local < ActiveRecord::Base
   #===============================================================#
   #                    NAMED Scopes                               #
   #===============================================================#
-  named_scope :de_usuario, :conditions => [ "responsavel_type = 'User'" ]
-  named_scope :de_topicos, :conditions => [ "responsavel_type = 'Topico'" ]
-  named_scope :join_das_tags, lambda { |tags_ids|
+  scope :de_usuario, :conditions => [ "responsavel_type = 'User'" ]
+  scope :de_topicos, :conditions => [ "responsavel_type = 'Topico'" ]
+  scope :join_das_tags, lambda { |tags_ids|
     if tags_ids
       {
         :joins => "INNER JOIN taggings t1 ON (t1.taggable_id = locais.responsavel_id AND t1.taggable_type = 'Topico' AND locais.responsavel_type = 'Topico' AND t1.tag_id IN (#{tags_ids.join(',')}))"
       }
     end
   }
-  named_scope :que_tem_as_tags, lambda { |tags_ids|
+  scope :que_tem_as_tags, lambda { |tags_ids|
     unless tags_ids.nil?
       t_ids = Tagging.find(:all, :select => "DISTINCT taggable_id", :conditions => "taggable_type = 'Topico' AND tag_id IN (#{tags_ids.join(',')})").map(&:taggable_id)
       unless t_ids.empty?
@@ -38,14 +38,14 @@ class Local < ActiveRecord::Base
       end
     end
   }
-  named_scope :no_intervalo, lambda { |data_de, data_ate|
+  scope :no_intervalo, lambda { |data_de, data_ate|
     if data_de and data_ate and data_de.kind_of?(Date) and data_ate.kind_of?(Date)
       {
         :conditions => "DATE(locais.created_at) >= '#{data_de.strftime('%Y-%m-%d')}' AND DATE(locais.created_at) <= '#{data_ate.strftime('%Y-%m-%d')}'"
       }
     end
   }
-  named_scope :agrupados_por_bairros_da_cidade, lambda { |cidade|
+  scope :agrupados_por_bairros_da_cidade, lambda { |cidade|
     if cidade and cidade.kind_of?(Cidade)
     {
       :select => "count(*) AS total, locais.bairro_id",
@@ -54,7 +54,7 @@ class Local < ActiveRecord::Base
     }
     end
   }
-  named_scope :agrupados_por_cidades_do_estado, lambda { |estado|
+  scope :agrupados_por_cidades_do_estado, lambda { |estado|
     if estado and estado.kind_of?(Estado)
     {
       :select => "count(*) AS total, locais.cidade_id",
@@ -63,7 +63,7 @@ class Local < ActiveRecord::Base
     }
     end
   }
-  named_scope :agrupados_por_estados_do_pais,
+  scope :agrupados_por_estados_do_pais,
   {
     :select => "count(*) AS total, locais.estado_id",
     :group  => "locais.estado_id"

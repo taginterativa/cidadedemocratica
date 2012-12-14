@@ -9,7 +9,7 @@ class Estado < ActiveRecord::Base
   #=======================================================#
   #                     NAMED Scopes                      #
   #=======================================================#
-  named_scope :com_topicos_do_contexto, lambda { |options|
+  scope :com_topicos_do_contexto, lambda { |options|
     condicoes = []
     condicoes << "1=1"
     condicoes << "taggings.tag_id = #{options[:tag].id}" if options[:tag]
@@ -36,7 +36,7 @@ MYSTRING
       :conditions => "z.total > 0"
     }
   }
-  named_scope :com_usuarios_do_contexto, lambda { |options|
+  scope :com_usuarios_do_contexto, lambda { |options|
     condicoes = []
     condicoes << "1=1"
     condicoes << "users.type = '#{options[:user_type].singularize.camelize}'" if options[:user_type] and (options[:user_type]!="usuarios")

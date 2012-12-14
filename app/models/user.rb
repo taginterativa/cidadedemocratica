@@ -86,7 +86,7 @@ class User < ActiveRecord::Base
   #=============================================================#
   #                    NAMED Scopes                             #
   #=============================================================#
-  named_scope :com_nome, lambda { |nome|
+  scope :com_nome, lambda { |nome|
     if nome.blank?
       {}
     else
@@ -97,7 +97,7 @@ class User < ActiveRecord::Base
     end
   }
 
-  named_scope :com_email, lambda { |email|
+  scope :com_email, lambda { |email|
     if email.blank?
       {}
     else
@@ -105,7 +105,7 @@ class User < ActiveRecord::Base
     end
   }
 
-  named_scope :com_status, lambda { |status|
+  scope :com_status, lambda { |status|
     if status.blank?
       {}
     else
@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
     end
   }
 
-  named_scope :do_tipo, lambda { |user_type|
+  scope :do_tipo, lambda { |user_type|
     if user_type and not user_type.blank? and user_type != "usuarios"
       {
         :conditions => { :type => user_type.to_s.singularize.camelize },
@@ -124,7 +124,7 @@ class User < ActiveRecord::Base
     end
   }
 
-  named_scope :por_idade, lambda { |idade|
+  scope :por_idade, lambda { |idade|
     if idade.blank?
       {}
     else
@@ -139,7 +139,7 @@ class User < ActiveRecord::Base
     end
   }
 
-  named_scope :do_sexo, lambda { |sexo|
+  scope :do_sexo, lambda { |sexo|
     if sexo.blank?
       {}
     else
@@ -150,7 +150,7 @@ class User < ActiveRecord::Base
     end
   }
 
-  named_scope :do_pais, lambda { |pais|
+  scope :do_pais, lambda { |pais|
     if pais.nil? or not pais.kind_of?(Pais)
       {}
     else
@@ -162,7 +162,7 @@ class User < ActiveRecord::Base
     end
   }
 
-  named_scope :do_estado, lambda { |estado|
+  scope :do_estado, lambda { |estado|
     if estado.blank?
       {}
     else
@@ -184,7 +184,7 @@ class User < ActiveRecord::Base
     end
   }
 
-  named_scope :da_cidade, lambda { |cidade|
+  scope :da_cidade, lambda { |cidade|
     if cidade.kind_of?(Cidade)
       cidade_id = cidade.id
     elsif (cidade.to_i > 0)
@@ -202,7 +202,7 @@ class User < ActiveRecord::Base
     end
   }
 
-  named_scope :do_bairro, lambda { |bairro|
+  scope :do_bairro, lambda { |bairro|
     if bairro.nil? or not bairro.kind_of?(Bairro)
       {}
     else
@@ -214,7 +214,7 @@ class User < ActiveRecord::Base
     end
   }
 
-  named_scope :cadastrado_em, lambda { |dia| 
+  scope :cadastrado_em, lambda { |dia| 
     if dia.nil?
       {}
     else 
@@ -222,21 +222,21 @@ class User < ActiveRecord::Base
     end
   }
 
-  named_scope :nao_admin,
+  scope :nao_admin,
               :conditions => [ "users.type <> ?", "Admin" ]
-  named_scope :nao_confirmados,
+  scope :nao_confirmados,
               :conditions => { :state => "pending" }
-  named_scope :ativos,
+  scope :ativos,
               :conditions => { :state => "active" }
-  named_scope :aleatorios,
+  scope :aleatorios,
               :order => "rand()"
-  named_scope :com_avatar,
+  scope :com_avatar,
               :conditions => [ "imagens.responsavel_id IS NOT NULL AND
                                (imagens.responsavel_type = 'User') AND
                                imagens.filename IS NOT NULL AND
                                (imagens.size > 0)" ],
               :include => [ :imagens ]
-  named_scope :com_observatorio_ativo,
+  scope :com_observatorio_ativo,
               :include => [ :observatorios ],
               :conditions => [ "observatorios.receber_email = ?", true ]
 

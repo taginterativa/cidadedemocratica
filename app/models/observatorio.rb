@@ -10,7 +10,7 @@ class Observatorio < ActiveRecord::Base
   validates_associated :locais
 
   # Dada uma tag (name!), mostrar quais observatorios usam-na.
-  named_scope :com_tag, lambda { |tag_name|
+  scope :com_tag, lambda { |tag_name|
     if tag_name.blank?
       {}
     else

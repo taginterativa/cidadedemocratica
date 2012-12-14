@@ -5,7 +5,7 @@ class Seguido < ActiveRecord::Base
   validates_uniqueness_of :topico_id, :scope => :user_id
 
 
-  named_scope :por_user_ativo, 
+  scope :por_user_ativo, 
               :include => [:user], 
               :conditions => ["users.state = 'active'"]        
 end
