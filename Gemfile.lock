@@ -28,7 +28,13 @@ GEM
       activemodel (= 3.0.17)
       activesupport (= 3.0.17)
     activesupport (3.0.17)
+    acts_as_commentable_with_threading (1.1.2)
+      activerecord (>= 3.0)
+      activesupport (~> 3.0)
+      awesome_nested_set (>= 2.0)
     arel (2.0.10)
+    awesome_nested_set (2.1.5)
+      activerecord (>= 3.0.0)
     builder (2.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
@@ -76,6 +82,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_commentable_with_threading
   mysql2 (~> 0.2.17)
   rails (= 3.0.17)
   rails-settings
