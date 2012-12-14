@@ -3,7 +3,7 @@
   <p class="tipo cor_de_<%= usuario.type.to_s.underscore %>"><%= usuario.nome_do_tipo %></p>
   <div class="avatar_e_nome">
     <%= avatar(usuario, :host => options[:host]) %>
-    <p class="nome"><%= link_to usuario.nome, perfil_url(usuario.id, :host => options[:host]) %></p>
+    <p class="nome"><%= link_to usuario.nome, perfil_path(usuario) %></p>
   </div>
   <p class="principais_tags"><%= usuario.owned_tags.find(:all, :limit => 4).collect { |t| link_to(t.name, { :controller => "topicos", :action => "index", :topico_type => "topicos", :tag_id => t.id, :host => options[:host] }) }.join(", ") %></p>
 </div>
