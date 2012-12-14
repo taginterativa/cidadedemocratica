@@ -3,7 +3,6 @@
 
 class ApplicationController < ActionController::Base
   helper :all
-  helperful :title
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
@@ -59,12 +58,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
-  
+
   helper_method :ambiente_producao?
   def ambiente_producao?
     (RAILS_ENV=='production')
   end
-  
+
   def get_settings
     @settings = Settings.all
   end
